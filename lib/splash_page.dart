@@ -76,7 +76,9 @@ class SplashPage extends StatelessWidget {
                           'Ayo Mulai',
                           style: TextStyle(fontSize: 18),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/start');
+                        },
                       ),
                     ))
               ]),
