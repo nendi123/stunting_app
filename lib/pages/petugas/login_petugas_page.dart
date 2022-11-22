@@ -42,6 +42,7 @@ class _LoginPetugasPageState extends State<LoginPetugasPage> {
             ),
             Container(
                 margin: const EdgeInsets.symmetric(horizontal: 25),
+                width: 200,
                 child: Image.asset('assets/login.png')),
             const SizedBox(
               height: 30,
@@ -55,13 +56,19 @@ class _LoginPetugasPageState extends State<LoginPetugasPage> {
                       TextFormField(
                         controller: _usernameController,
                         decoration: InputDecoration(
-                          labelText: 'Email',
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 25),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
+                            filled: true,
+                            fillColor: Colors.white,
+                            hintText: 'Email',
+                            contentPadding:
+                                const EdgeInsets.symmetric(horizontal: 25),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: const BorderSide(
+                                  color: Colors.white, width: 0.0),
+                            )),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter some text';
@@ -76,13 +83,18 @@ class _LoginPetugasPageState extends State<LoginPetugasPage> {
                         controller: _passwordController,
                         obscureText: _obsecText,
                         decoration: InputDecoration(
-                          labelText: 'Password',
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 25),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
+                            filled: true,
+                            fillColor: Colors.white,
+                            hintText: 'Password',
+                            contentPadding:
+                                const EdgeInsets.symmetric(horizontal: 25),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30)),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: const BorderSide(
+                                  color: Colors.white, width: 0.0),
+                            )),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter some text';
@@ -93,14 +105,20 @@ class _LoginPetugasPageState extends State<LoginPetugasPage> {
                     ],
                   )),
             ),
+            const SizedBox(
+              height: 20,
+            ),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 25),
               child: const Text(
                 "Lupa Password",
                 style: TextStyle(
-                  fontSize: 10,
+                  fontSize: 14,
                 ),
               ),
+            ),
+            const SizedBox(
+              height: 20,
             ),
             Align(
                 alignment: Alignment.bottomCenter,
@@ -116,7 +134,7 @@ class _LoginPetugasPageState extends State<LoginPetugasPage> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30))),
                     child: const Text(
-                      'Login',
+                      'Sign In',
                       style: TextStyle(fontSize: 18),
                     ),
                     onPressed: () {

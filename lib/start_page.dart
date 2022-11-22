@@ -88,11 +88,16 @@ class StartPage extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 23),
-              child: const Card(
-                child: ListTile(
-                  title: Text("ORANGTUA"),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/registrasiOrangtua');
+              },
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 23),
+                child: const Card(
+                  child: ListTile(
+                    title: Text("ORANGTUA"),
+                  ),
                 ),
               ),
             )
