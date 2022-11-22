@@ -138,7 +138,7 @@ class _LoginPetugasPageState extends State<LoginPetugasPage> {
                       style: TextStyle(fontSize: 18),
                     ),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/start');
+                      Navigator.pushNamed(context, '/homePetugas');
                     },
                   ),
                 ))

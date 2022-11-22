@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stunting_app/pages/orangtua/register_orangtua_page.dart';
+import 'package:stunting_app/pages/petugas/home_petugas_page.dart';
 import 'package:stunting_app/pages/petugas/login_petugas_page.dart';
 import 'package:stunting_app/splash_page.dart';
 import 'package:stunting_app/start_page.dart';
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
         '/splash': (context) => const SplashPage(),
         '/start': (context) => const StartPage(),
         '/loginPetugas': (context) => const LoginPetugasPage(),
-        '/registrasiOrangtua': (context) => const RegisterOrangTuaPage()
+        '/registrasiOrangtua': (context) => const RegisterOrangTuaPage(),
+        '/homePetugas': (context) => const HomePetugasPage()
       },
     );
   }
