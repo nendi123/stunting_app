@@ -82,9 +82,27 @@ class StartPage extends StatelessWidget {
               },
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 23),
-                child: const Card(
-                  child: ListTile(
-                    title: Text("PETUGAS POSYANDU"),
+                child: Card(
+                  elevation: 0,
+                  color: Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      side: const BorderSide(color: Colors.black)),
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(
+                          width: 80,
+                          child: Image.asset('assets/petugas.png'),
+                        ),
+                        const Text(
+                          'PETUGAS POSYANDU',
+                          style: TextStyle(fontSize: 18),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -95,9 +113,27 @@ class StartPage extends StatelessWidget {
               },
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 23),
-                child: const Card(
-                  child: ListTile(
-                    title: Text("ORANGTUA"),
+                child: Card(
+                  elevation: 0,
+                  color: Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      side: const BorderSide(color: Colors.black)),
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(
+                          width: 80,
+                          child: Image.asset('assets/orangtua.png'),
+                        ),
+                        const Text(
+                          'ORANGTUA',
+                          style: TextStyle(fontSize: 18),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
