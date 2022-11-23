@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stunting_app/shared/constant.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({super.key});
@@ -23,8 +24,8 @@ class StartPage extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: Container(
                   height: 70,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 25, vertical: 100),
+                  margin: EdgeInsets.symmetric(
+                      horizontal: Constant().margin, vertical: 100),
                   child: Image.asset('assets/fakfak.png')),
             ),
             const SizedBox(
@@ -32,7 +33,7 @@ class StartPage extends StatelessWidget {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              margin: const EdgeInsets.symmetric(horizontal: 25),
+              margin: EdgeInsets.symmetric(horizontal: Constant().margin),
               child: const Text(
                 "Selamat Datang",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
@@ -43,7 +44,7 @@ class StartPage extends StatelessWidget {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              margin: const EdgeInsets.symmetric(horizontal: 25),
+              margin: EdgeInsets.symmetric(horizontal: Constant().margin),
               child: const Text(
                 "di CEGAH STUNTING",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
@@ -51,7 +52,7 @@ class StartPage extends StatelessWidget {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              margin: const EdgeInsets.symmetric(horizontal: 25),
+              margin: EdgeInsets.symmetric(horizontal: Constant().margin),
               child: const Text(
                 "Aplikasi Pantau Tumbuh Kembang Balita",
                 style: TextStyle(
@@ -64,7 +65,7 @@ class StartPage extends StatelessWidget {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              margin: const EdgeInsets.symmetric(horizontal: 25),
+              margin: EdgeInsets.symmetric(horizontal: Constant().margin),
               child: const Text(
                 "Apakah Anda ?",
                 style: TextStyle(

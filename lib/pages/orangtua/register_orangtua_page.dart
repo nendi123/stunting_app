@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stunting_app/shared/constant.dart';
 
 class RegisterOrangTuaPage extends StatefulWidget {
   const RegisterOrangTuaPage({super.key});
@@ -34,7 +35,7 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
               height: 50,
             ),
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 25),
+              margin: EdgeInsets.symmetric(horizontal: Constant().margin),
               child: const Text(
                 "SELAMAT DATANG",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
@@ -44,7 +45,7 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
               height: 20,
             ),
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 25),
+              margin: EdgeInsets.symmetric(horizontal: Constant().margin),
               child: const Text(
                 "Silahkan lakukan registrasi agar dapat menggunakan aplikasi ini",
                 style: TextStyle(
@@ -58,7 +59,7 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
             Form(
               key: _formKey,
               child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 25),
+                margin: EdgeInsets.symmetric(horizontal: Constant().margin),
                 child: Column(
                   children: [
                     TextFormField(
@@ -67,8 +68,8 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
                           filled: true,
                           fillColor: Colors.white,
                           hintText: 'NIK',
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 25),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: Constant().margin),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
@@ -93,8 +94,8 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
                           filled: true,
                           fillColor: Colors.white,
                           hintText: 'Nama Lengkap',
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 25),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: Constant().margin),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
@@ -119,8 +120,8 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
                           filled: true,
                           fillColor: Colors.white,
                           hintText: 'E-mail',
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 25),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: Constant().margin),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
@@ -145,8 +146,8 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
                           filled: true,
                           fillColor: Colors.white,
                           hintText: 'Password',
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 25),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: Constant().margin),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
@@ -171,8 +172,8 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
                           filled: true,
                           fillColor: Colors.white,
                           hintText: 'Re-password',
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 25),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: Constant().margin),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
@@ -196,7 +197,8 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
                         child: Container(
                           width: MediaQuery.of(context).size.width,
                           height: 58,
-                          margin: const EdgeInsets.symmetric(horizontal: 25),
+                          margin: EdgeInsets.symmetric(
+                              horizontal: Constant().margin),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor:
@@ -218,7 +220,8 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
                       height: 10,
                     ),
                     Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 25),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: Constant().margin),
                       child: const Text(
                         "Sudah Punya akun ? Sign In",
                         style: TextStyle(

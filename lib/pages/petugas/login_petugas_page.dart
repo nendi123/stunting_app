@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stunting_app/shared/constant.dart';
 
 class LoginPetugasPage extends StatefulWidget {
   const LoginPetugasPage({super.key});
@@ -31,7 +32,7 @@ class _LoginPetugasPageState extends State<LoginPetugasPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 25),
+              margin: EdgeInsets.symmetric(horizontal: Constant().margin),
               child: const Text(
                 "SELAMAT DATANG",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
@@ -41,14 +42,14 @@ class _LoginPetugasPageState extends State<LoginPetugasPage> {
               height: 20,
             ),
             Container(
-                margin: const EdgeInsets.symmetric(horizontal: 25),
+                margin: EdgeInsets.symmetric(horizontal: Constant().margin),
                 width: 200,
                 child: Image.asset('assets/login.png')),
             const SizedBox(
               height: 30,
             ),
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 25),
+              margin: EdgeInsets.symmetric(horizontal: Constant().margin),
               child: Form(
                   key: _formKey,
                   child: Column(
@@ -59,8 +60,8 @@ class _LoginPetugasPageState extends State<LoginPetugasPage> {
                             filled: true,
                             fillColor: Colors.white,
                             hintText: 'Email',
-                            contentPadding:
-                                const EdgeInsets.symmetric(horizontal: 25),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: Constant().margin),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
@@ -86,8 +87,8 @@ class _LoginPetugasPageState extends State<LoginPetugasPage> {
                             filled: true,
                             fillColor: Colors.white,
                             hintText: 'Password',
-                            contentPadding:
-                                const EdgeInsets.symmetric(horizontal: 25),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: Constant().margin),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30)),
                             enabledBorder: OutlineInputBorder(
@@ -109,7 +110,7 @@ class _LoginPetugasPageState extends State<LoginPetugasPage> {
               height: 20,
             ),
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 25),
+              margin: EdgeInsets.symmetric(horizontal: Constant().margin),
               child: const Text(
                 "Lupa Password",
                 style: TextStyle(
@@ -125,7 +126,7 @@ class _LoginPetugasPageState extends State<LoginPetugasPage> {
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: 58,
-                  margin: const EdgeInsets.symmetric(horizontal: 25),
+                  margin: EdgeInsets.symmetric(horizontal: Constant().margin),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromRGBO(87, 81, 203, 1),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stunting_app/shared/constant.dart';
 
 class HomePetugasPage extends StatefulWidget {
   const HomePetugasPage({super.key});
@@ -25,13 +26,15 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 25),
+              margin: EdgeInsets.symmetric(horizontal: Constant().margin),
               child: TextField(
                 decoration: InputDecoration(
+                    suffixIcon: Icon(Icons.search),
                     filled: true,
                     fillColor: Colors.white,
                     hintText: 'Ketik NIK Ibu',
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 25),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: Constant().margin),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
@@ -40,6 +43,93 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                       borderSide:
                           const BorderSide(color: Colors.white, width: 0.0),
                     )),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: Constant().margin),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  GestureDetector(
+                    onTap: (() {
+                      Navigator.pushNamed(context, '/listPemain');
+                    }),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 3.5,
+                      child: Card(
+                          color: Color.fromRGBO(0, 191, 166, 1),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            child: Column(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  child: Image.asset('assets/ibu.png'),
+                                ),
+                                Text('Ibu')
+                              ],
+                            ),
+                          )),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: (() {
+                      Navigator.pushNamed(context, '/listPelatih');
+                    }),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 3.5,
+                      child: Card(
+                          color: Color.fromRGBO(0, 191, 166, 1),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            child: Column(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  child: Image.asset('assets/anak.png'),
+                                ),
+                                Text('Anak')
+                              ],
+                            ),
+                          )),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: (() {
+                      Navigator.pushNamed(context, '/listPelatih');
+                    }),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 3.5,
+                      child: Card(
+                          color: Color.fromRGBO(0, 191, 166, 1),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            child: Column(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  child: Image.asset('assets/skrining.png'),
+                                ),
+                                Text('Skrining')
+                              ],
+                            ),
+                          )),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -53,7 +143,6 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
       bottomNavigationBar: BottomAppBar(
         color: Colors.grey,
         shape: const CircularNotchedRectangle(),
-        notchMargin: 5,
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -67,6 +156,13 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
             IconButton(
               icon: const Icon(
                 Icons.qr_code,
+              ),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.child_care,
+                color: Colors.grey,
               ),
               onPressed: () {},
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stunting_app/shared/constant.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -31,7 +32,7 @@ class SplashPage extends StatelessWidget {
                   height: 20,
                 ),
                 Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 25),
+                    margin: EdgeInsets.symmetric(horizontal: Constant().margin),
                     child: Image.asset('assets/splash.png')),
                 const SizedBox(
                   height: 20,
@@ -47,7 +48,7 @@ class SplashPage extends StatelessWidget {
                   height: 30,
                 ),
                 Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 25),
+                  margin: EdgeInsets.symmetric(horizontal: Constant().margin),
                   child: const Text(
                     "Lörem ipsum dataskade könat preren. Plade etnostik. Der euse om fåliga teledade. Debelt. Telenera kavis, samt skynka, som blandkostare, eller sabäliga. ",
                     style: TextStyle(
@@ -63,7 +64,8 @@ class SplashPage extends StatelessWidget {
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       height: 58,
-                      margin: const EdgeInsets.symmetric(horizontal: 25),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: Constant().margin),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor:
