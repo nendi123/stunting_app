@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stunting_app/pages/petugas/login_petugas_page.dart';
 import 'package:stunting_app/shared/constant.dart';
 
 class HomePetugasPage extends StatefulWidget {
@@ -25,6 +26,29 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(40.0), //or 15.0
+                child: Container(
+                  height: 150.0,
+                  width: 150.0,
+                  color: Colors.transparent,
+                  child: Image.asset('assets/logo.png'),
+                ),
+              ),
+            ),
+            Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.symmetric(horizontal: Constant().margin),
+              child: const Text(
+                "Selamat Datang Petugas",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: Constant().margin),
               child: TextField(
@@ -56,7 +80,7 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                 children: [
                   GestureDetector(
                     onTap: (() {
-                      Navigator.pushNamed(context, '/listPemain');
+                      Navigator.pushNamed(context, '/listIbu');
                     }),
                     child: Container(
                       width: MediaQuery.of(context).size.width / 3.5,
@@ -81,7 +105,7 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                   ),
                   GestureDetector(
                     onTap: (() {
-                      Navigator.pushNamed(context, '/listPelatih');
+                      // Navigator.pushNamed(context, '/listPelatih');
                     }),
                     child: Container(
                       width: MediaQuery.of(context).size.width / 3.5,
@@ -106,7 +130,7 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                   ),
                   GestureDetector(
                     onTap: (() {
-                      Navigator.pushNamed(context, '/listPelatih');
+                      // Navigator.pushNamed(context, '/listPelatih');
                     }),
                     child: Container(
                       width: MediaQuery.of(context).size.width / 3.5,
@@ -176,7 +200,24 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
               icon: const Icon(
                 Icons.exit_to_app,
               ),
-              onPressed: () {},
+              onPressed: () => showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Logout'),
+                  content: const Text('Yakin Akan Logout'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'Tidak'),
+                      child: const Text('Tidak'),
+                    ),
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pushNamed(context, '/loginPetugas'),
+                      child: const Text('Ya'),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
