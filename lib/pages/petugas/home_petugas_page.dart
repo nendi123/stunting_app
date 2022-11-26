@@ -201,9 +201,11 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
             ),
             IconButton(
               icon: const Icon(
-                Icons.person_add_alt_1_outlined,
+                Icons.person,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/profilePetugas');
+              },
             ),
             IconButton(
               icon: const Icon(

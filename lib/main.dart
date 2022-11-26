@@ -5,6 +5,7 @@ import 'package:stunting_app/pages/orangtua/register_orangtua_page.dart';
 import 'package:stunting_app/pages/petugas/home_petugas_page.dart';
 import 'package:stunting_app/pages/petugas/list_ibu_page.dart';
 import 'package:stunting_app/pages/petugas/login_petugas_page.dart';
+import 'package:stunting_app/pages/petugas/profile_petugas_page.dart';
 import 'package:stunting_app/splash_page.dart';
 import 'package:stunting_app/start_page.dart';
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       title: 'Stunting App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepPurple,
       ),
       home: const SplashPage(),
       routes: {
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         '/listIbu': (context) => const ListIbuPage(),
         '/profileIbu': (context) => const ProfileOrangTuaPage(),
         '/homeOrangtua': (context) => const HomeOrangtuaPage(),
+        '/profilePetugas': (context) => const ProfilePetugasPage(),
       },
     );
   }
