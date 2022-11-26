@@ -27,15 +27,18 @@ class MyApp extends StatelessWidget {
       ),
       home: const SplashPage(),
       routes: {
+        //all
         '/splash': (context) => const SplashPage(),
         '/start': (context) => const StartPage(),
+        // petugas
         '/loginPetugas': (context) => const LoginPetugasPage(),
         '/registrasiOrangtua': (context) => const RegisterOrangTuaPage(),
         '/homePetugas': (context) => const HomePetugasPage(),
+        '/profilePetugas': (context) => const ProfilePetugasPage(),
+        //orang tua
         '/listIbu': (context) => const ListIbuPage(),
         '/profileIbu': (context) => const ProfileOrangTuaPage(),
         '/homeOrangtua': (context) => const HomeOrangtuaPage(),
-        '/profilePetugas': (context) => const ProfilePetugasPage(),
       },
     );
   }
