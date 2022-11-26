@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:stunting_app/shared/constant.dart';
 
-class LoginPetugasPage extends StatefulWidget {
-  const LoginPetugasPage({super.key});
+class LoginOrangtuaPage extends StatefulWidget {
+  const LoginOrangtuaPage({super.key});
 
   @override
-  State<LoginPetugasPage> createState() => _LoginPetugasPageState();
+  State<LoginOrangtuaPage> createState() => _LoginOrangtuaPageState();
 }
 
-class _LoginPetugasPageState extends State<LoginPetugasPage> {
+class _LoginOrangtuaPageState extends State<LoginOrangtuaPage> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   var _obsecText = true;
+  Icon _iconLock = Icon(Icons.lock);
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +139,7 @@ class _LoginPetugasPageState extends State<LoginPetugasPage> {
                       style: TextStyle(fontSize: 18),
                     ),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/homePetugas');
+                      Navigator.pushNamed(context, '/homeOrangtua');
                     },
                   ),
                 ))

@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:stunting_app/shared/constant.dart';
 
-class RegisterOrangTuaPage extends StatefulWidget {
-  const RegisterOrangTuaPage({super.key});
+class ProfileOrangTuaPage extends StatefulWidget {
+  const ProfileOrangTuaPage({super.key});
 
   @override
-  State<RegisterOrangTuaPage> createState() => _RegisterOrangTuaPageState();
+  State<ProfileOrangTuaPage> createState() => _ProfileOrangTuaPageState();
 }
 
-class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
+class _ProfileOrangTuaPageState extends State<ProfileOrangTuaPage> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _nikController = TextEditingController();
   TextEditingController _namaController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _rePasswordController = TextEditingController();
+  TextEditingController _alamatController = TextEditingController();
+  TextEditingController _hpController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,34 +25,54 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/background.jpeg'),
+                image: AssetImage('assets/backgrounddua.jpeg'),
                 fit: BoxFit.cover)),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 50,
-            ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: Constant().margin),
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.only(
+                  left: Constant().margin,
+                  right: Constant().margin,
+                  top: 90,
+                  bottom: 10),
               child: const Text(
-                "SELAMAT DATANG",
+                "Atur Profile Orang Tua",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),
             ),
             const SizedBox(
               height: 20,
             ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: Constant().margin),
-              child: const Text(
-                "Silahkan lakukan registrasi agar dapat menggunakan aplikasi ini",
-                style: TextStyle(
-                  fontSize: 14,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(40.0), //or 15.0
+                    child: Container(
+                      height: 150.0,
+                      width: 150.0,
+                      color: Colors.transparent,
+                      child: Image.asset('assets/logo.png'),
+                    ),
+                  ),
                 ),
-              ),
+                Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.symmetric(horizontal: Constant().margin),
+                  child: const Text(
+                    "Unggah Foto Anda",
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(
               height: 20,
@@ -141,11 +162,11 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
                       height: 20,
                     ),
                     TextFormField(
-                      controller: _passwordController,
+                      controller: _hpController,
                       decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
-                          hintText: 'Password',
+                          hintText: 'No HP',
                           contentPadding: EdgeInsets.symmetric(
                               horizontal: Constant().margin),
                           border: OutlineInputBorder(
@@ -167,11 +188,11 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
                       height: 20,
                     ),
                     TextFormField(
-                      controller: _rePasswordController,
+                      controller: _alamatController,
                       decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
-                          hintText: 'Re-password',
+                          hintText: 'Alamat',
                           contentPadding: EdgeInsets.symmetric(
                               horizontal: Constant().margin),
                           border: OutlineInputBorder(
@@ -194,11 +215,9 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
                     ),
                     Align(
                         alignment: Alignment.bottomCenter,
-                        child: Container(
+                        child: SizedBox(
                           width: MediaQuery.of(context).size.width,
                           height: 58,
-                          margin: EdgeInsets.symmetric(
-                              horizontal: Constant().margin),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor:
@@ -208,26 +227,16 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(30))),
                             child: const Text(
-                              'Registrasi',
+                              'Simpan',
                               style: TextStyle(fontSize: 18),
                             ),
                             onPressed: () {
-                              Navigator.pushNamed(context, '/profileIbu');
+                              Navigator.pushNamed(context, '/homeOrangtua');
                             },
                           ),
                         )),
                     const SizedBox(
                       height: 10,
-                    ),
-                    Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: Constant().margin),
-                      child: const Text(
-                        "Sudah Punya akun ? Sign In",
-                        style: TextStyle(
-                          fontSize: 14,
-                        ),
-                      ),
                     ),
                   ],
                 ),

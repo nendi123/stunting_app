@@ -19,35 +19,44 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/background.jpeg'),
+                image: AssetImage('assets/backgroundtiga.jpeg'),
                 fit: BoxFit.cover)),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(40.0), //or 15.0
-                child: Container(
-                  height: 150.0,
-                  width: 150.0,
-                  color: Colors.transparent,
-                  child: Image.asset('assets/logo.png'),
+            Container(
+              margin: EdgeInsets.only(top: Constant().margin + 55),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(80.0), //or 15.0
+                  child: Container(
+                    height: 150.0,
+                    width: 150.0,
+                    color: Colors.white,
+                    child: Image.asset('assets/logo.png'),
+                  ),
                 ),
               ),
+            ),
+            const SizedBox(
+              height: 10,
             ),
             Container(
               alignment: Alignment.center,
               margin: EdgeInsets.symmetric(horizontal: Constant().margin),
               child: const Text(
                 "Selamat Datang Petugas",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white),
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 40,
             ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: Constant().margin),
