@@ -59,6 +59,12 @@ class _ListIbuPageState extends State<ListIbuPage> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          Navigator.pushNamed(context, '/addIbu');
+        },
+      ),
     );
   }
 }
