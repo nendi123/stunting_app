@@ -33,8 +33,8 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(80.0), //or 15.0
                   child: Container(
-                    height: 150.0,
-                    width: 150.0,
+                    height: 100.0,
+                    width: 100.0,
                     color: Colors.white,
                     child: Image.asset('assets/logo.png'),
                   ),
@@ -50,8 +50,8 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
               child: const Text(
                 "Selamat Datang Petugas",
                 style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
                     color: Colors.white),
               ),
             ),

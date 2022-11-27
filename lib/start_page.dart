@@ -25,11 +25,11 @@ class StartPage extends StatelessWidget {
               child: Container(
                   height: 70,
                   margin: EdgeInsets.symmetric(
-                      horizontal: Constant().margin, vertical: 100),
+                      horizontal: Constant().margin, vertical: 80),
                   child: Image.asset('assets/fakfak.png')),
             ),
             const SizedBox(
-              height: 20,
+              height: 0,
             ),
             Container(
               alignment: Alignment.centerLeft,
@@ -61,7 +61,7 @@ class StartPage extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 50,
+              height: 20,
             ),
             Container(
               alignment: Alignment.centerLeft,
@@ -69,7 +69,7 @@ class StartPage extends StatelessWidget {
               child: const Text(
                 "Apakah Anda ?",
                 style: TextStyle(
-                  fontSize: 10,
+                  fontSize: 14,
                 ),
               ),
             ),
@@ -81,13 +81,13 @@ class StartPage extends StatelessWidget {
                 Navigator.pushNamed(context, '/loginPetugas');
               },
               child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 23),
+                margin: const EdgeInsets.symmetric(horizontal: 20),
                 child: Card(
                   elevation: 0,
-                  color: Colors.transparent,
+                  color: Colors.white70,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      side: const BorderSide(color: Colors.black)),
+                      borderRadius: BorderRadius.circular(10),
+                      side: const BorderSide(color: Colors.black26)),
                   child: Container(
                     padding: const EdgeInsets.all(10),
                     child: Row(
@@ -112,13 +112,13 @@ class StartPage extends StatelessWidget {
                 Navigator.pushNamed(context, '/registrasiOrangtua');
               },
               child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 23),
+                margin: const EdgeInsets.symmetric(horizontal: 20),
                 child: Card(
                   elevation: 0,
-                  color: Colors.transparent,
+                  color: Colors.white70,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      side: const BorderSide(color: Colors.black)),
+                      borderRadius: BorderRadius.circular(10),
+                      side: const BorderSide(color: Colors.black26)),
                   child: Container(
                     padding: const EdgeInsets.all(10),
                     child: Row(

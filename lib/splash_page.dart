@@ -14,6 +14,7 @@ class SplashPage extends StatelessWidget {
           decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage('assets/background.jpeg'),
+                  //fit: BoxFit.cover)),
                   fit: BoxFit.cover)),
           child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -25,7 +26,7 @@ class SplashPage extends StatelessWidget {
                   child: Container(
                       height: 70,
                       margin: const EdgeInsets.symmetric(
-                          horizontal: 25, vertical: 100),
+                          horizontal: 20, vertical: 80),
                       child: Image.asset('assets/fakfak.png')),
                 ),
                 const SizedBox(
@@ -57,7 +58,7 @@ class SplashPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 20,
                 ),
                 Align(
                     alignment: Alignment.bottomCenter,

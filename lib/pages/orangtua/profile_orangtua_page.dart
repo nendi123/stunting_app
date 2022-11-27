@@ -37,7 +37,7 @@ class _ProfileOrangTuaPageState extends State<ProfileOrangTuaPage> {
               margin: EdgeInsets.only(
                   left: Constant().margin,
                   right: Constant().margin,
-                  top: 90,
+                  top: 70,
                   bottom: 10),
               child: const Text(
                 "Atur Profile Orang Tua",
@@ -45,7 +45,7 @@ class _ProfileOrangTuaPageState extends State<ProfileOrangTuaPage> {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 0,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -107,7 +107,7 @@ class _ProfileOrangTuaPageState extends State<ProfileOrangTuaPage> {
                       },
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     TextFormField(
                       controller: _namaController,
@@ -133,7 +133,7 @@ class _ProfileOrangTuaPageState extends State<ProfileOrangTuaPage> {
                       },
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     TextFormField(
                       controller: _emailController,
@@ -159,7 +159,7 @@ class _ProfileOrangTuaPageState extends State<ProfileOrangTuaPage> {
                       },
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     TextFormField(
                       controller: _hpController,
@@ -185,7 +185,7 @@ class _ProfileOrangTuaPageState extends State<ProfileOrangTuaPage> {
                       },
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     TextFormField(
                       controller: _alamatController,
