@@ -13,14 +13,20 @@ class _ListIbuPageState extends State<ListIbuPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('List Ibu Posyandu'),
+        title: Text(
+            'List Ibu Posyandu',
+          style: TextStyle(
+            fontWeight: FontWeight.w300
+          ),
+        ),
+
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/background.jpeg'),
+                image: AssetImage('assets/image/background.jpeg'),
                 fit: BoxFit.cover)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -34,8 +40,11 @@ class _ListIbuPageState extends State<ListIbuPage> {
                   child: Column(
                 children: [
                   ListTile(
-                    leading: Text('3217070508940008'),
-                    title: Text('Ibu Siti'),
+                    // leading: Text('3217070508940008'),
+                    title: Text(
+                        '3217070508940008 \nIbu Siti',
+                      style: TextStyle(fontWeight: FontWeight.w300),
+                    ),
                     trailing: IconButton(
                       icon: const Icon(
                         Icons.edit,
@@ -43,9 +52,16 @@ class _ListIbuPageState extends State<ListIbuPage> {
                       onPressed: () {},
                     ),
                   ),
+                Divider(
+                  color: Colors.black,
+                  height: 5,
+                ),
                   ListTile(
-                    leading: Text('3217070508940008'),
-                    title: Text('Ibu Fulan'),
+                    // leading: Text('3217070508940008'),
+                    title: Text(
+                      '3217070508940008 \nIbu Fulan binti Fulanah',
+                      style: TextStyle(fontWeight: FontWeight.w300),
+                    ),
                     trailing: IconButton(
                       icon: const Icon(
                         Icons.edit,

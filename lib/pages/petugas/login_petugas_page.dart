@@ -23,7 +23,7 @@ class _LoginPetugasPageState extends State<LoginPetugasPage> {
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/background.jpeg'),
+                image: AssetImage('assets/image/background.jpeg'),
                 fit: BoxFit.cover)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -43,7 +43,7 @@ class _LoginPetugasPageState extends State<LoginPetugasPage> {
             Container(
                 margin: EdgeInsets.symmetric(horizontal: Constant().margin),
                 width: 200,
-                child: Image.asset('assets/login.png')),
+                child: Image.asset('assets/image/login.png')),
             const SizedBox(
               height: 30,
             ),

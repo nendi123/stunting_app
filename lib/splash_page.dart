@@ -13,7 +13,7 @@ class SplashPage extends StatelessWidget {
           height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('assets/background.jpeg'),
+                  image: AssetImage('assets/image/background.jpeg'),
                   //fit: BoxFit.cover)),
                   fit: BoxFit.cover)),
           child: Column(
@@ -27,14 +27,14 @@ class SplashPage extends StatelessWidget {
                       height: 70,
                       margin: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 80),
-                      child: Image.asset('assets/fakfak.png')),
+                      child: Image.asset('assets/image/fakfak.png')),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 Container(
                     margin: EdgeInsets.symmetric(horizontal: Constant().margin),
-                    child: Image.asset('assets/splash.png')),
+                    child: Image.asset('assets/image/splash.png')),
                 const SizedBox(
                   height: 20,
                 ),

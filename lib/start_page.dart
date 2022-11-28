@@ -13,7 +13,7 @@ class StartPage extends StatelessWidget {
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/background.jpeg'),
+                image: AssetImage('assets/image/background.jpeg'),
                 fit: BoxFit.cover)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -26,7 +26,7 @@ class StartPage extends StatelessWidget {
                   height: 70,
                   margin: EdgeInsets.symmetric(
                       horizontal: Constant().margin, vertical: 80),
-                  child: Image.asset('assets/fakfak.png')),
+                  child: Image.asset('assets/image/fakfak.png')),
             ),
             const SizedBox(
               height: 0,
@@ -95,7 +95,7 @@ class StartPage extends StatelessWidget {
                       children: [
                         SizedBox(
                           width: 80,
-                          child: Image.asset('assets/petugas.png'),
+                          child: Image.asset('assets/image/petugas.png'),
                         ),
                         const Text(
                           'PETUGAS POSYANDU',
@@ -126,7 +126,7 @@ class StartPage extends StatelessWidget {
                       children: [
                         SizedBox(
                           width: 80,
-                          child: Image.asset('assets/orangtua.png'),
+                          child: Image.asset('assets/image/orangtua.png'),
                         ),
                         const Text(
                           'ORANGTUA',

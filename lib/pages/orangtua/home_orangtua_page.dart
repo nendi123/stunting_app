@@ -18,7 +18,7 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/backgroundtiga.jpeg'),
+                image: AssetImage('assets/image/backgroundtiga.jpeg'),
                 fit: BoxFit.cover)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -36,7 +36,7 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
                     width: 100.0,
                     color: Colors.white,
                     child: Image.asset(
-                        'assets/logo.png',
+                        'assets/image/logo.png',
 
                     ),
                   ),
@@ -71,7 +71,7 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
                 child: Container(
                   padding: EdgeInsets.all(5),
                   child: ListTile(
-                    leading: Image.asset('assets/iconanak.png'),
+                    leading: Image.asset('assets/image/iconanak.png'),
                     title: const Text(
                       'Profile Anak',
                       style: TextStyle(

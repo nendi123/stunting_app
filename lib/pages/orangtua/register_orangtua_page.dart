@@ -24,7 +24,7 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/background.jpeg'),
+                image: AssetImage('assets/image/background.jpeg'),
                 fit: BoxFit.cover)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -51,7 +51,7 @@ class _AddIbuPageState extends State<AddIbuPage> {
                         height: 150.0,
                         width: 150.0,
                         color: Colors.white,
-                        child: Image.asset('assets/logo.png'),
+                        child: Image.asset('assets/image/logo.png'),
                       ),
                     ),
                   ),
@@ -456,7 +456,7 @@ class _AddIbuPageState extends State<AddIbuPage> {
             style: TextStyle(fontSize: 18),
           ),
           onPressed: () {
-            Navigator.pushNamed(context, '/homePetugas');
+            Navigator.pushNamed(context, '/listIbu');
           },
         ),
       )),

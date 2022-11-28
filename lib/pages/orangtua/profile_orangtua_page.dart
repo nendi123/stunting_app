@@ -25,7 +25,7 @@ class _ProfileOrangTuaPageState extends State<ProfileOrangTuaPage> {
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/backgrounddua.jpeg'),
+                image: AssetImage('assets/image/backgrounddua.jpeg'),
                 fit: BoxFit.cover)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -60,7 +60,7 @@ class _ProfileOrangTuaPageState extends State<ProfileOrangTuaPage> {
                       height: 150.0,
                       width: 150.0,
                       color: Colors.transparent,
-                      child: Image.asset('assets/logo.png'),
+                      child: Image.asset('assets/image/logo.png'),
                     ),
                   ),
                 ),

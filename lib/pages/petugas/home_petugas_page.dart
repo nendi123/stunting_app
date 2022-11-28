@@ -19,7 +19,7 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/backgroundtiga.jpeg'),
+                image: AssetImage('assets/image/backgroundtiga.jpeg'),
                 fit: BoxFit.cover)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -36,7 +36,7 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                     height: 100.0,
                     width: 100.0,
                     color: Colors.white,
-                    child: Image.asset('assets/logo.png'),
+                    child: Image.asset('assets/image/logo.png'),
                   ),
                 ),
               ),
@@ -94,19 +94,21 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                     child: Container(
                       width: MediaQuery.of(context).size.width / 3.5,
                       child: Card(
-                          color: Color.fromRGBO(0, 191, 166, 1),
+                          // color: Color.fromRGBO(0, 191, 166, 1),
+                          color: Colors.deepPurple,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
                           ),
+
                           child: Container(
                             padding: EdgeInsets.all(10),
                             child: Column(
                               children: [
                                 Container(
                                   padding: EdgeInsets.all(10),
-                                  child: Image.asset('assets/ibu.png'),
+                                  child: Image.asset('assets/image/ibu.png'),
                                 ),
-                                Text('Ibu')
+                                Text('Ibu', style: TextStyle(color: Colors.white60))
                               ],
                             ),
                           )),
@@ -119,7 +121,8 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                     child: Container(
                       width: MediaQuery.of(context).size.width / 3.5,
                       child: Card(
-                          color: Color.fromRGBO(0, 191, 166, 1),
+                          // color: Color.fromRGBO(0, 191, 166, 1),
+                          color: Colors.deepPurple,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
                           ),
@@ -129,9 +132,9 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                               children: [
                                 Container(
                                   padding: EdgeInsets.all(10),
-                                  child: Image.asset('assets/anak.png'),
+                                  child: Image.asset('assets/image/anak.png'),
                                 ),
-                                Text('Anak')
+                                Text('Anak', style: TextStyle(color: Colors.white60))
                               ],
                             ),
                           )),
@@ -144,9 +147,11 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                     child: Container(
                       width: MediaQuery.of(context).size.width / 3.5,
                       child: Card(
-                          color: Color.fromRGBO(0, 191, 166, 1),
+                          //color: Color.fromRGBO(0, 191, 166, 1),
+                          color: Colors.deepPurple,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
+
                           ),
                           child: Container(
                             padding: EdgeInsets.all(10),
@@ -154,9 +159,9 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                               children: [
                                 Container(
                                   padding: EdgeInsets.all(10),
-                                  child: Image.asset('assets/skrining.png'),
+                                  child: Image.asset('assets/image/skrining.png'),
                                 ),
-                                Text('Skrining')
+                                Text('Skrining', style: TextStyle(color: Colors.white60))
                               ],
                             ),
                           )),
@@ -174,7 +179,7 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        color: Colors.grey,
+        color: Colors.black26,
         shape: const CircularNotchedRectangle(),
         child: Row(
           mainAxisSize: MainAxisSize.max,

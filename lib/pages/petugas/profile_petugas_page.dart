@@ -40,7 +40,7 @@ class _ProfilePetugasPageState extends State<ProfilePetugasPage> {
                       height: 150.0,
                       width: 150.0,
                       color: Colors.white,
-                      child: Image.asset('assets/logo.png'),
+                      child: Image.asset('assets/image/logo.png'),
                     ),
                   ),
                 ),
