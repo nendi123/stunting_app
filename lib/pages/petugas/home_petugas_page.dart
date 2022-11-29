@@ -117,6 +117,7 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                   GestureDetector(
                     onTap: (() {
                       // Navigator.pushNamed(context, '/listPelatih');
+                      Navigator.pushNamed(context, '/listAnak');
                     }),
                     child: Container(
                       width: MediaQuery.of(context).size.width / 3.5,
@@ -175,11 +176,12 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
       )),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
-        child: const Icon(Icons.child_care),
+        child: const Icon(Icons.child_care, size: 50,)
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        color: Colors.black26,
+        color: Colors.black12,
+        elevation: 10,
         shape: const CircularNotchedRectangle(),
         child: Row(
           mainAxisSize: MainAxisSize.max,
@@ -197,13 +199,13 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
               ),
               onPressed: () {},
             ),
-            IconButton(
-              icon: const Icon(
-                Icons.child_care,
-                color: Colors.grey,
-              ),
-              onPressed: () {},
-            ),
+            // IconButton(
+            //   icon: const Icon(
+            //     Icons.child_care,
+            //     color: Colors.grey,
+            //   ),
+            //   onPressed: () {},
+            // ),
             IconButton(
               icon: const Icon(
                 Icons.person,

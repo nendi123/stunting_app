@@ -27,7 +27,25 @@ class _AddIbuPageState extends State<AddIbuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Tambah Data Ibu')),
+      appBar: AppBar(
+        leading: IconButton( //menu icon button at start left of appbar
+          onPressed: (){
+            //code to execute when this button is pressed
+            Navigator.pushNamed(context, '/listIbu');
+          },
+          icon: Icon(Icons.arrow_back, size: 20,),
+        ),
+        title: Text(
+          'Tambah data Ibu di Posyandu',
+          style: TextStyle(
+              fontWeight: FontWeight.w300,
+              fontSize: 16
+          ),
+        ),
+        toolbarHeight: 50,
+        elevation: 30.0,
+
+      ),
       body: SingleChildScrollView(
           child: Container(
         color: Colors.grey.shade200,

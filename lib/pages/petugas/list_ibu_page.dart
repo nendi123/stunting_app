@@ -13,12 +13,31 @@ class _ListIbuPageState extends State<ListIbuPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton( //menu icon button at start left of appbar
+          onPressed: (){
+            //code to execute when this button is pressed
+            Navigator.pushNamed(context, '/homePetugas');
+          },
+          icon: Icon(Icons.arrow_back, size: 20,),
+        ),
         title: Text(
-            'List Ibu Posyandu',
+            'Ibu di Posyandu',
           style: TextStyle(
-            fontWeight: FontWeight.w300
+            fontWeight: FontWeight.w300,
+            fontSize: 16
           ),
         ),
+        toolbarHeight: 50,
+        elevation: 30.0,
+        actions: [ //actions widget in appbar
+          IconButton(
+              icon: Icon(Icons.search, size: 20,),
+              onPressed: (){
+                //code to execute when this button is pressed
+              }
+          ),
+          //more widgets to place here
+        ],
 
       ),
       body: Container(

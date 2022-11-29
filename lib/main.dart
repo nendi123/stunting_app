@@ -7,6 +7,7 @@ import 'package:stunting_app/pages/petugas/home_petugas_page.dart';
 import 'package:stunting_app/pages/petugas/list_ibu_page.dart';
 import 'package:stunting_app/pages/petugas/login_petugas_page.dart';
 import 'package:stunting_app/pages/petugas/profile_petugas_page.dart';
+import 'package:stunting_app/pages/petugas/list_anak.dart';
 import 'package:stunting_app/splash_page.dart';
 import 'package:stunting_app/start_page.dart';
 
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
         '/listIbu': (context) => const ListIbuPage(),
         '/profileIbu': (context) => const ProfileOrangTuaPage(),
         '/homeOrangtua': (context) => const HomeOrangtuaPage(),
+        '/listAnak' : (context) => const List_anakWidget(),
       },
     );
   }
