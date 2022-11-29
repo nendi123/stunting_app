@@ -10,6 +10,7 @@ class HomePetugasPage extends StatefulWidget {
 }
 
 class _HomePetugasPageState extends State<HomePetugasPage> {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,7 +100,6 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
                           ),
-
                           child: Container(
                             padding: EdgeInsets.all(10),
                             child: Column(
@@ -108,7 +108,8 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                                   padding: EdgeInsets.all(10),
                                   child: Image.asset('assets/image/ibu.png'),
                                 ),
-                                Text('Ibu', style: TextStyle(color: Colors.white60))
+                                Text('Ibu',
+                                    style: TextStyle(color: Colors.white60))
                               ],
                             ),
                           )),
@@ -135,7 +136,8 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                                   padding: EdgeInsets.all(10),
                                   child: Image.asset('assets/image/anak.png'),
                                 ),
-                                Text('Anak', style: TextStyle(color: Colors.white60))
+                                Text('Anak',
+                                    style: TextStyle(color: Colors.white60))
                               ],
                             ),
                           )),
@@ -152,7 +154,6 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                           color: Colors.deepPurple,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
-
                           ),
                           child: Container(
                             padding: EdgeInsets.all(10),
@@ -160,9 +161,11 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                               children: [
                                 Container(
                                   padding: EdgeInsets.all(10),
-                                  child: Image.asset('assets/image/skrining.png'),
+                                  child:
+                                      Image.asset('assets/image/skrining.png'),
                                 ),
-                                Text('Skrining', style: TextStyle(color: Colors.white60))
+                                Text('Skrining',
+                                    style: TextStyle(color: Colors.white60))
                               ],
                             ),
                           )),
@@ -197,7 +200,72 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
               icon: const Icon(
                 Icons.qr_code,
               ),
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0)),
+                        titlePadding: const EdgeInsets.all(0),
+                        title: Container(
+                          color: Colors.grey.shade200,
+                          padding: EdgeInsets.all(10),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'assets/image/iconscreening.png',
+                                  width: 100,
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                const Flexible(
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      'Tumbuh Kembang Anak',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ]),
+                        ),
+                        content: Stack(
+                          children: <Widget>[
+                            Form(
+                              key: _formKey,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: TextFormField(),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: TextFormField(),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ElevatedButton(
+                                      child: Text("Submit"),
+                                      onPressed: () {},
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    });
+              },
             ),
             // IconButton(
             //   icon: const Icon(
