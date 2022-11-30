@@ -19,29 +19,48 @@ class _ProfileOrangTuaPageState extends State<ProfileOrangTuaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        // title: Text('Profile Petugas'),
+        leading: IconButton( //menu icon button at start left of appbar
+          onPressed: (){
+            //code to execute when this button is pressed
+            Navigator.pushNamed(context, '/homeOrangtua');
+          },
+          icon: Icon(Icons.arrow_back, size: 20,),
+        ),
+        title: Text(
+          'Profile Ibu',
+          style: TextStyle(
+              fontWeight: FontWeight.w300,
+              fontSize: 16
+          ),
+        ),
+        toolbarHeight: 50,
+        elevation: 30.0,
+      ),
       body: SingleChildScrollView(
           child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/image/backgrounddua.jpeg'),
-                fit: BoxFit.cover)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/image/backgrounddua.jpeg'),
+                  fit: BoxFit.cover)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
             Container(
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.only(
                   left: Constant().margin,
                   right: Constant().margin,
-                  top: 70,
+                  top: 30,
                   bottom: 10),
               child: const Text(
-                "Atur Profile Orang Tua",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                "Atur Profile Ibu",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
               ),
             ),
             const SizedBox(
@@ -68,8 +87,8 @@ class _ProfileOrangTuaPageState extends State<ProfileOrangTuaPage> {
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(horizontal: Constant().margin),
                   child: const Text(
-                    "Unggah Foto Anda",
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                    "Unggah Foto",
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
                   ),
                 ),
               ],

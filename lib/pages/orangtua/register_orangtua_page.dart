@@ -9,6 +9,7 @@ class RegisterOrangTuaPage extends StatefulWidget {
 }
 
 class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
+  String inkwell='';
   final _formKey = GlobalKey<FormState>();
   TextEditingController _nikController = TextEditingController();
   TextEditingController _namaController = TextEditingController();
@@ -50,6 +51,7 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
                 "Silahkan lakukan registrasi agar dapat menggunakan aplikasi ini",
                 style: TextStyle(
                   fontSize: 14,
+                  color: Colors.black54
                 ),
               ),
             ),
@@ -222,12 +224,44 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
                     Container(
                       margin:
                           EdgeInsets.symmetric(horizontal: Constant().margin),
-                      child: const Text(
-                        "Sudah Punya akun ? Sign In",
-                        style: TextStyle(
-                          fontSize: 14,
-                        ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(context, '/loginIbu');
+                              // setState(() {
+                              //   inkwell='Inkwell Tapped';
+                              // });
+                            },
+                            onLongPress: () {
+                              Navigator.pushNamed(context, '/loginIbu');
+                              // setState(() {
+                              //   inkwell='InkWell Long Pressed';
+                              // });
+                            },
+                            child: Container(
+                                color: Colors.transparent,
+                                width: 300,
+                                height: 30,
+                                child: Center(
+                                    child: Text(
+                                      'Sudah Punya akun ? Sign In',
+                                      textScaleFactor: 1,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.indigo,
+                                      ),
+                                    ))),
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(inkwell,textScaleFactor: 2,),
+                          )
+                        ],
                       ),
+
                     ),
                   ],
                 ),

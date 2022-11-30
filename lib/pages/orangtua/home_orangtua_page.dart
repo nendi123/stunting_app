@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stunting_app/shared/constant.dart';
+import 'package:stunting_app/model/item.dart';
 
 class HomeOrangtuaPage extends StatefulWidget {
   const HomeOrangtuaPage({super.key});
@@ -9,6 +10,22 @@ class HomeOrangtuaPage extends StatefulWidget {
 }
 
 class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
+  final List<Item> listItems = [
+
+  ];
+  // List<Item> anak = [
+  //   Item(
+  //     id = 1,
+  //     nama: 'Lulu Faza Kamila',
+  //     usia: '4 thn 7 bln',
+  //   ),
+  //   Item(
+  //     id = 2,
+  //     nama: 'Laura Shafaa Nadhira',
+  //     usia: '2 thn 3 bln',
+  //   ),
+  // ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,6 +106,12 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
               height: 10,
             ),
             Container(
+              // child: ListView.builder(
+              //     itemCount: listItems.length,
+              //     itemBuilder: (BuildContext c, int index)
+              // ),
+            ),
+            Container(
               margin: EdgeInsets.symmetric(horizontal: Constant().margin),
               child: Card(
                 elevation: 0,
@@ -142,7 +165,9 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
         ),
       )),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/addAnak');
+        },
         child: const Icon(Icons.child_care),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -172,14 +197,18 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
                 Icons.child_friendly,
                 color: Colors.white60,
               ),
-              onPressed: () {},
+              onPressed: () {
+
+              },
             ),
             IconButton(
               icon: const Icon(
                 Icons.person,
                 color: Colors.white60,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/profileIbu');
+              },
             ),
             IconButton(
               icon: const Icon(

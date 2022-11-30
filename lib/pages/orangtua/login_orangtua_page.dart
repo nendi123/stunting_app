@@ -12,8 +12,11 @@ class _LoginOrangtuaPageState extends State<LoginOrangtuaPage> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+
   var _obsecText = true;
   Icon _iconLock = Icon(Icons.lock);
+
+  String inkwell='';
 
   @override
   Widget build(BuildContext context) {
@@ -109,18 +112,6 @@ class _LoginOrangtuaPageState extends State<LoginOrangtuaPage> {
             const SizedBox(
               height: 20,
             ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: Constant().margin),
-              child: const Text(
-                "Lupa Password",
-                style: TextStyle(
-                  fontSize: 14,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
             Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
@@ -142,7 +133,51 @@ class _LoginOrangtuaPageState extends State<LoginOrangtuaPage> {
                       Navigator.pushNamed(context, '/homeOrangtua');
                     },
                   ),
-                ))
+                )
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: Constant().margin),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/lupaPassword');
+                      // setState(() {
+                      //   inkwell='Inkwell Tapped';
+                      // });
+                    },
+                    onLongPress: () {
+                      Navigator.pushNamed(context, '/lupaPassword');
+                      // setState(() {
+                      //   inkwell='InkWell Long Pressed';
+                      // });
+                    },
+                    child: Container(
+                        color: Colors.transparent,
+                        width: 300,
+                        height: 30,
+                        child: Center(
+                            child: Text(
+                              'Lupa Password',
+                              textScaleFactor: 1,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.indigo,
+                              ),
+                            ))),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(inkwell,textScaleFactor: 2,),
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       )),
