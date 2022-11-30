@@ -144,10 +144,8 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: (() {
-                      // Navigator.pushNamed(context, '/listPelatih');
-                    }),
-                    child: Container(
+                    onTap: (() {}),
+                    child: SizedBox(
                       width: MediaQuery.of(context).size.width / 3.5,
                       child: Card(
                           //color: Color.fromRGBO(0, 191, 166, 1),
@@ -164,7 +162,7 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                                   child:
                                       Image.asset('assets/image/skrining.png'),
                                 ),
-                                Text('Skrining',
+                                const Text('Skrining',
                                     style: TextStyle(color: Colors.white60))
                               ],
                             ),
@@ -178,9 +176,11 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
         ),
       )),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.child_care, size: 50,)
-      ),
+          onPressed: () {},
+          child: const Icon(
+            Icons.child_care,
+            size: 50,
+          )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         color: Colors.black12,
@@ -204,18 +204,16 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return AlertDialog(
+                      return Dialog(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20.0)),
-                        titlePadding: const EdgeInsets.all(0),
-                        title: Container(
-                          color: Colors.grey.shade200,
-                          padding: EdgeInsets.all(10),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
+                        child: Container(
+                          margin: const EdgeInsets.all(10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Row(children: [
                                 Image.asset(
                                   'assets/image/iconscreening.png',
                                   width: 100,
@@ -223,45 +221,46 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                                 const SizedBox(
                                   width: 10,
                                 ),
-                                const Flexible(
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Text(
-                                      'Tumbuh Kembang Anak',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                                const Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    'Tumbuh Kembang Anak',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                 )
                               ]),
-                        ),
-                        content: Stack(
-                          children: <Widget>[
-                            Form(
-                              key: _formKey,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: TextFormField(),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: TextFormField(),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: ElevatedButton(
-                                      child: Text("Submit"),
-                                      onPressed: () {},
-                                    ),
-                                  )
-                                ],
+                              const SizedBox(
+                                height: 20,
                               ),
-                            ),
-                          ],
+                              TextField(
+                                decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors.grey.shade200,
+                                    hintText: 'NIK ORANGTUA',
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: Constant().margin),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                      borderSide: const BorderSide(
+                                          color: Colors.white, width: 0.0),
+                                    )),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                margin: const EdgeInsets.all(10),
+                                child: const Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text('DATA ANAK')),
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     });

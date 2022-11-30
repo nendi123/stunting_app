@@ -13,32 +13,35 @@ class _ListIbuPageState extends State<ListIbuPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton( //menu icon button at start left of appbar
-          onPressed: (){
+        leading: IconButton(
+          //menu icon button at start left of appbar
+          onPressed: () {
             //code to execute when this button is pressed
             Navigator.pushNamed(context, '/homePetugas');
           },
-          icon: Icon(Icons.arrow_back, size: 20,),
-        ),
-        title: Text(
-            'Ibu di Posyandu',
-          style: TextStyle(
-            fontWeight: FontWeight.w300,
-            fontSize: 16
+          icon: const Icon(
+            Icons.arrow_back,
+            size: 20,
           ),
+        ),
+        title: const Text(
+          'Ibu di Posyandu',
+          style: TextStyle(fontWeight: FontWeight.w300, fontSize: 16),
         ),
         toolbarHeight: 50,
         elevation: 30.0,
-        actions: [ //actions widget in appbar
+        actions: [
+          //actions widget in appbar
           IconButton(
-              icon: Icon(Icons.search, size: 20,),
-              onPressed: (){
+              icon: const Icon(
+                Icons.search,
+                size: 20,
+              ),
+              onPressed: () {
                 //code to execute when this button is pressed
-              }
-          ),
+              }),
           //more widgets to place here
         ],
-
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -60,24 +63,26 @@ class _ListIbuPageState extends State<ListIbuPage> {
                 children: [
                   ListTile(
                     // leading: Text('3217070508940008'),
-                    title: Text(
-                        '3217070508940008 \nIbu Siti',
+                    title: const Text(
+                      '3217070508940008 \nIbu Siti',
                       style: TextStyle(fontWeight: FontWeight.w300),
                     ),
                     trailing: IconButton(
                       icon: const Icon(
                         Icons.edit,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/editIbu');
+                      },
                     ),
                   ),
-                Divider(
-                  color: Colors.black,
-                  height: 5,
-                ),
+                  const Divider(
+                    color: Colors.black,
+                    height: 5,
+                  ),
                   ListTile(
                     // leading: Text('3217070508940008'),
-                    title: Text(
+                    title: const Text(
                       '3217070508940008 \nIbu Fulan binti Fulanah',
                       style: TextStyle(fontWeight: FontWeight.w300),
                     ),
