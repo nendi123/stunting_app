@@ -111,9 +111,9 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
               //     itemBuilder: (BuildContext c, int index)
               // ),
             ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: Constant().margin),
+            GestureDetector(
               child: Card(
+                margin: EdgeInsets.symmetric(horizontal: Constant().margin),
                 elevation: 0,
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
@@ -122,45 +122,64 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
                 child: ListTile(
                   title: Text(
                       'Lulu Faza Kamila \n4 thn 7 bln',
-                    style: TextStyle(fontWeight: FontWeight.w300)
-                  ),
-                  trailing:
-                      IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: () {},
-                          color: Colors.deepPurple,
-                          splashRadius: 25,
-                          splashColor: Colors.purple
-                      ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 0,
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: Constant().margin),
-              child: Card(
-                elevation: 0,
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    side: const BorderSide(color: Colors.black26)),
-                child: ListTile(
-                  title: Text(
-                      'Laura Shafaa Nadhira \n2 thn 3 bln',
                       style: TextStyle(fontWeight: FontWeight.w300)
                   ),
-                  trailing:
-                      IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: () {},
-                          color: Colors.deepPurple,
-                          splashRadius: 25,
-                          splashColor: Colors.purple),
                 ),
               ),
-            )
+              onTap: () {
+                Navigator.pushNamed(context, '/profileAnak');
+              },
+            ),
+            // Container(
+            //   margin: EdgeInsets.symmetric(horizontal: Constant().margin),
+            //   child: Card(
+            //     elevation: 0,
+            //     color: Colors.white,
+            //     shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(10),
+            //         side: const BorderSide(color: Colors.black26)),
+            //     child: ListTile(
+            //       title: Text(
+            //           'Lulu Faza Kamila \n4 thn 7 bln',
+            //         style: TextStyle(fontWeight: FontWeight.w300)
+            //       ),
+            //       trailing:
+            //           IconButton(
+            //               icon: Icon(Icons.edit),
+            //               onPressed: () {},
+            //               color: Colors.deepPurple,
+            //               splashRadius: 25,
+            //               splashColor: Colors.purple
+            //           ),
+            //     ),
+            //   ),
+            // ),
+            // const SizedBox(
+            //   height: 0,
+            // ),
+            // Container(
+            //   margin: EdgeInsets.symmetric(horizontal: Constant().margin),
+            //   child: Card(
+            //     elevation: 0,
+            //     color: Colors.white,
+            //     shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(10),
+            //         side: const BorderSide(color: Colors.black26)),
+            //     child: ListTile(
+            //       title: Text(
+            //           'Laura Shafaa Nadhira \n2 thn 3 bln',
+            //           style: TextStyle(fontWeight: FontWeight.w300)
+            //       ),
+            //       trailing:
+            //           IconButton(
+            //               icon: Icon(Icons.edit),
+            //               onPressed: () {},
+            //               color: Colors.deepPurple,
+            //               splashRadius: 25,
+            //               splashColor: Colors.purple),
+            //     ),
+            //   ),
+            // )
           ],
         ),
       )),
