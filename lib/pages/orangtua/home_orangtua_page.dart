@@ -90,7 +90,7 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
                   child: ListTile(
                     leading: Image.asset('assets/image/iconanak.png'),
                     title: const Text(
-                      'Profile Anak',
+                      'Daftar Anak Ibu',
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
                           color: Colors.black54,

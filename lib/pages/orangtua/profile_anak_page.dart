@@ -255,7 +255,7 @@ class _ProfileAnakPageState extends State<ProfileAnakPage> {
                             ),
                           ),
                           const SizedBox( height: 5 ),
-                          Text('      KMS    '),
+                          Text('    KMS    '),
                         ],
                       ),
                       Column(
@@ -302,7 +302,7 @@ class _ProfileAnakPageState extends State<ProfileAnakPage> {
                               ),
                               child: InkWell(
                                 onTap: () {
-                                  Navigator.pushNamed(context, '/homeOrangtua');
+                                  Navigator.pushNamed(context, '/editAnak');
                                 },
                                 // borderRadius: BorderRadius.circular(50.0),
                                 child: Padding(
@@ -317,7 +317,54 @@ class _ProfileAnakPageState extends State<ProfileAnakPage> {
                             ),
                           ),
                           const SizedBox( height: 5 ),
-                          Text('  Update  '),
+                          Text('   Update   '),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          const SizedBox( height: 10, ),
+                          Material(
+                            type: MaterialType.transparency,
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                  border: Border.all(width: 1, color: Colors.white70),
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  color: Colors.indigo
+                              ),
+                              child: InkWell(
+                                onTap: () => showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) => AlertDialog(
+                                      title: const Text('Delete Data'),
+                                      content: const Text('Yakin Data Akan Dihapus '),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () => Navigator.pop(context, 'Tidak'),
+                                          child: const Text('Tidak'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pushNamed(context, '/homeOrangtua'),
+                                          child: const Text('Ya'),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
+                                // borderRadius: BorderRadius.circular(50.0),
+                                child: Padding(
+                                  padding: EdgeInsets.all(10.0),
+                                  child: Icon(
+                                    Icons.delete,
+                                    size: 20.0,
+                                    color: Colors.white70,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox( height: 5 ),
+                          Text('  Delete  '),
                         ],
                       ),
                     ],
@@ -337,46 +384,46 @@ class _ProfileAnakPageState extends State<ProfileAnakPage> {
                             const SizedBox(
                               height: 10,
                             ),
-                            // _inputText(_tgl_lahirController, 'Tanggal Lahir'),
-                            DateTimePicker(
-                              // type: DateTimePickerType.dateTimeSeparate,
-                              type: DateTimePickerType.date,
-                              dateMask: 'd MMM, yyyy',
-                              controller: _tgl_lahirController,
-                              //initialValue: _initialValue,
-                              firstDate: DateTime(2000),
-                              lastDate: DateTime(2100),
-                              icon: Icon(Icons.event),
-                              dateLabelText: 'Tanggal lahir',
-                              // timeLabelText: "Hour",
-                              //use24HourFormat: false,
-                              //locale: Locale('pt', 'BR'),
-                              selectableDayPredicate: (date) {
-                                if (date.weekday == 6 || date.weekday == 7) {
-                                  return false;
-                                }
-                                return true;
-                              },
-                              onChanged: (val) => setState(() => _valueChanged1 = val),
-                              validator: (val) {
-                                setState(() => _valueToValidate1 = val ?? '');
-                                return null;
-                              },
-                              onSaved: (val) => setState(() => _valueSaved1 = val ?? ''),
-                            ),
+                            _inputText(_tgl_lahirController, 'Tanggal Lahir'),
+                            // DateTimePicker(
+                            //   // type: DateTimePickerType.dateTimeSeparate,
+                            //   type: DateTimePickerType.date,
+                            //   dateMask: 'd MMM, yyyy',
+                            //   controller: _tgl_lahirController,
+                            //   //initialValue: _initialValue,
+                            //   firstDate: DateTime(2000),
+                            //   lastDate: DateTime(2100),
+                            //   icon: Icon(Icons.event),
+                            //   dateLabelText: 'Tanggal lahir',
+                            //   // timeLabelText: "Hour",
+                            //   //use24HourFormat: false,
+                            //   //locale: Locale('pt', 'BR'),
+                            //   selectableDayPredicate: (date) {
+                            //     if (date.weekday == 6 || date.weekday == 7) {
+                            //       return false;
+                            //     }
+                            //     return true;
+                            //   },
+                            //   onChanged: (val) => setState(() => _valueChanged1 = val),
+                            //   validator: (val) {
+                            //     setState(() => _valueToValidate1 = val ?? '');
+                            //     return null;
+                            //   },
+                            //   onSaved: (val) => setState(() => _valueSaved1 = val ?? ''),
+                            // ),
 
                             const SizedBox(
                               height: 10,
                             ),
-                            // _inputText(_jenis_kelaminController, 'Jenis Kelamin'),
-                            Text('Jenis kelamin', style: TextStyle(color: Colors.black38),),
-                            _jenisKelaminDropdown(),
+                            _inputText(_jenis_kelaminController, 'Jenis Kelamin'),
+                            // Text('Jenis kelamin', style: TextStyle(color: Colors.black38),),
+                            // _jenisKelaminDropdown(),
                             const SizedBox(
                               height: 10,
                             ),
-                            Text('Lahir prematur?', style: TextStyle(color: Colors.black38),),
-                            _prematurDropdown(),
-                            // _inputText(_prematurController, 'Apakah anak lahir prematur?'),
+                            // Text('Lahir prematur?', style: TextStyle(color: Colors.black38),),
+                            // _prematurDropdown(),
+                            _inputText(_prematurController, 'Apakah anak lahir prematur?'),
                             const SizedBox(
                               height: 10,
                             ),
@@ -408,31 +455,31 @@ class _ProfileAnakPageState extends State<ProfileAnakPage> {
                             const SizedBox(
                               height: 20,
                             ),
-                            Align(
-                                alignment: Alignment.bottomCenter,
-                                child: SizedBox(
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 58,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                        const Color.fromRGBO(87, 81, 203, 1),
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 50, vertical: 10),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(30))),
-                                    child: const Text(
-                                      'Simpan',
-                                      style: TextStyle(fontSize: 18),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.pushNamed(context, '/homeOrangtua');
-                                    },
-                                  ),
-                                )),
-                            const SizedBox(
-                              height: 300,
-                            ),
+                            // Align(
+                            //     alignment: Alignment.bottomCenter,
+                            //     child: SizedBox(
+                            //       width: MediaQuery.of(context).size.width,
+                            //       height: 58,
+                            //       child: ElevatedButton(
+                            //         style: ElevatedButton.styleFrom(
+                            //             backgroundColor:
+                            //             const Color.fromRGBO(87, 81, 203, 1),
+                            //             padding: const EdgeInsets.symmetric(
+                            //                 horizontal: 50, vertical: 10),
+                            //             shape: RoundedRectangleBorder(
+                            //                 borderRadius: BorderRadius.circular(30))),
+                            //         child: const Text(
+                            //           'Simpan',
+                            //           style: TextStyle(fontSize: 18),
+                            //         ),
+                            //         onPressed: () {
+                            //           Navigator.pushNamed(context, '/homeOrangtua');
+                            //         },
+                            //       ),
+                            //     )),
+                            // const SizedBox(
+                            //   height: 300,
+                            // ),
                           ]
                       ),
                     )

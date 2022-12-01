@@ -6,7 +6,8 @@ import 'package:stunting_app/pages/orangtua/profile_anak_page.dart';
 import 'package:stunting_app/pages/orangtua/profile_orangtua_page.dart';
 import 'package:stunting_app/pages/orangtua/register_orangtua_page.dart';
 import 'package:stunting_app/pages/orangtua/add_anak_page.dart';
-import 'package:stunting_app/pages/orangtua/profile_anak_page.dart';
+import 'package:stunting_app/pages/orangtua/edit_anak_page.dart'
+;
 import 'package:stunting_app/pages/petugas/add_ibu_page.dart';
 import 'package:stunting_app/pages/petugas/edit_ibu_page.dart';
 import 'package:stunting_app/pages/petugas/home_petugas_page.dart';
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
         '/lupaPassword' : (context) => const LupaPasswordPage(),
         '/addAnak' : (context) => const AddAnakPage(),
         '/profileAnak' : (context) => const ProfileAnakPage(),
+        '/editAnak' : (context) => const EditAnakPage(),
       },
     );
   }
