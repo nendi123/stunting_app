@@ -241,7 +241,7 @@ class _ProfileAnakPageState extends State<ProfileAnakPage> {
                               ),
                               child: InkWell(
                                 onTap: () {
-                                  Navigator.pushNamed(context, '/homeOrangtua');
+                                  Navigator.pushNamed(context, '/kmsAnak');
                                 },
                                 // borderRadius: BorderRadius.circular(50.0),
                                 child: Padding(
