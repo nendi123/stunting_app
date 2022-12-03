@@ -99,6 +99,12 @@ class _KmsAnakPagetate extends State<KmsAnakPage> with SingleTickerProviderState
   Widget build(BuildContext context) {
     final ColorScheme colors = Theme.of(context).colorScheme;
 
+    var list = [
+      {"tanggal": "20/08/2016","bb" : "30","tb":"50","lk":"50"},
+      {"tanggal": "26/09/2016","bb" : "30","tb":"50","lk":"50"},
+      {"tanggal": "18/10/2016","bb" : "30","tb":"50","lk":"50"}
+    ];
+
     return Scaffold(
       appBar: AppBar(
         // title: Text('Profile Petugas'),
@@ -207,51 +213,51 @@ class _KmsAnakPagetate extends State<KmsAnakPage> with SingleTickerProviderState
                         tooltipBehavior: TooltipBehavior(enable: true),
                         series: <ChartSeries>[
                           StackedLineSeries<Data_bbu, String>(
-                            groupName: 'Group A',
-                            dataLabelSettings: DataLabelSettings(
-                                isVisible: true,
-                                useSeriesColor: true
-                            ),
+                            // groupName: 'Group A',
+                            // dataLabelSettings: DataLabelSettings(
+                            //     isVisible: true,
+                            //     useSeriesColor: true
+                            // ),
                               dataSource: databbu,
                               xValueMapper: (Data_bbu databb, _) => databb.usia.toString(),
                               yValueMapper: (Data_bbu databb, _) => databb.minsd3,
                           ),
                           StackedLineSeries<Data_bbu, String>(
                               dataSource: databbu,
-                            groupName: 'Group B',
-                            dataLabelSettings: DataLabelSettings(
-                                isVisible: true,
-                                useSeriesColor: true
-                            ),
+                            // groupName: 'Group B',
+                            // dataLabelSettings: DataLabelSettings(
+                            //     isVisible: true,
+                            //     useSeriesColor: true
+                            // ),
                               xValueMapper: (Data_bbu data, _) => data.usia.toString(),
                               yValueMapper: (Data_bbu data, _) => data.minsd2,
                           ),
                           StackedLineSeries<Data_bbu, String>(
                             dataSource: databbu,
-                            groupName: 'Group C',
-                            dataLabelSettings: DataLabelSettings(
-                                isVisible: true,
-                                useSeriesColor: true
-                            ),
+                            // groupName: 'Group C',
+                            // dataLabelSettings: DataLabelSettings(
+                            //     isVisible: true,
+                            //     useSeriesColor: true
+                            // ),
                             xValueMapper: (Data_bbu data, _) => data.usia.toString(),
                             yValueMapper: (Data_bbu data, _) => data.sd0,
                           ),
                           StackedLineSeries<Data_bbu, String>(
                             groupName: 'Group D',
-                            dataLabelSettings: DataLabelSettings(
-                                isVisible: true,
-                                useSeriesColor: true
-                            ),
+                            // dataLabelSettings: DataLabelSettings(
+                            //     isVisible: true,
+                            //     useSeriesColor: true
+                            // ),
                             dataSource: databbu,
                             xValueMapper: (Data_bbu data, _) => data.usia.toString(),
                             yValueMapper: (Data_bbu data, _) => data.sd2,
                           ),
                           StackedLineSeries<Data_bbu, String>(
                             groupName: 'Group E',
-                            dataLabelSettings: DataLabelSettings(
-                                isVisible: true,
-                                useSeriesColor: true
-                            ),
+                            // dataLabelSettings: DataLabelSettings(
+                            //     isVisible: true,
+                            //     useSeriesColor: true
+                            // ),
                             dataSource: databbu,
                             xValueMapper: (Data_bbu data, _) => data.usia.toString(),
                             yValueMapper: (Data_bbu data, _) => data.sd3,
@@ -263,20 +269,61 @@ class _KmsAnakPagetate extends State<KmsAnakPage> with SingleTickerProviderState
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
+                      child: Table(
+                        border: TableBorder.all(color: Colors.black38),
+                        children: [
+                          TableRow(
+                            decoration: BoxDecoration(color: Colors.black87, borderRadius: BorderRadius.circular(5)),
+                            children: [
+                              Column(
+                                children: [
+                                  Text('\nTanggal',style: TextStyle(color: Colors.white),)
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Text('Berat \n(kg)\n', style: TextStyle(color: Colors.white))
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Text('Tinggi \n(cm)', style: TextStyle(color: Colors.white))
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text('Lingkar\nKepala \n(cm)', style: TextStyle(color: Colors.white))
+                                ],
+                              )
+                            ]
+                          ),
+                          for(var item in list)
+                          TableRow(
+                            decoration: BoxDecoration(color: Colors.black12, borderRadius: BorderRadius.circular(10.0)),
+                            children: [
+                              Column(children: [Text(item['tanggal']!,style: TextStyle(color: Colors.black54))],),
+                              Column(children: [Text(item['bb']!, style: TextStyle(color: Colors.black54))],),
+                              Column(children: [Text(item['tb']!, style: TextStyle(color: Colors.black54))],),
+                              Column(children: [Text(item['lk']!, style: TextStyle(color: Colors.black54))],),
+                            ],
+                          )
+                        ],
+                      )
                       //Initialize the spark charts widget
-                      child: SfSparkLineChart.custom(
-                        //Enable the trackball
-                        trackball: SparkChartTrackball(
-                            activationMode: SparkChartActivationMode.tap),
-                        //Enable marker
-                        marker: SparkChartMarker(
-                            displayMode: SparkChartMarkerDisplayMode.all),
-                        //Enable data label
-                        labelDisplayMode: SparkChartLabelDisplayMode.all,
-                        xValueMapper: (int index) => data[index].year,
-                        yValueMapper: (int index) => data[index].sales,
-                        dataCount: 5,
-                      ),
+                      // child: SfSparkLineChart.custom(
+                      //   //Enable the trackball
+                      //   trackball: SparkChartTrackball(
+                      //       activationMode: SparkChartActivationMode.tap),
+                      //   //Enable marker
+                      //   marker: SparkChartMarker(
+                      //       displayMode: SparkChartMarkerDisplayMode.all),
+                      //   //Enable data label
+                      //   labelDisplayMode: SparkChartLabelDisplayMode.all,
+                      //   xValueMapper: (int index) => data[index].year,
+                      //   yValueMapper: (int index) => data[index].sales,
+                      //   dataCount: 5,
+                      // ),
                     ),
                   )
                 ],
