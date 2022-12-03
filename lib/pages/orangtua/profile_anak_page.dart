@@ -183,6 +183,7 @@ class _ProfileAnakPageState extends State<ProfileAnakPage> {
                   height: 20,
                 ),
                 Container(
+                  // margin: EdgeInsets.symmetric(horizontal: Constant().margin),
                   height: 80,
                   decoration: BoxDecoration(
                     color: Colors.black12,
@@ -209,7 +210,7 @@ class _ProfileAnakPageState extends State<ProfileAnakPage> {
                               ),
                               child: InkWell(
                                 onTap: () {
-                                  Navigator.pushNamed(context, '/homeOrangtua');
+                                  Navigator.pushNamed(context, '/mpasiAnak');
                                 },
                                 // borderRadius: BorderRadius.circular(50.0),
                                 child: Padding(
@@ -240,7 +241,7 @@ class _ProfileAnakPageState extends State<ProfileAnakPage> {
                               ),
                               child: InkWell(
                                 onTap: () {
-                                  Navigator.pushNamed(context, '/homeOrangtua');
+                                  Navigator.pushNamed(context, '/kmsAnak');
                                 },
                                 // borderRadius: BorderRadius.circular(50.0),
                                 child: Padding(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:stunting_app/pages/orangtua/home_orangtua_page.dart';
+import 'package:stunting_app/pages/orangtua/kms_anak_page.dart';
 import 'package:stunting_app/pages/orangtua/login_orangtua_page.dart';
 import 'package:stunting_app/pages/orangtua/lupa_password_page.dart';
+import 'package:stunting_app/pages/orangtua/mpasi_anak_page.dart';
 import 'package:stunting_app/pages/orangtua/profile_anak_page.dart';
 import 'package:stunting_app/pages/orangtua/profile_orangtua_page.dart';
 import 'package:stunting_app/pages/orangtua/register_orangtua_page.dart';
@@ -59,6 +61,8 @@ class MyApp extends StatelessWidget {
         '/addAnak': (context) => const AddAnakPage(),
         '/profileAnak': (context) => const ProfileAnakPage(),
         '/editAnak': (context) => const EditAnakPage(),
+        '/mpasiAnak': (context) => const MpasiAnakPage(),
+        '/kmsAnak': (context) => const KmsAnakPage(),
       },
     );
   }
