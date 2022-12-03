@@ -19,38 +19,38 @@ class _ProfileOrangTuaPageState extends State<ProfileOrangTuaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        // title: Text('Profile Petugas'),
-        leading: IconButton( //menu icon button at start left of appbar
-          onPressed: (){
-            //code to execute when this button is pressed
-            Navigator.pushNamed(context, '/homeOrangtua');
-          },
-          icon: Icon(Icons.arrow_back, size: 20,),
-        ),
-        title: Text(
-          'Profile Ibu',
-          style: TextStyle(
-              fontWeight: FontWeight.w300,
-              fontSize: 16
-          ),
-        ),
-        toolbarHeight: 50,
-        elevation: 30.0,
-      ),
+      // appBar: AppBar(
+      //   // title: Text('Profile Petugas'),
+      //   leading: IconButton( //menu icon button at start left of appbar
+      //     onPressed: (){
+      //       //code to execute when this button is pressed
+      //       Navigator.pushNamed(context, '/homeOrangtua');
+      //     },
+      //     icon: Icon(Icons.arrow_back, size: 20,),
+      //   ),
+      //   title: Text(
+      //     'Profile Ibu',
+      //     style: TextStyle(
+      //         fontWeight: FontWeight.w300,
+      //         fontSize: 16
+      //     ),
+      //   ),
+      //   toolbarHeight: 50,
+      //   elevation: 30.0,
+      // ),
       body: SingleChildScrollView(
           child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/image/backgrounddua.jpeg'),
-                  fit: BoxFit.cover)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('assets/image/backgrounddua.jpeg'),
+                fit: BoxFit.cover)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
             Container(
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.only(

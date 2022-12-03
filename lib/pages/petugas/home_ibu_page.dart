@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:stunting_app/pages/petugas/login_petugas_page.dart';
 import 'package:stunting_app/shared/constant.dart';
 
-class HomePetugasPage extends StatefulWidget {
-  const HomePetugasPage({super.key});
+class HomeIbuPage extends StatefulWidget {
+  const HomeIbuPage({super.key});
 
   @override
-  State<HomePetugasPage> createState() => _HomePetugasPageState();
+  State<HomeIbuPage> createState() => _HomeIbuPageState();
 }
 
-class _HomePetugasPageState extends State<HomePetugasPage> {
-  final _formKey = GlobalKey<FormState>();
+class _HomeIbuPageState extends State<HomeIbuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +47,7 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
               alignment: Alignment.center,
               margin: EdgeInsets.symmetric(horizontal: Constant().margin),
               child: const Text(
-                "Selamat Datang Petugas",
+                "Selamat Datang Ibu",
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
@@ -61,116 +59,47 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
             ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: Constant().margin),
-              child: TextField(
-                decoration: InputDecoration(
-                    suffixIcon: Icon(Icons.search),
-                    filled: true,
-                    fillColor: Colors.white,
-                    hintText: 'Ketik NIK Ibu',
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: Constant().margin),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
+              child: Card(
+                elevation: 0,
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: Container(
+                  padding: const EdgeInsets.all(5),
+                  child: ListTile(
+                    leading: Image.asset('assets/image/iconanak.png'),
+                    title: const Text(
+                      'Profil Anak',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black54,
+                        fontSize: 16,
+                      ),
                     ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide:
-                          const BorderSide(color: Colors.white, width: 0.0),
-                    )),
+                  ),
+                ),
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: Constant().margin),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  GestureDetector(
-                    onTap: (() {
-                      Navigator.pushNamed(context, '/listIbu');
-                    }),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 3.5,
-                      child: Card(
-                          // color: Color.fromRGBO(0, 191, 166, 1),
-                          color: Colors.deepPurple,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          child: Container(
-                            padding: EdgeInsets.all(10),
-                            child: Column(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.all(10),
-                                  child: Image.asset('assets/image/ibu.png'),
-                                ),
-                                Text('Ibu',
-                                    style: TextStyle(color: Colors.white60))
-                              ],
-                            ),
-                          )),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: (() {
-                      // Navigator.pushNamed(context, '/listPelatih');
-                      Navigator.pushNamed(context, '/listAnakPage');
-                    }),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 3.5,
-                      child: Card(
-                          // color: Color.fromRGBO(0, 191, 166, 1),
-                          color: Colors.deepPurple,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          child: Container(
-                            padding: EdgeInsets.all(10),
-                            child: Column(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.all(10),
-                                  child: Image.asset('assets/image/anak.png'),
-                                ),
-                                Text('Anak',
-                                    style: TextStyle(color: Colors.white60))
-                              ],
-                            ),
-                          )),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: (() {}),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width / 3.5,
-                      child: Card(
-                          //color: Color.fromRGBO(0, 191, 166, 1),
-                          color: Colors.deepPurple,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          child: Container(
-                            padding: EdgeInsets.all(10),
-                            child: Column(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.all(10),
-                                  child:
-                                      Image.asset('assets/image/skrining.png'),
-                                ),
-                                const Text('Skrining',
-                                    style: TextStyle(color: Colors.white60))
-                              ],
-                            ),
-                          )),
-                    ),
-                  ),
-                ],
+            GestureDetector(
+              child: Card(
+                margin: EdgeInsets.symmetric(horizontal: Constant().margin),
+                elevation: 0,
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    side: const BorderSide(color: Colors.black26)),
+                child: const ListTile(
+                  title: Text('Lulu Faza Kamila \n4 thn 7 bln',
+                      style: TextStyle(fontWeight: FontWeight.w300)),
+                ),
               ),
+              onTap: () {
+                Navigator.pushNamed(context, '/profileAnak');
+              },
             ),
           ],
         ),
@@ -194,7 +123,9 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
               icon: const Icon(
                 Icons.home,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/homePetugas');
+              },
             ),
             IconButton(
               icon: const Icon(

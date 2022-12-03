@@ -12,49 +12,38 @@ class _ListIbuPageState extends State<ListIbuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          //menu icon button at start left of appbar
-          onPressed: () {
-            //code to execute when this button is pressed
-            Navigator.pushNamed(context, '/homePetugas');
-          },
-          icon: const Icon(
-            Icons.arrow_back,
-            size: 20,
-          ),
-        ),
-        title: const Text(
-          'Ibu di Posyandu',
-          style: TextStyle(fontWeight: FontWeight.w300, fontSize: 16),
-        ),
-        toolbarHeight: 50,
-        elevation: 30.0,
-        actions: [
-          //actions widget in appbar
-          IconButton(
-              icon: const Icon(
-                Icons.search,
-                size: 20,
-              ),
-              onPressed: () {
-                //code to execute when this button is pressed
-              }),
-          //more widgets to place here
-        ],
-      ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/image/background.jpeg'),
-                fit: BoxFit.cover)),
+        color: Colors.grey.shade200,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const SizedBox(
+              height: 40,
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: Constant().margin),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Card(
+                  color: Colors.greenAccent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.all(10),
+                    child: const Text(
+                      "Daftar Ibu Posyandu",
+                      style: TextStyle(fontSize: 30),
+                    ),
+                  ),
+                ),
+              ),
+            ),
             Container(
               margin: EdgeInsets.symmetric(
                   horizontal: Constant().margin, vertical: 10),
@@ -63,9 +52,14 @@ class _ListIbuPageState extends State<ListIbuPage> {
                 children: [
                   ListTile(
                     // leading: Text('3217070508940008'),
-                    title: const Text(
-                      '3217070508940008 \nIbu Siti',
-                      style: TextStyle(fontWeight: FontWeight.w300),
+                    title: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/homeIbu');
+                      },
+                      child: const Text(
+                        '3217070508940008 \nIbu Siti',
+                        style: TextStyle(fontWeight: FontWeight.w300),
+                      ),
                     ),
                     trailing: IconButton(
                       icon: const Icon(
@@ -100,11 +94,33 @@ class _ListIbuPageState extends State<ListIbuPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
+        backgroundColor: Colors.green,
         onPressed: () {
           Navigator.pushNamed(context, '/addIbu');
         },
+        child: const Icon(Icons.add),
       ),
+      bottomNavigationBar: BottomAppBar(
+          child: Container(
+        color: Colors.grey.shade200,
+        width: MediaQuery.of(context).size.width,
+        height: 58,
+        padding: EdgeInsets.symmetric(horizontal: Constant().margin),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              backgroundColor: const Color.fromRGBO(87, 81, 203, 1),
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30))),
+          child: const Text(
+            'Kembali',
+            style: TextStyle(fontSize: 18),
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, '/homePetugas');
+          },
+        ),
+      )),
     );
   }
 }

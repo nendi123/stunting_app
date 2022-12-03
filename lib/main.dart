@@ -6,12 +6,13 @@ import 'package:stunting_app/pages/orangtua/profile_anak_page.dart';
 import 'package:stunting_app/pages/orangtua/profile_orangtua_page.dart';
 import 'package:stunting_app/pages/orangtua/register_orangtua_page.dart';
 import 'package:stunting_app/pages/orangtua/add_anak_page.dart';
-import 'package:stunting_app/pages/orangtua/edit_anak_page.dart'
-;
+import 'package:stunting_app/pages/orangtua/edit_anak_page.dart';
 import 'package:stunting_app/pages/petugas/add_ibu_page.dart';
 import 'package:stunting_app/pages/petugas/edit_ibu_page.dart';
+import 'package:stunting_app/pages/petugas/home_ibu_page.dart';
 import 'package:stunting_app/pages/petugas/home_petugas_page.dart';
 import 'package:stunting_app/pages/petugas/list_ibu_page.dart';
+import 'package:stunting_app/pages/petugas/llist_anak_page.dart';
 import 'package:stunting_app/pages/petugas/login_petugas_page.dart';
 import 'package:stunting_app/pages/petugas/profile_petugas_page.dart';
 import 'package:stunting_app/pages/petugas/list_anak.dart';
@@ -46,16 +47,18 @@ class MyApp extends StatelessWidget {
         '/profilePetugas': (context) => const ProfilePetugasPage(),
         '/addIbu': (context) => const AddIbuPage(),
         '/editIbu': (context) => const EditIbuPage(),
+        '/homeIbu': (context) => const HomeIbuPage(),
+        '/listAnakPage': (context) => const ListAnakPage(),
         //orang tua
         '/loginIbu': (context) => const LoginOrangtuaPage(),
         '/listIbu': (context) => const ListIbuPage(),
         '/profileIbu': (context) => const ProfileOrangTuaPage(),
         '/homeOrangtua': (context) => const HomeOrangtuaPage(),
-        '/listAnak' : (context) => const List_anakWidget(),
-        '/lupaPassword' : (context) => const LupaPasswordPage(),
-        '/addAnak' : (context) => const AddAnakPage(),
-        '/profileAnak' : (context) => const ProfileAnakPage(),
-        '/editAnak' : (context) => const EditAnakPage(),
+        '/listAnak': (context) => const List_anakWidget(),
+        '/lupaPassword': (context) => const LupaPasswordPage(),
+        '/addAnak': (context) => const AddAnakPage(),
+        '/profileAnak': (context) => const ProfileAnakPage(),
+        '/editAnak': (context) => const EditAnakPage(),
       },
     );
   }
