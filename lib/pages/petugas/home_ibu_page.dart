@@ -85,6 +85,9 @@ class _HomeIbuPageState extends State<HomeIbuPage> {
               height: 10,
             ),
             GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/editAnakPage');
+              },
               child: Card(
                 margin: EdgeInsets.symmetric(horizontal: Constant().margin),
                 elevation: 0,
@@ -95,11 +98,9 @@ class _HomeIbuPageState extends State<HomeIbuPage> {
                 child: const ListTile(
                   title: Text('Lulu Faza Kamila \n4 thn 7 bln',
                       style: TextStyle(fontWeight: FontWeight.w300)),
+                  // trailing: Icon(Icons.edit),
                 ),
               ),
-              onTap: () {
-                Navigator.pushNamed(context, '/profileAnak');
-              },
             ),
           ],
         ),

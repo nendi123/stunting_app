@@ -10,12 +10,14 @@ import 'package:stunting_app/pages/orangtua/register_orangtua_page.dart';
 import 'package:stunting_app/pages/orangtua/add_anak_page.dart';
 import 'package:stunting_app/pages/orangtua/edit_anak_page.dart';
 import 'package:stunting_app/pages/petugas/add_ibu_page.dart';
+import 'package:stunting_app/pages/petugas/edit_anak_page.dart';
 import 'package:stunting_app/pages/petugas/edit_ibu_page.dart';
 import 'package:stunting_app/pages/petugas/home_ibu_page.dart';
 import 'package:stunting_app/pages/petugas/home_petugas_page.dart';
 import 'package:stunting_app/pages/petugas/list_ibu_page.dart';
 import 'package:stunting_app/pages/petugas/llist_anak_page.dart';
 import 'package:stunting_app/pages/petugas/login_petugas_page.dart';
+import 'package:stunting_app/pages/petugas/mpasi_anak_page.dart';
 import 'package:stunting_app/pages/petugas/profile_petugas_page.dart';
 import 'package:stunting_app/pages/petugas/list_anak.dart';
 import 'package:stunting_app/splash_page.dart';
@@ -51,6 +53,8 @@ class MyApp extends StatelessWidget {
         '/editIbu': (context) => const EditIbuPage(),
         '/homeIbu': (context) => const HomeIbuPage(),
         '/listAnakPage': (context) => const ListAnakPage(),
+        '/editAnakPage': (context) => const EditAnakPagePetugas(),
+        '/mpasiPetugasPage': (context) => const MpasiAnakPagePetugas(),
         //orang tua
         '/loginIbu': (context) => const LoginOrangtuaPage(),
         '/listIbu': (context) => const ListIbuPage(),

@@ -27,7 +27,7 @@ class _ListIbuPageState extends State<ListIbuPage> {
             Container(
               margin: EdgeInsets.symmetric(horizontal: Constant().margin),
               child: Align(
-                alignment: Alignment.centerLeft,
+                alignment: Alignment.topCenter,
                 child: Card(
                   color: Colors.greenAccent,
                   shape: RoundedRectangleBorder(
@@ -38,7 +38,7 @@ class _ListIbuPageState extends State<ListIbuPage> {
                     padding: EdgeInsets.all(10),
                     child: const Text(
                       "Daftar Ibu Posyandu",
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: 20),
                     ),
                   ),
                 ),
