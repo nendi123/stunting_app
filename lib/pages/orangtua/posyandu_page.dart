@@ -57,7 +57,7 @@ class _PosyanduPageState extends State<PosyanduPage> {
           icon: Icon(Icons.arrow_back, size: 20,),
         ),
         title: Text(
-        'Jadwal MPASI Anak',
+        'Lokasi Posyandu',
         style: TextStyle(
         fontWeight: FontWeight.w300,
         fontSize: 16
