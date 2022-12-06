@@ -414,8 +414,9 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                       child: const Text('Tidak'),
                     ),
                     TextButton(
-                      onPressed: () =>
-                          Navigator.pushNamed(context, '/loginPetugas'),
+                      onPressed: () => Navigator.of(context)
+                          .pushNamedAndRemoveUntil(
+                              '/loginPetugas', (Route<dynamic> route) => false),
                       child: const Text('Ya'),
                     ),
                   ],
