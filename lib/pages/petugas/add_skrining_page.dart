@@ -511,7 +511,7 @@ class _AddSkriningPageState extends State<AddSkriningPage> {
                                               ]),
                                             ),
                                             ListTile(
-                                              title: Text(
+                                              title: const Text(
                                                   "Apakah anak anda selalu mencuci tangan dengan sabun sebelum makan ?"),
                                               subtitle: Row(children: [
                                                 Radio<Q15>(
@@ -523,7 +523,7 @@ class _AddSkriningPageState extends State<AddSkriningPage> {
                                                     });
                                                   },
                                                 ),
-                                                Text("Ya"),
+                                                const Text("Ya"),
                                                 Radio<Q15>(
                                                   value: Q15.tidak,
                                                   groupValue: _q15,
@@ -533,7 +533,7 @@ class _AddSkriningPageState extends State<AddSkriningPage> {
                                                     });
                                                   },
                                                 ),
-                                                Text("Tidak"),
+                                                const Text("Tidak"),
                                               ]),
                                             ),
                                           ],
