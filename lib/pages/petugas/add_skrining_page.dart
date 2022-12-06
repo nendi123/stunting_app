@@ -497,7 +497,7 @@ class _AddSkriningPageState extends State<AddSkriningPage> {
                                                     });
                                                   },
                                                 ),
-                                                Text("Ya"),
+                                                const Text("Ya"),
                                                 Radio<Q14>(
                                                   value: Q14.tidak,
                                                   groupValue: _q14,
