@@ -10,6 +10,7 @@ class AddIbuPage extends StatefulWidget {
 
 class _AddIbuPageState extends State<AddIbuPage> {
   final _formKey = GlobalKey<FormState>();
+  DateTime selectedDate = DateTime.now();
   TextEditingController _nikController = TextEditingController();
   TextEditingController _namaController = TextEditingController();
   TextEditingController _alamatController = TextEditingController();
@@ -28,23 +29,23 @@ class _AddIbuPageState extends State<AddIbuPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton( //menu icon button at start left of appbar
-          onPressed: (){
+        leading: IconButton(
+          //menu icon button at start left of appbar
+          onPressed: () {
             //code to execute when this button is pressed
             Navigator.pushNamed(context, '/listIbu');
           },
-          icon: Icon(Icons.arrow_back, size: 20,),
+          icon: Icon(
+            Icons.arrow_back,
+            size: 20,
+          ),
         ),
         title: Text(
           'Tambah data Ibu di Posyandu',
-          style: TextStyle(
-              fontWeight: FontWeight.w300,
-              fontSize: 16
-          ),
+          style: TextStyle(fontWeight: FontWeight.w300, fontSize: 16),
         ),
         toolbarHeight: 50,
         elevation: 30.0,
-
       ),
       body: SingleChildScrollView(
           child: Container(
@@ -222,6 +223,9 @@ class _AddIbuPageState extends State<AddIbuPage> {
                   TextFormField(
                     controller: _tglLahirController,
                     decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                            icon: const Icon(Icons.calendar_today),
+                            onPressed: () => _selectDate(context)),
                         filled: true,
                         fillColor: Colors.white,
                         hintText: 'Tanggal Lahir',
@@ -479,5 +483,20 @@ class _AddIbuPageState extends State<AddIbuPage> {
         ),
       )),
     );
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+        var dates = selectedDate.toString().split(' ');
+        _tglLahirController.text = dates[0];
+      });
+    }
   }
 }

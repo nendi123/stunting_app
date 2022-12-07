@@ -1,5 +1,12 @@
+// ignore_for_file: unnecessary_brace_in_string_interps
+
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:stunting_app/model/petugas/ibu_model.dart';
+import 'package:stunting_app/shared/config.dart';
 import 'package:stunting_app/shared/constant.dart';
+import 'package:http/http.dart' as http;
 
 class ListIbuPage extends StatefulWidget {
   const ListIbuPage({super.key});
@@ -50,43 +57,57 @@ class _ListIbuPageState extends State<ListIbuPage> {
               child: Card(
                   child: Column(
                 children: [
-                  ListTile(
-                    // leading: Text('3217070508940008'),
-                    title: GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/homeIbu');
-                      },
-                      child: const Text(
-                        '3217070508940008 \nIbu Siti',
-                        style: TextStyle(fontWeight: FontWeight.w300),
-                      ),
-                    ),
-                    trailing: IconButton(
-                      icon: const Icon(
-                        Icons.edit,
-                      ),
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/editIbu');
+                  Container(
+                    child: FutureBuilder<List<IbuModel>>(
+                      future: _fetchIbu(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          List<IbuModel>? data = snapshot.data;
+                          return _jobsListView(data);
+                        } else if (snapshot.hasError) {
+                          return Text("${snapshot.error}");
+                        }
+                        return CircularProgressIndicator();
                       },
                     ),
-                  ),
-                  const Divider(
-                    color: Colors.black,
-                    height: 5,
-                  ),
-                  ListTile(
-                    // leading: Text('3217070508940008'),
-                    title: const Text(
-                      '3217070508940008 \nIbu Fulan binti Fulanah',
-                      style: TextStyle(fontWeight: FontWeight.w300),
-                    ),
-                    trailing: IconButton(
-                      icon: const Icon(
-                        Icons.edit,
-                      ),
-                      onPressed: () {},
-                    ),
-                  ),
+                  )
+                  // ListTile(
+                  //   // leading: Text('3217070508940008'),
+                  //   title: GestureDetector(
+                  //     onTap: () {
+                  //       Navigator.pushNamed(context, '/homeIbu');
+                  //     },
+                  //     child: const Text(
+                  //       '3217070508940008 \nIbu Siti',
+                  //       style: TextStyle(fontWeight: FontWeight.w300),
+                  //     ),
+                  //   ),
+                  //   trailing: IconButton(
+                  //     icon: const Icon(
+                  //       Icons.edit,
+                  //     ),
+                  //     onPressed: () {
+                  //       Navigator.pushNamed(context, '/editIbu');
+                  //     },
+                  //   ),
+                  // ),
+                  // const Divider(
+                  //   color: Colors.black,
+                  //   height: 5,
+                  // ),
+                  // ListTile(
+                  //   // leading: Text('3217070508940008'),
+                  //   title: const Text(
+                  //     '3217070508940008 \nIbu Fulan binti Fulanah',
+                  //     style: TextStyle(fontWeight: FontWeight.w300),
+                  //   ),
+                  //   trailing: IconButton(
+                  //     icon: const Icon(
+                  //       Icons.edit,
+                  //     ),
+                  //     onPressed: () {},
+                  //   ),
+                  // ),
                 ],
               )),
             )
@@ -123,4 +144,42 @@ class _ListIbuPageState extends State<ListIbuPage> {
       )),
     );
   }
+
+  Future<List<IbuModel>> _fetchIbu() async {
+    final response =
+        await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbuAll"));
+
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(response.body);
+      if (jsonResponse.isEmpty) {
+        setState(() {});
+      }
+      return jsonResponse.map((job) => IbuModel.responseApi(job)).toList();
+    } else {
+      throw Exception('Failed to load jobs from API');
+    }
+  }
+
+  ListView _jobsListView(data) {
+    return ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: data.length,
+        itemBuilder: (context, index) {
+          return _tile(data[index].nik, data[index].namaLengkap);
+        });
+  }
+
+  ListTile _tile(String nik, String nama) => ListTile(
+        title: Text(
+          '${nik} \nIbu ${nama}',
+          style: const TextStyle(fontWeight: FontWeight.w300),
+        ),
+        trailing: IconButton(
+          icon: const Icon(
+            Icons.edit,
+          ),
+          onPressed: () {},
+        ),
+      );
 }
