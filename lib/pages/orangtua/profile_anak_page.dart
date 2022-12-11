@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:stunting_app/shared/constant.dart';
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:stunting_app/model/anak.dart';
 
 const List<String> jns_kelamin = <String>['Laki-laki', 'Perempuan'];
 const List<String> jns_prematur = <String>['Ya', 'Tidak'];
 
 class ProfileAnakPage extends StatefulWidget {
-  const ProfileAnakPage({super.key});
+  // const ProfileAnakPage({super.key, required this.anak});
+  const ProfileAnakPage({required this.anak });
+  // const ProfileAnakPage({super.key});
+  // final Anak anak;
+  // final List jsondata;
+  final List<dynamic> anak;
 
   @override
   State<ProfileAnakPage> createState() => _ProfileAnakPageState();
@@ -17,6 +23,8 @@ class _ProfileAnakPageState extends State<ProfileAnakPage> {
   // String dropdownValue = jns_kelamin.first;
   String? jenis_kelamin;
   String? prematur;
+  // Anak? anak;
+
 
   String _valueChanged1 = '';
   String _valueToValidate1 = '';
@@ -116,6 +124,9 @@ class _ProfileAnakPageState extends State<ProfileAnakPage> {
   @override
   Widget build(BuildContext context) {
     final ColorScheme colors = Theme.of(context).colorScheme;
+    // final anak = ModalRoute.of(context)!.settings.arguments as ana;
+    // print(anak.nama_lengkap);
+    // List <dynamic> jsondata = ModalRoute.of(context)!.settings.arguments;
 
     return Scaffold(
       appBar: AppBar(
@@ -128,7 +139,9 @@ class _ProfileAnakPageState extends State<ProfileAnakPage> {
           icon: Icon(Icons.arrow_back, size: 20,),
         ),
         title: Text(
-          'Profile Anak',
+          // '${anak.nama_lengkap}',
+          // anak.nama_lengkap,
+          '${widget.anak}',
           style: TextStyle(
               fontWeight: FontWeight.w300,
               fontSize: 16

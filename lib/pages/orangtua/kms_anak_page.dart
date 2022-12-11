@@ -111,7 +111,8 @@ class _KmsAnakPagetate extends State<KmsAnakPage> with SingleTickerProviderState
         leading: IconButton( //menu icon button at start left of appbar
           onPressed: (){
             //code to execute when this button is pressed
-            Navigator.pushNamed(context, '/profileAnak');
+            // Navigator.pushNamed(context, '/profileAnak');
+            Navigator.pop(context);
           },
           icon: Icon(Icons.arrow_back, size: 20,),
         ),
@@ -176,7 +177,7 @@ class _KmsAnakPagetate extends State<KmsAnakPage> with SingleTickerProviderState
               labelColor: Colors.red,
               tabs: [
                 Tab(
-                  text: 'Grafik Pertubuhan',
+                  text: 'Grafik Pertumbuhan',
                   icon: Icon(Icons.add_chart),
                 ),
                 Tab(

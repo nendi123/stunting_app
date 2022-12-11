@@ -5,7 +5,7 @@ import 'dart:async';
 
 class Distrik {
   // kode_distrik, nama_distrik, alamat
-  late final String kode_distrik, nama_distrik, alamat;
+  final String kode_distrik, nama_distrik, alamat;
   Distrik({
     required this.kode_distrik,
     required this.nama_distrik,

@@ -5,7 +5,7 @@ import 'dart:async';
 
 class Kelurahan {
   // kode_kelurahan, kode_distrik, nama_kelurahan, alamat
-  late final String kode_kelurahan, kode_distrik, nama_kelurahan, alamat;
+  final String kode_kelurahan, kode_distrik, nama_kelurahan, alamat;
   Kelurahan({
     required this.kode_kelurahan,
     required this.kode_distrik,

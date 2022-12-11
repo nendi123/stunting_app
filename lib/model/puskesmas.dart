@@ -5,7 +5,7 @@ import 'dart:async';
 
 class Puskesmas {
   // kode_puskesmas, kode_distrik, nama_puskesmas, alamat
-  late final String kode_puskesmas, kode_distrik, nama_puskesmas, alamat;
+  final String kode_puskesmas, kode_distrik, nama_puskesmas, alamat;
   Puskesmas({
     required this.kode_puskesmas,
     required this.kode_distrik,

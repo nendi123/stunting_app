@@ -1,36 +1,134 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stunting_app/pages/orangtua/detail_anak_page.dart';
+import 'package:stunting_app/pages/orangtua/profile_anak_page.dart';
 import 'package:stunting_app/shared/constant.dart';
+import 'package:stunting_app/model/anak.dart';
 import 'package:stunting_app/model/item.dart';
+import 'package:stunting_app/shared/util.dart';
+import 'package:stunting_app/shared/config.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:async';
+import 'package:async/async.dart';
+import 'package:stunting_app/pages/orangtua/test_detail_anak.dart';
 
 class HomeOrangtuaPage extends StatefulWidget {
   const HomeOrangtuaPage({super.key});
+
+  // final List list;
+  // const HomeOrangtuaPage({required this.list});
 
   @override
   State<HomeOrangtuaPage> createState() => _HomeOrangtuaPageState();
 }
 
-class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
-  final List<Item> listItems = [
 
-  ];
-  // List<Item> anak = [
-  //   Item(
-  //     id = 1,
-  //     nama: 'Lulu Faza Kamila',
-  //     usia: '4 thn 7 bln',
-  //   ),
-  //   Item(
-  //     id = 2,
-  //     nama: 'Laura Shafaa Nadhira',
-  //     usia: '2 thn 3 bln',
-  //   ),
-  // ];
+class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
+
+  @override
+  void initState() {
+    response = getData();
+    super.initState();
+    // getNik().then((_) {
+    //   response = getData(getNik());
+    // });
+  }
+
+  // static Future getNik() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   final nik = prefs.getString('nik');
+  //   print(nik);
+  //   return nik;
+  // }
+
+  Future<List<dynamic>> getData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final nik = prefs.getString('nik');
+    final response = await http.get(Uri.parse(AppConfig.API_ENDPOINT+'/showAnakIbu/'+nik!));
+    return jsonDecode(response.body);
+  }
+
+  late Future<List<dynamic>> response;
+  late final List<Anak> anak;
+
+  myApiWidget() {
+    return FutureBuilder(
+      future: response,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if(snapshot.hasData) {
+      // if(snapshot.connectionState == ConnectionState.waiting) {
+          return ListView.builder(
+              shrinkWrap: true,
+              padding: EdgeInsets.all(25),
+              itemCount: snapshot.data.length,
+              itemBuilder: (BuildContext context, int index) {
+                // final List<Anak> ana = snapshot.data;
+                return  Card(
+                  child: Column(
+                    children: [
+                      ListTile(
+                        title: Text(snapshot.data[index]['nama_lengkap']),
+                        trailing: Text(snapshot.data[index]['tgl_lahir']),
+                        // leading: CircleAvatar(
+                        //   backgroundImage: NetworkImage(snapshot.data[index]['foto']),
+                        onTap:() {
+                          // final List<Anak> ana = snapshot.data;
+                          final responseData = snapshot.data[index];
+                          print(responseData);
+                          // // print(responseData);
+                          // anak = snapshot.data[index];
+                          // print(responseData);
+                          // Navigator.pushNamed(context, '/profileAnak');
+                          // Navigator.of(context).push(MaterialPageRoute(
+                          //     builder: (context)=>ProfileAnakPage(),
+                          //     settings: RouteSettings(arguments: responseData)));
+                          //
+                          // Navigator.of(context).push(MaterialPageRoute(builder: (context)=>(nama: _name.text, email: _email.text, phone: _phone.text)));
+                          String _prematur;
+                          if(snapshot.data[index]['prematur'] == 'Tidak') {
+                            _prematur = 'false';
+                          } else {
+                            _prematur = 'true';
+                          }
+
+                          Navigator.of(context).push(MaterialPageRoute(builder:
+                              (context)=>
+                                  TestDetailAnak(id_anak: snapshot.data[index]['id_anak'], nik_ibu: snapshot.data[index]['nik_ibu'], nama_lengkap: snapshot.data[index]['nama_lengkap'], jenis_kelamin: snapshot.data[index]['jenis_kelamin'],
+                                    tgl_lahir: snapshot.data[index]['tgl_lahir'], akte_lahir : snapshot.data[index]['akte_lahir'], persalinan_oleh : snapshot.data[index]['persalinan_oleh'],
+                                    bb_lahir: snapshot.data[index]['bb_lahir'], panjang_lahir: snapshot.data[index]['panjang_lahir'], prematur: _prematur, usia_kehamilan: snapshot.data[index]['usia_kehamilan'],
+                                    alergi: snapshot.data[index]['alergi'], gol_darah: snapshot.data[index]['gol_darah'], lingkar_kepala: snapshot.data[index]['lingkar_kepala'],tb_lahir: snapshot.data[index]['tb_lahir'])));
+
+                          // id_anak, nik_ibu, nama_lengkap, jenis_kelamin, tgl_lahir, akte_lahir,
+                          // persalinan_oleh, bb_lahir, panjang_lahir, prematur, usia_kehamilan, alergi, gol_darah,
+                          // lingkar_kepala,tb_lahir
+                          //
+                          // Navigator.of(context).push(MaterialPageRoute(
+                          //     builder: (context)=>ProfileAnakPage(anak: responseData)));
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              }
+          );
+        } else {
+          return Center(
+            // child: CircularProgressIndicator(),
+            child: Text('Data anak tidak ditemukan.'),
+          );
+        }
+      },
+    );
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-          child: Container(
+        child: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
@@ -105,31 +203,32 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
             const SizedBox(
               height: 10,
             ),
-            Container(
-              // child: ListView.builder(
-              //     itemCount: listItems.length,
-              //     itemBuilder: (BuildContext c, int index)
-              // ),
+            Expanded(
+              child: myApiWidget(),
             ),
-            GestureDetector(
-              child: Card(
-                margin: EdgeInsets.symmetric(horizontal: Constant().margin),
-                elevation: 0,
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    side: const BorderSide(color: Colors.black26)),
-                child: ListTile(
-                  title: Text(
-                      'Lulu Faza Kamila \n4 thn 7 bln',
-                      style: TextStyle(fontWeight: FontWeight.w300)
-                  ),
-                ),
-              ),
-              onTap: () {
-                Navigator.pushNamed(context, '/profileAnak');
-              },
-            ),
+
+
+            // for(var list in futurePost)
+            // GestureDetector(
+            //   child: Card(
+            //     margin: EdgeInsets.symmetric(horizontal: Constant().margin),
+            //     elevation: 0,
+            //     color: Colors.white,
+            //     shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(10),
+            //         side: const BorderSide(color: Colors.black26)),
+            //     child: ListTile(
+            //       title: Text(
+            //           // "${snapshot}",
+            //           'Lulu Faza Kamila \n4 thn 7 bln',
+            //           style: TextStyle(fontWeight: FontWeight.w300)
+            //       ),
+            //     ),
+            //   ),
+            //   onTap: () {
+            //     Navigator.pushNamed(context, '/profileAnak');
+            //   },
+            // ),
             // Container(
             //   margin: EdgeInsets.symmetric(horizontal: Constant().margin),
             //   child: Card(
@@ -245,8 +344,8 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
                       child: const Text('Tidak'),
                     ),
                     TextButton(
-                      onPressed: () =>
-                          Navigator.pushNamed(context, '/loginPetugas'),
+                      onPressed: () => logOut(context),
+                          // Navigator.pushNamed(context, '/loginPetugas'),
                       child: const Text('Ya'),
                     ),
                   ],
@@ -258,4 +357,26 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
       ),
     );
   }
+
 }
+
+// class ItemList extends StatelessWidget {
+//   final List list;
+//   ItemList({required this.list});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return ListView.builder(
+//         itemCount: list == null ? 0 : list.length,
+//         itemBuilder: (context, i) {
+//           return Container(
+//             child: GestureDetector(
+//               onTap: () => Navigator.pushNamed(context, '/profileAnak'),
+//               // onTap: () => Navigator.of(context).push(MaterialPageRoute(
+//                   // builder: (BuildContext context) => new DetailAnakPage(anak: i)))),
+//             ),
+//           );
+//         }
+//     );
+//   }
+// }

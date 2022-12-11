@@ -7,9 +7,9 @@ class Skrining {
   // nik_ibu, id_anak, tanggal, asi_eksklusif, mpasi, pmt, pmt_habis, ditimbang_posyandu,
   // zinc_diare, pernah_cacingan, obat_cacingan, jamban_keluarga, pakai_jamban, septic_tank,
   // ibu_cuci_tangan, anak_cuci_tangan, treatment_hamil
-  late final String nik_ibu, id_anak, tanggal, asi_eksklusif, mpasi, pmt, pmt_habis, ditimbang_posyandu;
-  late final String zinc_diare, pernah_cacingan, obat_cacingan, jamban_keluarga, pakai_jamban, septic_tank;
-  late final String ibu_cuci_tangan, anak_cuci_tangan, treatment_hamil;
+  final String nik_ibu, id_anak, tanggal, asi_eksklusif, mpasi, pmt, pmt_habis, ditimbang_posyandu;
+  final String zinc_diare, pernah_cacingan, obat_cacingan, jamban_keluarga, pakai_jamban, septic_tank;
+  final String ibu_cuci_tangan, anak_cuci_tangan, treatment_hamil;
   Skrining({
     required this.nik_ibu,
     required this.id_anak,

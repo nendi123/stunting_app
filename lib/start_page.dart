@@ -109,7 +109,7 @@ class StartPage extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, '/registrasiOrangtua');
+                Navigator.pushNamed(context, '/loginIbu');
               },
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20),

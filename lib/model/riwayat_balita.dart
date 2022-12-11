@@ -7,7 +7,7 @@ import 'dart:ui';
 
 class RiwayatBalita {
   //id_anak, tgl_riwayat, tinggi_badan, berat_badan, bb_usia, tb_usia, lingkar_kepala, riwayat_diare, riwayat_ispa
-  late final String id_anak, tgl_riwayat, tinggi_badan, berat_badan, bb_usia, tb_usia, lingkar_kepala, riwayat_diare, riwayat_ispa;
+  final String id_anak, tgl_riwayat, tinggi_badan, berat_badan, bb_usia, tb_usia, lingkar_kepala, riwayat_diare, riwayat_ispa;
   RiwayatBalita({
     required this.id_anak,
     required this.tgl_riwayat,
