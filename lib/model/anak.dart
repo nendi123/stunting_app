@@ -123,3 +123,19 @@ Future editAnak(Anak anak) async {
     return null;
   }
 }
+
+Future eraseAnak(String id_anak) async {
+  String route = AppConfig.API_ENDPOINT + '/delAnak';
+  // id_anak
+  try {
+    final response = await http.post(
+      Uri.parse(route),
+      headers: {"Content-Type" : "application/json"},
+      body: jsonEncode({'id_anak': id_anak}),
+    );
+    return response;
+  } catch (e) {
+    print('Error : ${e.toString()}');
+    return null;
+  }
+}

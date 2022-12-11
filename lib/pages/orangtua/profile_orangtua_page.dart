@@ -16,28 +16,29 @@ class _ProfileOrangTuaPageState extends State<ProfileOrangTuaPage> {
   TextEditingController _alamatController = TextEditingController();
   TextEditingController _hpController = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   // title: Text('Profile Petugas'),
-      //   leading: IconButton( //menu icon button at start left of appbar
-      //     onPressed: (){
-      //       //code to execute when this button is pressed
-      //       Navigator.pushNamed(context, '/homeOrangtua');
-      //     },
-      //     icon: Icon(Icons.arrow_back, size: 20,),
-      //   ),
-      //   title: Text(
-      //     'Profile Ibu',
-      //     style: TextStyle(
-      //         fontWeight: FontWeight.w300,
-      //         fontSize: 16
-      //     ),
-      //   ),
-      //   toolbarHeight: 50,
-      //   elevation: 30.0,
-      // ),
+      appBar: AppBar(
+        // title: Text('Profile Petugas'),
+        leading: IconButton( //menu icon button at start left of appbar
+          onPressed: (){
+            //code to execute when this button is pressed
+            Navigator.pushNamed(context, '/homeOrangtua');
+          },
+          icon: Icon(Icons.arrow_back, size: 20,),
+        ),
+        title: Text(
+          'Profile Ibu',
+          style: TextStyle(
+              fontWeight: FontWeight.w300,
+              fontSize: 16
+          ),
+        ),
+        toolbarHeight: 50,
+        elevation: 30.0,
+      ),
       body: SingleChildScrollView(
           child: Container(
         width: MediaQuery.of(context).size.width,
@@ -51,21 +52,7 @@ class _ProfileOrangTuaPageState extends State<ProfileOrangTuaPage> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.only(
-                  left: Constant().margin,
-                  right: Constant().margin,
-                  top: 30,
-                  bottom: 10),
-              child: const Text(
-                "Atur Profile Ibu",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
-              ),
-            ),
-            const SizedBox(
-              height: 0,
-            ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
@@ -79,18 +66,18 @@ class _ProfileOrangTuaPageState extends State<ProfileOrangTuaPage> {
                       height: 150.0,
                       width: 150.0,
                       color: Colors.transparent,
-                      child: Image.asset('assets/image/logo.png'),
+                      child: Image.asset('assets/image/orangtua.png'),
                     ),
                   ),
                 ),
-                Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(horizontal: Constant().margin),
-                  child: const Text(
-                    "Unggah Foto",
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
-                  ),
-                ),
+                // Container(
+                //   alignment: Alignment.center,
+                //   margin: EdgeInsets.symmetric(horizontal: Constant().margin),
+                //   child: const Text(
+                //     "Unggah Foto",
+                //     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                //   ),
+                // ),
               ],
             ),
             const SizedBox(

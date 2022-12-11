@@ -206,21 +206,21 @@ class _EditAnakPageState extends State<EditAnakPage> {
     gol_darah.text = widget.gol_darah;
     persalinan_oleh.text = widget.persalinan_oleh;
 
-    String _id_anak = widget.id_anak;
-    String _nik_ibu = widget.nik_ibu;
-    String _jenis_kelamin = widget.jenis_kelamin;
-    String _nama_lengkap = widget.nama_lengkap;
-    String _tgl_lahir = widget.tgl_lahir;
-    String _akte_lahir = widget.akte_lahir;
-    String _persalinan_oleh = widget.persalinan_oleh;
-    String _bb_lahir = widget.bb_lahir;
-    String _panjang_lahir = widget.panjang_lahir;
+    // String _id_anak = widget.id_anak;
+    // String _nik_ibu = widget.nik_ibu;
+    // String _jenis_kelamin = widget.jenis_kelamin;
+    // String _nama_lengkap = widget.nama_lengkap;
+    // String _tgl_lahir = widget.tgl_lahir;
+    // String _akte_lahir = widget.akte_lahir;
+    // String _persalinan_oleh = widget.persalinan_oleh;
+    // String _bb_lahir = widget.bb_lahir;
+    // String _panjang_lahir = widget.panjang_lahir;
     String _prematur = widget.prematur;
-    String _alergi = widget.alergi;
-    String _gol_darah = widget.gol_darah;
-    String _lingkar_kepala = widget.lingkar_kepala;
-    int _usia_kehamilan = widget.usia_kehamilan;
-    String _tb_lahir = widget.tb_lahir;
+    // String _alergi = widget.alergi;
+    // String _gol_darah = widget.gol_darah;
+    // String _lingkar_kepala = widget.lingkar_kepala;
+    // int _usia_kehamilan = widget.usia_kehamilan;
+    // String _tb_lahir = widget.tb_lahir;
     print(widget.tgl_lahir);
 
     return Scaffold(
@@ -315,9 +315,6 @@ class _EditAnakPageState extends State<EditAnakPage> {
                                   prefixIcon: IconButton(
                                       icon: const Icon(Icons.date_range),
                                       onPressed: () => _selectDate(context)),
-                                  // suffixIcon: IconButton(
-                                  //     icon: const Icon(Icons.calendar_today),
-                                  //     onPressed: () => _selectDate(context)),
                                   contentPadding:
                                   EdgeInsets.symmetric(horizontal: Constant().margin),
                                   border: OutlineInputBorder(

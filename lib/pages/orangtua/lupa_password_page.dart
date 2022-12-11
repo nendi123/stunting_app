@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stunting_app/model/userAuth.dart';
 import 'package:stunting_app/shared/constant.dart';
 
 class LupaPasswordPage extends StatefulWidget {
@@ -128,6 +129,7 @@ class _LupaPasswordPageState extends State<LupaPasswordPage> {
                           style: TextStyle(fontSize: 18),
                         ),
                         onPressed: () {
+                          ubahPassword(_emailController.text, _passwordController.text);
                           Navigator.pushNamed(context, '/loginIbu');
                         },
                       ),

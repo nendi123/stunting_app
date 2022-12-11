@@ -5,7 +5,7 @@ import 'dart:async';
 
 class Kelurahan {
   // kode_kelurahan, kode_distrik, nama_kelurahan, alamat
-<<<<<<< HEAD
+
   // final String kode_kelurahan, kode_distrik, nama_kelurahan, alamat;
   // Kelurahan({
   //   required this.kode_kelurahan,
@@ -14,19 +14,14 @@ class Kelurahan {
   //   required this.alamat
   // });
 
-  late final String kode_kelurahan, kode_distrik, nama_kelurahan, alamat;
-=======
+  // late final String kode_kelurahan, kode_distrik, nama_kelurahan, alamat;
   final String kode_kelurahan, kode_distrik, nama_kelurahan, alamat;
->>>>>>> 8adec7f858b40a80bb88bc6ad11769efa5228c13
+
   Kelurahan(
       {required this.kode_kelurahan,
       required this.kode_distrik,
       required this.nama_kelurahan,
       required this.alamat});
-<<<<<<< HEAD
-
-=======
->>>>>>> 8adec7f858b40a80bb88bc6ad11769efa5228c13
 
   factory Kelurahan.fromJson(Map<String, dynamic> json) {
     return Kelurahan(

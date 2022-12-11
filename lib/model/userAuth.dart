@@ -78,3 +78,19 @@ Future login(UserAuth userAuth) async {
     return null;
   }
 }
+
+Future ubahPassword(String userid, String password) async {
+  String route = AppConfig.API_ENDPOINT + '/ubahPassword';
+  try {
+    final response = await http.post(
+        Uri.parse(route),
+        headers: {"Content-Type" : "application/json"},
+        body: jsonEncode({'userid': userid, 'password' : password})
+    );
+    print(response.body.toString());
+    return response;
+  } catch (e) {
+    print('Error : ${e.toString()}');
+    return null;
+  }
+}

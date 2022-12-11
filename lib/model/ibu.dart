@@ -62,3 +62,40 @@ Future<List<Ibu>> fetchIbu() async {
     throw Exception('Failed load $route, status : ${response.statusCode}');
   }
 }
+
+Future editIbu(Ibu ibu) async {
+  String route = AppConfig.API_ENDPOINT + '/editIbu';
+  // nik, nama_lengkap, tgl_lahir, alamat, no_hp, kode_kelurahan, kode_distrik, berat_badan;
+  // tinggi_badan, Pendidikan, pekerjaan, status_nikah, jumlah_anak, memiliki_kk
+  // nama_lengkap=:nama_lengkap, tgl_lahir=:tgl_lahir, alamat=:alamat, no_hp=:no_hp
+  try {
+    final response = await http.post(
+      Uri.parse(route),
+      headers: {"Content-Type" : "application/json"},
+      body: jsonEncode({'nik': ibu.nik, 'nama_lengkap': ibu.nama_lengkap, 'tgl_lahir' : ibu.tgl_lahir, 'alamat' : ibu.alamat, 'no_hp' : ibu.no_hp,
+        'kode_kelurahan' : ibu.kode_kelurahan, 'kode_distrik' : ibu.kode_distrik, 'berat_badan' : ibu.berat_badan, 'tinggi_badan' : ibu.tinggi_badan,
+        'pendidikan' : ibu.pendidikan, 'pekerjaan' : ibu.pekerjaan, 'alergi' : anak.alergi, 'gol_darah' : anak.gol_darah,
+        'tb_lahir' : anak.tb_lahir, 'lingkar_kepala' : anak.lingkar_kepala}),
+    );
+    return response;
+  } catch (e) {
+    print('Error : ${e.toString()}');
+    return null;
+  }
+}
+
+Future eraseIbu(String nik) async {
+  String route = AppConfig.API_ENDPOINT + '/delIbu';
+  // id_anak
+  try {
+    final response = await http.post(
+      Uri.parse(route),
+      headers: {"Content-Type" : "application/json"},
+      body: jsonEncode({'nik': nik}),
+    );
+    return response;
+  } catch (e) {
+    print('Error : ${e.toString()}');
+    return null;
+  }
+}

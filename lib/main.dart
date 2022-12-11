@@ -20,6 +20,7 @@ import 'package:stunting_app/pages/petugas/edit_anak_page.dart';
 import 'package:stunting_app/pages/petugas/edit_ibu_page.dart';
 import 'package:stunting_app/pages/petugas/home_ibu_page.dart';
 import 'package:stunting_app/pages/petugas/home_petugas_page.dart';
+import 'package:stunting_app/pages/petugas/kms_petugas_page.dart';
 import 'package:stunting_app/pages/petugas/list_ibu_page.dart';
 
 import 'package:stunting_app/pages/petugas/login_petugas_page.dart' as LoginPetugas;
@@ -111,12 +112,13 @@ class MyApp extends StatelessWidget {
 
         '/homeIbu': (context) => const HomeIbuPage(),
         '/listAnakPage': (context) => const ListAnakPage(),
-        '/editAnakPage': (context) => const EditAnakPagePetugas(),
-        '/mpasiPetugasPage': (context) => const MpasiAnakPagePetugas(),
-        '/addAnakPage': (context) => const AddAnakPagePetugas(),
+        // '/editAnakPage': (context) => const EditAnakPagePetugas(),
+        // '/mpasiPetugasPage': (context) => const MpasiAnakPagePetugas(),
+        // '/addAnakPage': (context) => const AddAnakPagePetugas(),
         '/skriningPage': (context) => const AddSkriningPage(),
+        '/kmsPetugasPage': (context) => const KmsPetugasPage(),
         //orang tua
-        // '/loginIbu': (context) => const LoginOrangtua.LoginOrangtuaPage(),
+        '/loginIbu': (context) => const LoginOrangtua.LoginOrangtuaPage(),
         '/listIbu': (context) => const ListIbuPage(),
         '/profileIbu': (context) => const ProfileOrangTuaPage(),
         '/homeOrangtua': (context) => const HomeOrangtuaPage(),
