@@ -7,7 +7,7 @@ import 'dart:ui';
 
 class Petugas {
   //nik, kode_posyandu, nama_lengkap, email, no_hp, alamat, kode_puskesmas
-  late final String nik, kode_posyandu, nama_lengkap, email, no_hp, alamat, kode_puskesmas;
+  final String nik, kode_posyandu, nama_lengkap, email, no_hp, alamat, kode_puskesmas;
   Petugas({
     required this.nik,
     required this.kode_posyandu,

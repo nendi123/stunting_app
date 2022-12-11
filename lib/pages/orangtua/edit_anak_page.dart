@@ -1,19 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:stunting_app/shared/constant.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:stunting_app/model/anak.dart';
 
 const List<String> jns_kelamin = <String>['Laki-laki', 'Perempuan'];
 const List<String> jns_prematur = <String>['Ya', 'Tidak'];
 
 class EditAnakPage extends StatefulWidget {
-  const EditAnakPage({super.key});
+  String id_anak, nik_ibu, nama_lengkap, jenis_kelamin, tgl_lahir, akte_lahir,
+      persalinan_oleh, bb_lahir, panjang_lahir, prematur, alergi, gol_darah, lingkar_kepala,tb_lahir ;
+  int usia_kehamilan;
 
+  EditAnakPage({Key ? key, required this.id_anak, required this.nik_ibu, required this.nama_lengkap, required this.jenis_kelamin,
+    required this.tgl_lahir,  required this.akte_lahir, required this.persalinan_oleh, required this.bb_lahir, required this.panjang_lahir,
+    required this.prematur, required this.usia_kehamilan, required this.alergi, required this.gol_darah, required this.lingkar_kepala, required this.tb_lahir });
+
+  // const EditAnakPage({super.key});
   @override
   State<EditAnakPage> createState() => _EditAnakPageState();
 }
 
 class _EditAnakPageState extends State<EditAnakPage> {
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   // String dropdownValue = jns_kelamin.first;
   String? jenis_kelamin;
   String? prematur;
@@ -22,25 +41,15 @@ class _EditAnakPageState extends State<EditAnakPage> {
   String _valueToValidate1 = '';
   String _valueSaved1 = '';
 
-  TextEditingController _namaController = TextEditingController();
-  TextEditingController _tgl_lahirController = TextEditingController();
-  TextEditingController _jenis_kelaminController = TextEditingController();
-  TextEditingController _prematurController = TextEditingController();
-  TextEditingController _bb_lahirController = TextEditingController();
-  TextEditingController _tb_lahirController = TextEditingController();
-  TextEditingController _lingkarkepala_lahirController = TextEditingController();
-  TextEditingController _gol_darahController = TextEditingController();
-  TextEditingController _alergiController = TextEditingController();
-  TextEditingController _tb_ibuController = TextEditingController();
-  TextEditingController _bb_ibuController = TextEditingController();
+  Widget _inputText(TextEditingController nama_control, String judul, String datavalue) {
 
-  Widget _inputText(TextEditingController nama_control, String judul) {
     return new TextFormField(
       controller: nama_control,
       decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
-          hintText: judul,
+          // hintText: judul,
+          // labelText: datavalue,
           hintStyle: TextStyle(color: Colors.black38, fontSize: 14),
           contentPadding: EdgeInsets.symmetric(
               horizontal: Constant().margin),
@@ -51,10 +60,23 @@ class _EditAnakPageState extends State<EditAnakPage> {
             borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(
                 color: Colors.white, width: 0.0),
-          )),
+          )
+      ),
+
+      onChanged: (val) {
+        setState(() {
+          nama_control.text = val;
+        });
+      },
+      onEditingComplete: () {
+        FocusScope.of(context).requestFocus();
+      },
+      onTap: () {
+
+      },
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please enter some text';
+          return 'Tidak boleh kosong';
         }
         return null;
       },
@@ -87,6 +109,39 @@ class _EditAnakPageState extends State<EditAnakPage> {
     );
   }
 
+  // Widget _jenisKelaminDropdown() {
+  //   return DropdownButton<String>(
+  //     value: widget.jenis_kelamin,
+  //     icon: const Icon(Icons.arrow_downward),
+  //     elevation: 16,
+  //     hint: Text("Pilih jenis kelamin disini!     ", style: TextStyle(color: Colors.black38),),
+  //     style: const TextStyle(color: Colors.black54),
+  //     underline: Container(
+  //       height: 1,
+  //       color: Colors.black38,
+  //     ),
+  //     onChanged: (String? value) {
+  //       jenis_kelamin = value;
+  //       // This is called when the user selects an item.
+  //       // setState(() {
+  //       //   jenis_kelamin = value!;
+  //       // });
+  //     },
+  //     items: jns_kelamin.map<DropdownMenuItem<String>>((String value) {
+  //       return DropdownMenuItem<String>(
+  //         value: value,
+  //         child: Text(value),
+  //       );
+  //     }).toList(),
+  //   );
+  // }
+
+  void get_jeniskelamin() {
+    setState(() {
+      jenis_kelamin = widget.jenis_kelamin;
+    });
+  }
+
   Widget _prematurDropdown() {
     return DropdownButton<String>(
       value: prematur,
@@ -113,9 +168,56 @@ class _EditAnakPageState extends State<EditAnakPage> {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
+    TextEditingController id_anak = TextEditingController(text: widget.id_anak);
+    TextEditingController nik_ibu = TextEditingController(text: widget.nik_ibu);
+    TextEditingController nama_lengkap = TextEditingController(text: widget.nama_lengkap);
+    TextEditingController tgl_lahir = TextEditingController(text: widget.tgl_lahir);
+    TextEditingController akte_lahir = TextEditingController(text: widget.akte_lahir);
+    TextEditingController tb_lahir = TextEditingController(text: widget.tb_lahir);
+    TextEditingController bb_lahir = TextEditingController(text: widget.bb_lahir);
+    TextEditingController panjang_lahir = TextEditingController(text: widget.panjang_lahir);
+    TextEditingController lingkar_kepala = TextEditingController(text: widget.lingkar_kepala);
+    TextEditingController usia_kehamilan = TextEditingController(text: widget.usia_kehamilan.toString());
+    TextEditingController alergi = TextEditingController(text: widget.alergi);
+    TextEditingController gol_darah = TextEditingController(text: widget.gol_darah);
+    TextEditingController persalinan_oleh = TextEditingController(text: widget.persalinan_oleh);
+
     final ColorScheme colors = Theme.of(context).colorScheme;
+    // id_anak, nik_ibu, jenis_kelamin, tgl_lahir, akte_lahir, persalinan_oleh, bb_lahir, panjang_lahir, prematur, alergi,
+    // gol_darah, lingkar_kepala,tb_lahir, usia_kehamilan
+    id_anak.text = widget.id_anak;
+    nik_ibu.text = widget.nik_ibu;
+    nama_lengkap.text = widget.nama_lengkap;
+    tgl_lahir.text = widget.tgl_lahir;
+    akte_lahir.text = widget.akte_lahir;
+    tb_lahir.text = widget.tb_lahir;
+    bb_lahir.text = widget.bb_lahir;
+    panjang_lahir.text = widget.panjang_lahir;
+    lingkar_kepala.text = widget.lingkar_kepala;
+    usia_kehamilan.text = widget.usia_kehamilan.toString();
+    alergi.text = widget.alergi;
+    gol_darah.text = widget.gol_darah;
+    persalinan_oleh.text = widget.persalinan_oleh;
+
+    String _id_anak = widget.id_anak;
+    String _nik_ibu = widget.nik_ibu;
+    String _jenis_kelamin = widget.jenis_kelamin;
+    String _nama_lengkap = widget.nama_lengkap;
+    String _tgl_lahir = widget.tgl_lahir;
+    String _akte_lahir = widget.akte_lahir;
+    String _persalinan_oleh = widget.persalinan_oleh;
+    String _bb_lahir = widget.bb_lahir;
+    String _panjang_lahir = widget.panjang_lahir;
+    String _prematur = widget.prematur;
+    String _alergi = widget.alergi;
+    String _gol_darah = widget.gol_darah;
+    String _lingkar_kepala = widget.lingkar_kepala;
+    int _usia_kehamilan = widget.usia_kehamilan;
+    String _tb_lahir = widget.tb_lahir;
+    print(widget.tgl_lahir);
 
     return Scaffold(
       appBar: AppBar(
@@ -123,12 +225,13 @@ class _EditAnakPageState extends State<EditAnakPage> {
         leading: IconButton( //menu icon button at start left of appbar
           onPressed: (){
             //code to execute when this button is pressed
-            Navigator.pushNamed(context, '/profileAnak');
+            // Navigator.pushNamed(context, '/profileAnak');
+            Navigator.pop(context);
           },
           icon: Icon(Icons.arrow_back, size: 20,),
         ),
         title: Text(
-          'Update Data Anak',
+          'Update Data : '+widget.nama_lengkap,
           style: TextStyle(
               fontWeight: FontWeight.w300,
               fontSize: 16
@@ -193,42 +296,51 @@ class _EditAnakPageState extends State<EditAnakPage> {
                       child: Column(
                           children: <Widget> [
                             // textInput(_namaController,  'Nama lengkap'),
-                            _inputText(_namaController, 'Nama Lengkap'),
+                            Text('Nama lengkap anak', style: TextStyle(color: Colors.black38),),
+                            _inputText(nama_lengkap, 'Nama Lengkap', _nama_lengkap),
                             const SizedBox(
                               height: 10,
                             ),
                             // _inputText(_tgl_lahirController, 'Tanggal Lahir'),
+                            Text('Tanggal lahir', style: TextStyle(color: Colors.black38),),
                             DateTimePicker(
                               // type: DateTimePickerType.dateTimeSeparate,
                               type: DateTimePickerType.date,
                               dateMask: 'd MMM, yyyy',
-                              controller: _tgl_lahirController,
+                              controller: tgl_lahir,
                               //initialValue: _initialValue,
                               firstDate: DateTime(2000),
                               lastDate: DateTime(2100),
                               icon: Icon(Icons.event),
+
                               dateLabelText: 'Tanggal lahir',
+
                               // timeLabelText: "Hour",
                               //use24HourFormat: false,
                               //locale: Locale('pt', 'BR'),
-                              selectableDayPredicate: (date) {
-                                if (date.weekday == 6 || date.weekday == 7) {
-                                  return false;
-                                }
-                                return true;
+                              // selectableDayPredicate: (date) {
+                              //   if (date.weekday == 6 || date.weekday == 7) {
+                              //     return false;
+                              //   }
+                              //   return true;
+                              // },
+                              // onChanged: (val) => setState(() => _valueChanged1 = val),
+                              onChanged: (val) {
+                                print('tgl baru $val');
+                                tgl_lahir.text = val;
+                                // setState(() => tgl_lahir.text = val);
                               },
-                              onChanged: (val) => setState(() => _valueChanged1 = val),
                               validator: (val) {
                                 setState(() => _valueToValidate1 = val ?? '');
                                 return null;
                               },
-                              onSaved: (val) => setState(() => _valueSaved1 = val ?? ''),
+                              // onSaved: (val) => setState(() => _valueSaved1 = val ?? ''),
+                              onSaved: (val) => setState(() => tgl_lahir.text = val ?? ''),
                             ),
-
                             const SizedBox(
                               height: 10,
                             ),
-                            // _inputText(_jenis_kelaminController, 'Jenis Kelamin'),
+                            // _inputText(jenis_kelamin, 'Jenis Kelamin', _jenis_kelamin),
                             Text('Jenis kelamin', style: TextStyle(color: Colors.black38),),
                             _jenisKelaminDropdown(),
                             const SizedBox(
@@ -240,31 +352,37 @@ class _EditAnakPageState extends State<EditAnakPage> {
                             const SizedBox(
                               height: 10,
                             ),
-                            _inputText(_bb_lahirController, 'Berat badan saat lahir (kg)'),
+                            Text('Berat badan lahir (kg)', style: TextStyle(color: Colors.black38),),
+                            _inputText(bb_lahir, 'Berat badan saat lahir (kg)', _bb_lahir),
                             const SizedBox(
                               height: 10,
                             ),
-                            _inputText(_tb_lahirController, 'Tinggi badan saat lahir (cm)'),
+                            Text('Tinggi badan lahir (cm)', style: TextStyle(color: Colors.black38),),
+                            _inputText(tb_lahir, 'Tinggi badan saat lahir (cm)', _tb_lahir),
                             const SizedBox(
                               height: 10,
                             ),
-                            _inputText(_lingkarkepala_lahirController, 'Lingkar kepala saat lahir (cm)'),
+                            Text('Lingkar kepala saat lahir (cm)', style: TextStyle(color: Colors.black38),),
+                            _inputText(lingkar_kepala, 'Lingkar kepala saat lahir (cm)', _lingkar_kepala),
                             const SizedBox(
                               height: 10,
                             ),
-                            _inputText(_gol_darahController, 'Golongan Darah'),
+                            Text('Golongan darah', style: TextStyle(color: Colors.black38),),
+                            _inputText(gol_darah, 'Golongan Darah', _gol_darah),
                             const SizedBox(
                               height: 10,
                             ),
-                            _inputText(_alergiController, 'Alergi yang diderita'),
+                            Text('Alergi yang diderita/diidap?', style: TextStyle(color: Colors.black38),),
+                            _inputText(alergi, 'Alergi yang diderita', _alergi),
                             const SizedBox(
                               height: 10,
                             ),
-                            _inputText(_tb_ibuController, 'Tinggi badan ibu (cm)'),
+                            Text('Usia kehaliman (minggu)', style: TextStyle(color: Colors.black38),),
+                            _inputText(usia_kehamilan, 'Usia kehaliman (minggu)', _usia_kehamilan.toString()),
                             const SizedBox(
                               height: 10,
                             ),
-                            _inputText(_bb_ibuController, 'Berat badan ibu (cm)'),
+                            // _inputText(_bb_ibuController, 'Berat badan ibu (cm)', _bb_ibu),
                             const SizedBox(
                               height: 20,
                             ),
@@ -285,9 +403,22 @@ class _EditAnakPageState extends State<EditAnakPage> {
                                       'Simpan',
                                       style: TextStyle(fontSize: 18),
                                     ),
-                                    onPressed: () {
-                                      Navigator.pushNamed(context, '/homeOrangtua');
-                                    },
+                                    // onPressed: () {
+                                    //   Navigator.pushNamed(context, '/homeOrangtua');
+                                    // },
+
+                                    onPressed: () async => (_formKey.currentState!.validate())
+                                      ?   editAnak(Anak(id_anak: id_anak.text, nik_ibu: nik_ibu.text,
+                                          nama_lengkap: nama_lengkap.text, jenis_kelamin: jenis_kelamin.toString() , tgl_lahir: tgl_lahir.text,
+                                          akte_lahir: akte_lahir.text, persalinan_oleh: persalinan_oleh.text, bb_lahir: bb_lahir.text,
+                                          panjang_lahir: panjang_lahir.text, prematur: _prematur, usia_kehamilan: usia_kehamilan.text,
+                                          alergi: alergi.text, gol_darah: gol_darah.text, tb_lahir: tb_lahir.text, lingkar_kepala: lingkar_kepala.text ?? ""))
+                                      : null,
+
+                                    // async => (_formKey.currentState!.validate())
+                                    //     ? prosesEditAnak()
+                                    //     : null,
+
                                   ),
                                 )),
                             const SizedBox(
@@ -303,4 +434,47 @@ class _EditAnakPageState extends State<EditAnakPage> {
       ),
     );
   }
+
+  String? name="";
+
+  retrieve() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    name = prefs.getString("nik");
+    setState(() {
+    });
+  }
+
+  // void prosesEditAnak() async {
+  //   //_nikController _namaController  _useridController  _passwordController  _rePasswordController
+  //   // final response = await addAnak(Anak(userid: _useridController.text, password: _passwordController.text, nama_lengkap: _namaController.text, nik: _nikController.text, category: '2' ?? ""));
+  //   // print(tgl_lahir.text);
+  //   // DateTime tgl = DateTime.parse(tgl_lahir.text);
+  //   // String tgl_lahir_formatted = DateFormat('yyyy-M-dd').format(tgl);
+  //   // print(tgl_lahir_formatted);
+  //   String _prematur;
+  //   if(prematur == 'Tidak') {
+  //     _prematur = 'false';
+  //   } else {
+  //     _prematur = 'true';
+  //   }
+  //
+  //   final response = await editAnak(Anak(id_anak: id_anak.text, nik_ibu: nik_ibu.text,
+  //       nama_lengkap: nama_lengkap.text, jenis_kelamin: jenis_kelamin.toString() , tgl_lahir: tgl_lahir.text,
+  //       akte_lahir: akte_lahir.text, persalinan_oleh: persalinan_oleh.text, bb_lahir: bb_lahir.text,
+  //       panjang_lahir: panjang_lahir.text, prematur: _prematur, usia_kehamilan: usia_kehamilan.text,
+  //       alergi: alergi.text, gol_darah: gol_darah.text, tb_lahir: tb_lahir.text, lingkar_kepala: lingkar_kepala.text ?? ""));
+  //
+  //   if(response != null) {
+  //     print(response.body.toString());
+  //     if(response.statusCode == 200) {
+  //       var jsonResp = jsonDecode(response.body);
+  //       Navigator.pop(context, jsonResp['message']);
+  //     } else {
+  //       // dialog(context, "${response.body.toString()}");
+  //       // Navigator.pop(context, "${response.body.toString()}");
+  //       print(response.statusCode);
+  //       print(response.reasonPhrase);
+  //     }
+  //   }
+  // }
 }

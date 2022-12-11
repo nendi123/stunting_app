@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:stunting_app/shared/constant.dart';
+import 'package:stunting_app/model/userAuth.dart';
+import 'dart:convert';
+import 'package:stunting_app/shared/util.dart';
+import 'package:async/async.dart';
+import 'package:http/http.dart';
+import 'package:stunting_app/pages/orangtua/home_orangtua_page.dart';
+import 'package:stunting_app/shared/session.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginOrangtuaPage extends StatefulWidget {
   const LoginOrangtuaPage({super.key});
@@ -12,7 +20,7 @@ class _LoginOrangtuaPageState extends State<LoginOrangtuaPage> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
-
+  //_usernameController  _passwordController
   var _obsecText = true;
   Icon _iconLock = Icon(Icons.lock);
 
@@ -62,7 +70,7 @@ class _LoginOrangtuaPageState extends State<LoginOrangtuaPage> {
                         decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.white,
-                            hintText: 'Email',
+                            hintText: 'Email atau userid',
                             contentPadding: EdgeInsets.symmetric(
                                 horizontal: Constant().margin),
                             border: OutlineInputBorder(
@@ -75,7 +83,7 @@ class _LoginOrangtuaPageState extends State<LoginOrangtuaPage> {
                             )),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
+                            return 'Harus diisi!';
                           }
                           return null;
                         },
@@ -101,7 +109,7 @@ class _LoginOrangtuaPageState extends State<LoginOrangtuaPage> {
                             )),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
+                            return 'Harus diisi';
                           }
                           return null;
                         },
@@ -129,9 +137,36 @@ class _LoginOrangtuaPageState extends State<LoginOrangtuaPage> {
                       'Sign In',
                       style: TextStyle(fontSize: 18),
                     ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/homeOrangtua');
-                    },
+                    onPressed: () =>
+                      (_formKey.currentState!.validate())
+                        ? prosesLogin()
+                        : null,
+                  ),
+                )
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 58,
+                  margin: EdgeInsets.symmetric(horizontal: Constant().margin),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromRGBO(87, 81, 203, 1),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 50, vertical: 10),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30))),
+                    child: const Text(
+                      'Registrasi',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    onPressed: () => {
+                        Navigator.pushNamed(context, '/registrasiOrangtua')
+                    }
                   ),
                 )
             ),
@@ -159,7 +194,7 @@ class _LoginOrangtuaPageState extends State<LoginOrangtuaPage> {
                     child: Container(
                         color: Colors.transparent,
                         width: 300,
-                        height: 30,
+                        height: 20,
                         child: Center(
                             child: Text(
                               'Lupa Password',
@@ -182,5 +217,52 @@ class _LoginOrangtuaPageState extends State<LoginOrangtuaPage> {
         ),
       )),
     );
+  }
+
+  void prosesLogin() async {
+    final List list;
+    ////_usernameController  _passwordController
+    try {
+      final response = await login(UserAuth(userid: _usernameController.text, password: _passwordController.text, nama_lengkap: '', nik: '', category: '2' ?? ""));
+
+      var jsonResp = jsonDecode(response.body);
+      print(jsonResp);
+      String userid = jsonResp[0]['userid'];
+      String nik = jsonResp[0]['nik'];
+      String use = jsonResp[0]['userid'];
+      if(use != null) {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('IS_LOGIN', true);
+        await prefs.setString('userid', userid);
+        await prefs.setString('nik', nik);
+        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeOrangtuaPage(list: jsonResp)));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeOrangtuaPage()));
+      } else {
+        final snackBar = SnackBar(
+          content: const Text('Userid atau password salah!')
+        );
+      }
+      // if(response.statusCode == 200) {
+      //   UserAuth userAuth = UserAuth.fromJson(jsonResp['userid']);
+      //   // if (userAuth.userid != null) {
+      //   //
+      //   // } else {
+      //   //
+      //   // }
+      //   Navigator.pushReplacement(context,
+      //       MaterialPageRoute(builder: (context) => HomeOrangtuaPage()));
+      // } else if(response.statusCode == 401) {
+      //     dialog(context, jsonResp['message']);
+      // } else {
+      //     dialog(context, response);
+      // }
+    } catch (e) {
+      String msg = 'Userid atau password salah!';
+      // dialog(context, e.toString());
+      dialog(context, msg);
+      final snackBar = SnackBar(
+          content: const Text('Userid atau password salah!')
+      );
+    }
   }
 }

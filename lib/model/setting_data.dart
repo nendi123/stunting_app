@@ -5,7 +5,7 @@ import 'dart:async';
 
 class SettingData {
   // id, std_bb, std_tb, std_lingkar_kepala, std_lengan_atas, std_tbu, std_bbu, usia, jenis_kelamin
-  late final String id, std_bb, std_tb, std_lingkar_kepala, std_lengan_atas, std_tbu, std_bbu, usia, jenis_kelamin;
+  final String id, std_bb, std_tb, std_lingkar_kepala, std_lengan_atas, std_tbu, std_bbu, usia, jenis_kelamin;
   SettingData({
     required this.id,
     required this.std_bb,

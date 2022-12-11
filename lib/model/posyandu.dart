@@ -5,7 +5,7 @@ import 'dart:async';
 
 class Posyandu {
   //kode_posyandu, kode_distrik, kode_kelurahan, nama_posyandu, alamat, ketua, kode_puskesmas
-  late final String kode_posyandu, kode_distrik, kode_kelurahan, nama_posyandu, alamat, ketua, kode_puskesmas;
+  final String kode_posyandu, kode_distrik, kode_kelurahan, nama_posyandu, alamat, ketua, kode_puskesmas;
   Posyandu({
     required this.kode_posyandu,
     required this.kode_distrik,

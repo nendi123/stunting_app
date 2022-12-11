@@ -52,7 +52,8 @@ class _PosyanduPageState extends State<PosyanduPage> {
         leading: IconButton( //menu icon button at start left of appbar
           onPressed: (){
             //code to execute when this button is pressed
-            Navigator.pushNamed(context, '/profileAnak');
+            // Navigator.pushNamed(context, '/profileAnak');
+            Navigator.pop(context);
           },
           icon: Icon(Icons.arrow_back, size: 20,),
         ),

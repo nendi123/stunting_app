@@ -6,8 +6,8 @@ import 'dart:async';
 class Ibu {
   //nik, nama_lengkap, tgl_lahir, alamat, no_hp, kode_kelurahan, kode_distrik, berat_badan,
   // tinggi_badan, Pendidikan, pekerjaan, status_nikah, jumlah_anak, memiliki_kk
-  late final String nik, nama_lengkap, tgl_lahir, alamat, no_hp, kode_kelurahan, kode_distrik, berat_badan;
-  late final String tinggi_badan, pendidikan, pekerjaan, status_nikah, jumlah_anak, memiliki_kk;
+  final String nik, nama_lengkap, tgl_lahir, alamat, no_hp, kode_kelurahan, kode_distrik, berat_badan;
+  final String tinggi_badan, pendidikan, pekerjaan, status_nikah, jumlah_anak, memiliki_kk;
   Ibu({
     required this.nik,
     required this.nama_lengkap,

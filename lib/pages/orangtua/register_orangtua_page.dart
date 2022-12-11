@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:stunting_app/shared/constant.dart';
+import 'package:stunting_app/model/userAuth.dart';
+import 'dart:convert';
+// import 'package:stunting_app/shared/util.dart';
+// import 'package:async/async.dart';
+// import 'package:http/http.dart';
 
 class RegisterOrangTuaPage extends StatefulWidget {
   const RegisterOrangTuaPage({super.key});
@@ -13,9 +18,10 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _nikController = TextEditingController();
   TextEditingController _namaController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
+  TextEditingController _useridController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _rePasswordController = TextEditingController();
+  //_nikController _namaController  _emailController  _passwordController  _rePasswordController
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,7 +88,7 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
                           )),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
+                          return 'Tidak boleh kosong';
                         }
                         return null;
                       },
@@ -108,7 +114,7 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
                           )),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
+                          return 'Tidak boleh kosong';
                         }
                         return null;
                       },
@@ -117,7 +123,7 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
                       height: 20,
                     ),
                     TextFormField(
-                      controller: _emailController,
+                      controller: _useridController,
                       decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
@@ -134,7 +140,7 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
                           )),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
+                          return 'Tidak boleh kosong';
                         }
                         return null;
                       },
@@ -160,7 +166,7 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
                           )),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
+                          return 'Tidak boleh kosong';
                         }
                         return null;
                       },
@@ -186,7 +192,7 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
                           )),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
+                          return 'Tidak boleh kosong';
                         }
                         return null;
                       },
@@ -213,9 +219,11 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
                               'Registrasi',
                               style: TextStyle(fontSize: 18),
                             ),
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/profileIbu');
-                            },
+                            onPressed: ()
+                              // Navigator.pushNamed(context, '/profileIbu');
+                              async => (_formKey.currentState!.validate())
+                                  ? prosesRegistrasi()
+                                  : null,
                           ),
                         )),
                     const SizedBox(
@@ -272,4 +280,22 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
       )),
     );
   }
+
+  void prosesRegistrasi() async {
+    //_nikController _namaController  _useridController  _passwordController  _rePasswordController
+    final response = await userCreate(UserAuth(userid: _useridController.text, password: _passwordController.text, nama_lengkap: _namaController.text, nik: _nikController.text, category: '2' ?? ""));
+
+    if(response != null) {
+      print(response.body.toString());
+      if(response.statusCode == 200) {
+        var jsonResp = jsonDecode(response.body);
+        Navigator.pop(context, jsonResp['message']);
+      } else {
+        // dialog(context, "${response.body.toString()}");
+        Navigator.pop(context, "${response.body.toString()}");
+      }
+    }
+  }
 }
+
+
