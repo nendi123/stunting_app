@@ -2,6 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:stunting_app/model/petugas/anak_model.dart';
+import 'package:stunting_app/pages/orangtua/add_anak_page.dart';
+import 'package:stunting_app/pages/petugas/add_anak_page.dart';
+import 'package:stunting_app/pages/petugas/edit_anak_page.dart';
+import 'package:stunting_app/pages/petugas/mpasi_anak_page.dart';
 import 'package:stunting_app/shared/config.dart';
 import 'package:stunting_app/shared/constant.dart';
 import 'package:http/http.dart' as http;
@@ -14,13 +18,27 @@ class ListAnakPage extends StatefulWidget {
 }
 
 class _ListAnakPageState extends State<ListAnakPage> {
+  TextEditingController _searchNikController = TextEditingController();
+
+  List listIdAnak = [];
+  List listNamaAnak = [];
+  List listTglLahirAnak = [];
+
+  var namaIbu = '';
+  var nikIbu = '';
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
           color: Colors.grey.shade200,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -33,8 +51,13 @@ class _ListAnakPageState extends State<ListAnakPage> {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: Constant().margin),
                 child: TextField(
+                  controller: _searchNikController,
                   decoration: InputDecoration(
-                      suffixIcon: const Icon(Icons.search),
+                      suffixIcon: GestureDetector(
+                          onTap: () {
+                            _fetchIbu();
+                          },
+                          child: const Icon(Icons.search)),
                       filled: true,
                       fillColor: Colors.white,
                       hintText: 'Ketik NIK Ibu',
@@ -69,23 +92,32 @@ class _ListAnakPageState extends State<ListAnakPage> {
                         const SizedBox(
                           height: 20,
                         ),
-                        const Align(
+                        Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              "Nama Ibu : Emilia",
+                              "Ibu $namaIbu",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             )),
                         const Divider(),
-                        FutureBuilder<List<AnakModel>>(
-                          future: _fetchAnak(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              List<AnakModel>? data = snapshot.data;
-                              return _jobsListView(data);
-                            } else if (snapshot.hasError) {
-                              return Text("${snapshot.error}");
-                            }
-                            return const CircularProgressIndicator();
+                        // FutureBuilder<List<AnakModel>>(
+                        //   future: _fetchAnak(),
+                        //   builder: (context, snapshot) {
+                        //     if (snapshot.hasData) {
+                        //       List<AnakModel>? data = snapshot.data;
+                        //       return _jobsListView(data);
+                        //     } else if (snapshot.hasError) {
+                        //       return Text("${snapshot.error}");
+                        //     }
+                        //     return const CircularProgressIndicator();
+                        //   },
+                        // )
+                        ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: listIdAnak.length,
+                          itemBuilder: (context, index) {
+                            return _tile(listIdAnak[index], listNamaAnak[index],
+                                listTglLahirAnak[index]);
                           },
                         )
                       ],
@@ -100,7 +132,15 @@ class _ListAnakPageState extends State<ListAnakPage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
         onPressed: () {
-          Navigator.pushNamed(context, '/addAnakPage');
+          // Navigator.pushNamed(context, '/addAnakPage');
+          if (nikIbu != '') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AddAnakPagePetugas(nikIbu: nikIbu),
+              ),
+            );
+          }
         },
         child: const Icon(Icons.add),
       ),
@@ -108,6 +148,126 @@ class _ListAnakPageState extends State<ListAnakPage> {
   }
 
   Future<List<AnakModel>> _fetchAnak() async {
+    listIdAnak = [];
+    listNamaAnak = [];
+    listTglLahirAnak = [];
+    final response =
+        await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showAnakAll"));
+
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(response.body);
+      if (jsonResponse.isEmpty) {
+        setState(() {});
+      }
+      for (var i = 0; i < jsonResponse.length; i++) {
+        if (jsonResponse[i]['nik_ibu'] == nikIbu) {
+          setState(() {
+            listIdAnak.add(jsonResponse[i]['id_anak']);
+            listNamaAnak.add(jsonResponse[i]['nama_lengkap']);
+            listTglLahirAnak.add(jsonResponse[i]['tgl_lahir']);
+          });
+        }
+      }
+      return jsonResponse.map((job) => AnakModel.responseApi(job)).toList();
+    } else {
+      throw Exception('Failed to load jobs from API');
+    }
+  }
+
+  // ListView _jobsListView(data) {
+  //   return ListView.builder(
+  //       physics: const NeverScrollableScrollPhysics(),
+  //       shrinkWrap: true,
+  //       itemCount: data.length,
+  //       itemBuilder: (context, index) {
+  //         return _tile(data[index].namaLengkap, data[index].tglLahir);
+  //       });
+  // }
+
+  Card _tile(String idAnak, String nama, String umur) => Card(
+        child: Column(
+          children: [
+            Container(
+              color: Colors.grey.shade200,
+              child: ListTile(
+                  title: Text(
+                    nama,
+                    style: TextStyle(fontWeight: FontWeight.w200),
+                  ),
+                  subtitle: Text(umur),
+                  trailing: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                EditAnakPagePetugas(idAnak: idAnak),
+                          ),
+                        );
+                      },
+                      child: Icon(Icons.edit))),
+            ),
+            Container(
+              color: Colors.green,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      // Navigator.pushNamed(context, '/mpasiPetugasPage');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              MpasiAnakPagePetugas(nama: nama),
+                        ),
+                      );
+                    },
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          'assets/image/Tableware.png',
+                          width: 30,
+                        ),
+                        const Text('MPASI')
+                      ],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/kmsPetugasPage');
+                    },
+                    child: Column(
+                      children: const [
+                        Icon(
+                          Icons.laptop,
+                          size: 30,
+                          color: Color.fromRGBO(87, 81, 203, 1),
+                        ),
+                        Text('KMS')
+                      ],
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      Image.asset(
+                        'assets/image/Motherroom.png',
+                        width: 30,
+                      ),
+                      const Text('Posyandu')
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+
+  void _fetchIbu() async {
+    // final response = await http
+    //     .get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbu?nik=" + widget.nik));
     final response =
         await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbuAll"));
 
@@ -116,76 +276,16 @@ class _ListAnakPageState extends State<ListAnakPage> {
       if (jsonResponse.isEmpty) {
         setState(() {});
       }
-      return jsonResponse.map((job) => AnakModel.responseApi(job)).toList();
+      for (var i = 0; i < jsonResponse.length; i++) {
+        if (jsonResponse[i]['nik'] == _searchNikController.text) {
+          namaIbu = jsonResponse[i]['nama_lengkap'];
+          nikIbu = jsonResponse[i]['nik'];
+          setState(() {});
+        }
+      }
+      _fetchAnak();
     } else {
       throw Exception('Failed to load jobs from API');
     }
   }
-
-  ListView _jobsListView(data) {
-    return ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: data.length,
-        itemBuilder: (context, index) {
-          return _tile(data[index].nik, data[index].namaLengkap);
-        });
-  }
-
-  Column _tile(String nama, String umur) => Column(
-        children: [
-          Container(
-            color: Colors.grey.shade200,
-            child: const ListTile(
-                title: Text(
-                  'Lulu Faza Kamila',
-                  style: TextStyle(fontWeight: FontWeight.w200),
-                ),
-                subtitle: Text('4 thn 8 bln'),
-                trailing: Icon(Icons.edit)),
-          ),
-          Container(
-            color: Colors.green,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/mpasiPetugasPage');
-                  },
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        'assets/image/Tableware.png',
-                        width: 30,
-                      ),
-                      const Text('MPASI')
-                    ],
-                  ),
-                ),
-                Column(
-                  children: const [
-                    Icon(
-                      Icons.laptop,
-                      size: 30,
-                      color: Color.fromRGBO(87, 81, 203, 1),
-                    ),
-                    Text('KMS')
-                  ],
-                ),
-                Column(
-                  children: [
-                    Image.asset(
-                      'assets/image/Motherroom.png',
-                      width: 30,
-                    ),
-                    const Text('Posyandu')
-                  ],
-                )
-              ],
-            ),
-          ),
-        ],
-      );
 }

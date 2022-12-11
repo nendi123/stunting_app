@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:stunting_app/shared/constant.dart';
 
 class MpasiAnakPagePetugas extends StatefulWidget {
-  const MpasiAnakPagePetugas({super.key});
+  const MpasiAnakPagePetugas({super.key, required this.nama});
+
+  final String nama;
 
   @override
   State<MpasiAnakPagePetugas> createState() => _MpasiAnakPagePetugasState();
@@ -18,7 +20,7 @@ class _MpasiAnakPagePetugasState extends State<MpasiAnakPagePetugas> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'MPASI - Lulu Faza Kamila',
+          'MPASI - ' + widget.nama,
         ),
       ),
       body: SingleChildScrollView(

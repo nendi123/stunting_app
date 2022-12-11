@@ -1,9 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:stunting_app/model/petugas/anak_post_model.dart';
 import 'package:stunting_app/shared/constant.dart';
 
 class AddAnakPagePetugas extends StatefulWidget {
-  const AddAnakPagePetugas({super.key});
+  const AddAnakPagePetugas({super.key, required this.nikIbu});
+
+  final String nikIbu;
 
   @override
   State<AddAnakPagePetugas> createState() => _AddAnakPagePetugasState();
@@ -28,17 +32,17 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          //menu icon button at start left of appbar
-          onPressed: () {
-            //code to execute when this button is pressed
-            Navigator.pushNamed(context, '/listIbu');
-          },
-          icon: const Icon(
-            Icons.arrow_back,
-            size: 20,
-          ),
-        ),
+        // leading: IconButton(
+        //   //menu icon button at start left of appbar
+        //   onPressed: () {
+        //     //code to execute when this button is pressed
+        //     Navigator.pushNamed(context, '/listIbu');
+        //   },
+        //   icon: const Icon(
+        //     Icons.arrow_back,
+        //     size: 20,
+        //   ),
+        // ),
         title: const Text(
           'Tambah Profile Anak',
           style: TextStyle(fontWeight: FontWeight.w300, fontSize: 16),
@@ -448,18 +452,19 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
             style: TextStyle(fontSize: 18),
           ),
           onPressed: () {
+            var rng = Random();
             AnakPostModel.addAnak(
-                    "1234567890",
-                    "123456789",
+                    rng.toString(),
+                    widget.nikIbu,
                     _namaController.text,
                     _jkController.text,
                     _tglLahirController.text,
-                    "1234567890",
-                    "1234567890",
+                    "",
+                    "Bidan",
                     _beratBadanController.text,
                     _tinggiBadanController.text,
                     _prematurController.text,
-                    "12345678")
+                    "9")
                 .then((value) => {
                       if (value)
                         {Navigator.pushNamed(context, '/listAnakPage')}

@@ -1,8 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:stunting_app/shared/config.dart';
 import 'package:stunting_app/shared/constant.dart';
+import 'package:http/http.dart' as http;
 
 class EditAnakPagePetugas extends StatefulWidget {
-  const EditAnakPagePetugas({super.key});
+  const EditAnakPagePetugas({super.key, required this.idAnak});
+
+  final String idAnak;
 
   @override
   State<EditAnakPagePetugas> createState() => _EditAnakPageState();
@@ -14,6 +20,8 @@ class _EditAnakPageState extends State<EditAnakPagePetugas> {
 
   String dropdownValue = '';
 
+  String namaAnak = '';
+
   TextEditingController _namaLengkapController = TextEditingController();
   TextEditingController _tanggalLahirController = TextEditingController();
   TextEditingController _jenisKelaminController = TextEditingController();
@@ -23,10 +31,18 @@ class _EditAnakPageState extends State<EditAnakPagePetugas> {
   TextEditingController _lingkarKepalaController = TextEditingController();
   TextEditingController _golonganDarahController = TextEditingController();
   TextEditingController _alergiController = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _fetchAnak();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Profil Anak - Lulu Faza Kamila")),
+      appBar: AppBar(title: Text("Profil Anak $namaAnak")),
       body: SingleChildScrollView(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -388,5 +404,34 @@ class _EditAnakPageState extends State<EditAnakPagePetugas> {
         ],
       )),
     );
+  }
+
+  void _fetchAnak() async {
+    // final response = await http
+    //     .get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbu?nik=" + widget.nik));
+    final response =
+        await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showAnakAll"));
+
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(response.body);
+      if (jsonResponse.isEmpty) {
+        setState(() {});
+      }
+      for (var i = 0; i < jsonResponse.length; i++) {
+        if (jsonResponse[i]['id_anak'] == widget.idAnak) {
+          _namaLengkapController.text = jsonResponse[i]['nama_lengkap'];
+          _tanggalLahirController.text = jsonResponse[i]['tgl_lahir'];
+          _jenisKelaminController.text = jsonResponse[i]['jenis_kelamin'];
+          _anakLahirPrematurController.text = jsonResponse[i]['prematur'];
+          _beratBadanController.text = jsonResponse[i]['bb_lahir'];
+          _tinggiBadanController.text = jsonResponse[i]['panjang_lahir'];
+          _golonganDarahController.text = jsonResponse[i]['gol_darah'];
+          namaAnak = jsonResponse[i]['nama_lengkap'];
+          setState(() {});
+        }
+      }
+    } else {
+      throw Exception('Failed to load jobs from API');
+    }
   }
 }
