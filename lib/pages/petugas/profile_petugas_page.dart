@@ -1,5 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stunting_app/model/petugas/petugas_model.dart';
+import 'package:stunting_app/model/petugas/petugas_post_model.dart';
+import 'package:stunting_app/shared/config.dart';
 import 'package:stunting_app/shared/constant.dart';
+import 'package:http/http.dart' as http;
 
 class ProfilePetugasPage extends StatefulWidget {
   const ProfilePetugasPage({super.key});
@@ -16,6 +23,12 @@ class _ProfilePetugasPageState extends State<ProfilePetugasPage> {
   TextEditingController _hpController = TextEditingController();
   TextEditingController _posyanduController = TextEditingController();
   TextEditingController _alamatController = TextEditingController();
+
+  @override
+  void initState() {
+    _fetchPetugas();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -255,7 +268,26 @@ class _ProfilePetugasPageState extends State<ProfilePetugasPage> {
                               style: TextStyle(fontSize: 18),
                             ),
                             onPressed: () {
-                              Navigator.pushNamed(context, '/homePetugas');
+                              PetugasPostMode.editPetugas(
+                                      _nikController.text,
+                                      _namaController.text,
+                                      _alamatController.text,
+                                      _emailController.text,
+                                      _hpController.text,
+                                      "1",
+                                      _posyanduController.text)
+                                  .then((value) => {
+                                        if (value)
+                                          {
+                                            _showMyDialog(
+                                                "Data Berhasil di Edit", true)
+                                          }
+                                        else
+                                          {
+                                            _showMyDialog(
+                                                "Data Gagal di Edit", false)
+                                          }
+                                      });
                             },
                           ),
                         )),
@@ -267,6 +299,64 @@ class _ProfilePetugasPageState extends State<ProfilePetugasPage> {
               ],
             )),
       )),
+    );
+  }
+
+  void _fetchPetugas() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final response = await http
+        .get(Uri.parse("${AppConfig.API_ENDPOINT}/showPetugasPosyanduAll"));
+
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(response.body);
+      if (jsonResponse.isEmpty) {
+        setState(() {});
+      }
+
+      for (var i = 0; i < jsonResponse.length; i++) {
+        if (jsonResponse[i]['nik'] == prefs.getString('nik')) {
+          _alamatController.text = jsonResponse[i]['alamat'];
+          _emailController.text = jsonResponse[i]['email'];
+          _hpController.text = jsonResponse[i]['no_hp'];
+          _posyanduController.text = jsonResponse[i]['kode_posyandu'];
+          _namaController.text = jsonResponse[i]['nama_lengkap'];
+          _nikController.text = jsonResponse[i]['nik'];
+          setState(() {});
+        }
+      }
+    } else {
+      throw Exception('Failed to load jobs from API');
+    }
+  }
+
+  Future<void> _showMyDialog(String body, bool hasil) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Pemberitahuan'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(body),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                if (hasil) {
+                  Navigator.pushNamed(context, '/homePetugas');
+                } else {
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
