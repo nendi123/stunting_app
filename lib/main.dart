@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stunting_app/pages/orangtua/home_orangtua_page.dart';
 import 'package:stunting_app/pages/orangtua/kms_anak_page.dart';
-import 'package:stunting_app/pages/orangtua/login_orangtua_page.dart' as LoginOrangtua;
+import 'package:stunting_app/pages/orangtua/login_orangtua_page.dart'
+    as LoginOrangtua;
 import 'package:stunting_app/pages/orangtua/lupa_password_page.dart';
 import 'package:stunting_app/pages/orangtua/mpasi_anak_page.dart';
 import 'package:stunting_app/pages/orangtua/profile_anak_page.dart';
@@ -20,10 +21,16 @@ import 'package:stunting_app/pages/petugas/edit_ibu_page.dart';
 import 'package:stunting_app/pages/petugas/home_ibu_page.dart';
 import 'package:stunting_app/pages/petugas/home_petugas_page.dart';
 import 'package:stunting_app/pages/petugas/list_ibu_page.dart';
+
 import 'package:stunting_app/pages/petugas/login_petugas_page.dart' as LoginPetugas;
-import 'package:stunting_app/pages/petugas/llist_anak_page.dart';
+import 'package:stunting_app/pages/petugas/list_anak_page.dart';
 import 'package:stunting_app/pages/petugas/login_petugas_page.dart';
 import 'package:stunting_app/pages/petugas/mpasi_anak_page.dart';
+import 'package:stunting_app/pages/petugas/list_anak_page.dart';
+import 'package:stunting_app/pages/petugas/login_petugas_page.dart';
+import 'package:stunting_app/pages/petugas/mpasi_anak_page.dart';
+import 'package:stunting_app/pages/petugas/login_petugas_page.dart' as LoginPetugas;
+
 import 'package:stunting_app/pages/petugas/profile_petugas_page.dart';
 import 'package:stunting_app/pages/petugas/list_anak.dart';
 import 'package:stunting_app/splash_page.dart';
@@ -49,7 +56,6 @@ class MyApp extends StatelessWidget {
     );
   }
 
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -66,7 +72,6 @@ class MyApp extends StatelessWidget {
         builder: (context, snapshot) {
           Widget result = Container();
 
-
           if (snapshot.connectionState == ConnectionState.waiting) {
             result = Scaffold(
               body: Center(
@@ -80,12 +85,10 @@ class MyApp extends StatelessWidget {
                 if (prefs.getString(CATEGORY) ==
                     jenislogin.PETUGAS.toString()) {
                   result = LoginPetugas.LoginPetugasPage();
-                }
-                else {
+                } else {
                   result = LoginOrangtua.LoginOrangtuaPage();
                 }
-              }
-              else {
+              } else {
                 return SplashPage();
               }
             } else {
@@ -105,7 +108,7 @@ class MyApp extends StatelessWidget {
         '/homePetugas': (context) => const HomePetugasPage(),
         '/profilePetugas': (context) => const ProfilePetugasPage(),
         '/addIbu': (context) => const AddIbuPage(),
-        '/editIbu': (context) => const EditIbuPage(),
+
         '/homeIbu': (context) => const HomeIbuPage(),
         '/listAnakPage': (context) => const ListAnakPage(),
         '/editAnakPage': (context) => const EditAnakPagePetugas(),
@@ -116,7 +119,7 @@ class MyApp extends StatelessWidget {
         // '/loginIbu': (context) => const LoginOrangtua.LoginOrangtuaPage(),
         '/listIbu': (context) => const ListIbuPage(),
         '/profileIbu': (context) => const ProfileOrangTuaPage(),
-        // '/homeOrangtua': (context) => const HomeOrangtuaPage(),
+        '/homeOrangtua': (context) => const HomeOrangtuaPage(),
         '/listAnak': (context) => const List_anakWidget(),
         '/lupaPassword': (context) => const LupaPasswordPage(),
         '/addAnak': (context) => const AddAnakPage(),
@@ -130,7 +133,6 @@ class MyApp extends StatelessWidget {
       },
     );
   }
-
 
   Future _loadSession() async {
     final prefs = await SharedPreferences.getInstance();

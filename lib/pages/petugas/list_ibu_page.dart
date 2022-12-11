@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:stunting_app/model/petugas/ibu_model.dart';
+import 'package:stunting_app/pages/petugas/edit_ibu_page.dart';
 import 'package:stunting_app/shared/config.dart';
 import 'package:stunting_app/shared/constant.dart';
 import 'package:http/http.dart' as http;
@@ -57,19 +58,17 @@ class _ListIbuPageState extends State<ListIbuPage> {
               child: Card(
                   child: Column(
                 children: [
-                  Container(
-                    child: FutureBuilder<List<IbuModel>>(
-                      future: _fetchIbu(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          List<IbuModel>? data = snapshot.data;
-                          return _jobsListView(data);
-                        } else if (snapshot.hasError) {
-                          return Text("${snapshot.error}");
-                        }
-                        return CircularProgressIndicator();
-                      },
-                    ),
+                  FutureBuilder<List<IbuModel>>(
+                    future: _fetchIbu(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        List<IbuModel>? data = snapshot.data;
+                        return _jobsListView(data);
+                      } else if (snapshot.hasError) {
+                        return Text("${snapshot.error}");
+                      }
+                      return const CircularProgressIndicator();
+                    },
                   )
                   // ListTile(
                   //   // leading: Text('3217070508940008'),
@@ -179,7 +178,14 @@ class _ListIbuPageState extends State<ListIbuPage> {
           icon: const Icon(
             Icons.edit,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EditIbuPage(nik: nik),
+              ),
+            );
+          },
         ),
       );
 }

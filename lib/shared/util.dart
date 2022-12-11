@@ -1,3 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:stunting_app/pages/orangtua/login_orangtua_page.dart';
+import 'package:stunting_app/pages/petugas/login_petugas_page.dart';
+import 'package:stunting_app/shared/session.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stunting_app/shared/session.dart';
@@ -21,19 +26,14 @@ void logOut(BuildContext context) {
       (route) => false));
 }
 
-
 dialog(_context, msg, {title}) {
   showDialog(
       context: _context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(title ?? 'Perhatian!'),
-          icon: Icon(Icons.error, size: 48,),
-          iconColor: Colors.red,
+          title: Text(title ?? 'Perhatian'),
           content: Text(msg),
-          elevation: 10.0,
         );
-      },
+      }
   );
 }
-

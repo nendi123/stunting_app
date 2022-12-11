@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stunting_app/model/petugas/ibu_post_model.dart';
 import 'package:stunting_app/shared/constant.dart';
 
 class AddIbuPage extends StatefulWidget {
@@ -478,10 +479,61 @@ class _AddIbuPageState extends State<AddIbuPage> {
             style: TextStyle(fontSize: 18),
           ),
           onPressed: () {
-            Navigator.pushNamed(context, '/listIbu');
+            IbuPostMode.addIbu(
+                    _nikController.text,
+                    _namaController.text,
+                    _alamatController.text,
+                    _emailController.text,
+                    _hpController.text,
+                    _tglLahirController.text,
+                    _kelurahanController.text,
+                    _kecamatanController.text,
+                    _pendidikanController.text,
+                    _pekerjaanController.text,
+                    _statusController.text,
+                    _beratBadanController.text,
+                    _tinggiBadanController.text,
+                    _statusKkController.text)
+                .then((value) => {
+                      if (value)
+                        {_showMyDialog("Data Berhasil di Input", true)}
+                      else
+                        {_showMyDialog("Data Gagal di Input", false)}
+                    });
           },
         ),
       )),
+    );
+  }
+
+  Future<void> _showMyDialog(String body, bool hasil) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Pemberitahuan'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(body),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                if (hasil) {
+                  Navigator.pushNamed(context, '/listIbu');
+                } else {
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 

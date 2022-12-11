@@ -36,20 +36,20 @@ class IbuModel {
 
   factory IbuModel.responseApi(Map<String, dynamic> object) {
     return IbuModel(
-        nik: object['nik'],
-        namaLengkap: object['nama_lengkap'],
-        tglLahir: object['tgl_lahir'],
-        alamat: object['alamat'],
-        noHp: object['no_hp'],
-        kodeKelurahan: object['kode_kelurahan'],
-        beratBadan: object['berat_badan'],
-        tinggiBadan: object['tinggi_badan'],
-        pendidikan: object['pendidikan'],
-        pekerjaan: object['pekerjaan'],
-        statusNikah: object['status_nikah'],
+        nik: object['nik'].toString(),
+        namaLengkap: object['nama_lengkap'].toString(),
+        tglLahir: object['tgl_lahir'].toString(),
+        alamat: object['alamat'].toString(),
+        noHp: object['no_hp'].toString(),
+        kodeKelurahan: object['kode_kelurahan'].toString(),
+        beratBadan: object['berat_badan'].toString(),
+        tinggiBadan: object['tinggi_badan'].toString(),
+        pendidikan: object['pendidikan'].toString(),
+        pekerjaan: object['pekerjaan'].toString(),
+        statusNikah: object['status_nikah'].toString(),
         jumlahAnak: object['jumlah_anak'].toString(),
         memilikiKk: object['memiliki_kk'].toString(),
-        kodeDistrik: object['kode_distrik'],
+        kodeDistrik: object['kode_distrik'].toString(),
         beratBadanAyah: object['bb_ayah'].toString(),
         tinggiBadanAyah: object['tb_ayah'].toString());
   }

@@ -16,6 +16,10 @@ class TestDetailAnak extends StatelessWidget {
     required this.tgl_lahir,  required this.akte_lahir, required this.persalinan_oleh, required this.bb_lahir, required this.panjang_lahir,
     required this.prematur, required this.usia_kehamilan, required this.alergi, required this.gol_darah, required this.lingkar_kepala, required this.tb_lahir });
 
+  initState() {
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

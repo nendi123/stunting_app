@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stunting_app/model/petugas/anak_post_model.dart';
 import 'package:stunting_app/shared/constant.dart';
 
 class AddAnakPagePetugas extends StatefulWidget {
@@ -10,20 +11,19 @@ class AddAnakPagePetugas extends StatefulWidget {
 
 class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _nikController = TextEditingController();
   TextEditingController _namaController = TextEditingController();
-  TextEditingController _alamatController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _hpController = TextEditingController();
   TextEditingController _tglLahirController = TextEditingController();
-  TextEditingController _kelurahanController = TextEditingController();
-  TextEditingController _kecamatanController = TextEditingController();
-  TextEditingController _pendidikanController = TextEditingController();
-  TextEditingController _pekerjaanController = TextEditingController();
-  TextEditingController _statusController = TextEditingController();
+  TextEditingController _jkController = TextEditingController();
+  TextEditingController _prematurController = TextEditingController();
   TextEditingController _beratBadanController = TextEditingController();
   TextEditingController _tinggiBadanController = TextEditingController();
-  TextEditingController _statusKkController = TextEditingController();
+  TextEditingController _lingkarKepalaController = TextEditingController();
+  TextEditingController _golonganDarahController = TextEditingController();
+  TextEditingController _bbIbuController = TextEditingController();
+  TextEditingController _tbIbuController = TextEditingController();
+  TextEditingController _imunisasiController = TextEditingController();
+  TextEditingController _riwayatDiareController = TextEditingController();
+  TextEditingController _riwayatIspaController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,12 +34,12 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
             //code to execute when this button is pressed
             Navigator.pushNamed(context, '/listIbu');
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             size: 20,
           ),
         ),
-        title: Text(
+        title: const Text(
           'Tambah Profile Anak',
           style: TextStyle(fontWeight: FontWeight.w300, fontSize: 16),
         ),
@@ -142,7 +142,7 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
                     height: 20,
                   ),
                   TextFormField(
-                    controller: _alamatController,
+                    controller: _jkController,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -168,7 +168,7 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
                     height: 20,
                   ),
                   TextFormField(
-                    controller: _emailController,
+                    controller: _prematurController,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -194,7 +194,7 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
                     height: 20,
                   ),
                   TextFormField(
-                    controller: _hpController,
+                    controller: _beratBadanController,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -220,7 +220,7 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
                     height: 10,
                   ),
                   TextFormField(
-                    controller: _nikController,
+                    controller: _tinggiBadanController,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -246,7 +246,7 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
                     height: 20,
                   ),
                   TextFormField(
-                    controller: _kelurahanController,
+                    controller: _lingkarKepalaController,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -272,7 +272,7 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
                     height: 20,
                   ),
                   TextFormField(
-                    controller: _kecamatanController,
+                    controller: _golonganDarahController,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -298,7 +298,7 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
                     height: 20,
                   ),
                   TextFormField(
-                    controller: _pendidikanController,
+                    controller: _tbIbuController,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -324,7 +324,7 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
                     height: 20,
                   ),
                   TextFormField(
-                    controller: _pekerjaanController,
+                    controller: _bbIbuController,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -350,7 +350,7 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
                     height: 20,
                   ),
                   TextFormField(
-                    controller: _statusController,
+                    controller: _imunisasiController,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -376,7 +376,7 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
                     height: 20,
                   ),
                   TextFormField(
-                    controller: _beratBadanController,
+                    controller: _riwayatDiareController,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -402,7 +402,7 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
                     height: 20,
                   ),
                   TextFormField(
-                    controller: _tinggiBadanController,
+                    controller: _riwayatIspaController,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -448,7 +448,24 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
             style: TextStyle(fontSize: 18),
           ),
           onPressed: () {
-            Navigator.pushNamed(context, '/listAnakPage');
+            AnakPostModel.addAnak(
+                    "1234567890",
+                    "123456789",
+                    _namaController.text,
+                    _jkController.text,
+                    _tglLahirController.text,
+                    "1234567890",
+                    "1234567890",
+                    _beratBadanController.text,
+                    _tinggiBadanController.text,
+                    _prematurController.text,
+                    "12345678")
+                .then((value) => {
+                      if (value)
+                        {Navigator.pushNamed(context, '/listAnakPage')}
+                      else
+                        {}
+                    });
           },
         ),
       )),
