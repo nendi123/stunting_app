@@ -5,32 +5,39 @@ import 'dart:async';
 
 class Kelurahan {
   // kode_kelurahan, kode_distrik, nama_kelurahan, alamat
-  final String kode_kelurahan, kode_distrik, nama_kelurahan, alamat;
-  Kelurahan({
-    required this.kode_kelurahan,
-    required this.kode_distrik,
-    required this.nama_kelurahan,
-    required this.alamat
-  });
+  // final String kode_kelurahan, kode_distrik, nama_kelurahan, alamat;
+  // Kelurahan({
+  //   required this.kode_kelurahan,
+  //   required this.kode_distrik,
+  //   required this.nama_kelurahan,
+  //   required this.alamat
+  // });
+
+  late final String kode_kelurahan, kode_distrik, nama_kelurahan, alamat;
+  Kelurahan(
+      {required this.kode_kelurahan,
+      required this.kode_distrik,
+      required this.nama_kelurahan,
+      required this.alamat});
+
 
   factory Kelurahan.fromJson(Map<String, dynamic> json) {
     return Kelurahan(
         kode_kelurahan: json['kode_kelurahan'],
-        kode_distrik : json['kode_distrik'],
+        kode_distrik: json['kode_distrik'],
         nama_kelurahan: json['nama_kelurahan'],
-        alamat: json['alamat']
-    );
+        alamat: json['alamat']);
   }
 }
 
 List<Kelurahan> petugasFromJson(jsonData) {
   List<Kelurahan> result =
-  List<Kelurahan>.from(jsonData.map((item) => Kelurahan.fromJson(item)));
+      List<Kelurahan>.from(jsonData.map((item) => Kelurahan.fromJson(item)));
   return result;
 }
 
 Future<List<Kelurahan>> fetchIbu() async {
-  String route = AppConfig.API_ENDPOINT + '/showKelurahan';
+  String route = '${AppConfig.API_ENDPOINT}/showKelurahan';
   final response = await http.get(Uri.parse(route));
 
   if (response.statusCode == 200) {

@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:stunting_app/shared/constant.dart';
 
-class AddIbuPage extends StatefulWidget {
-  const AddIbuPage({super.key});
+class AddAnakPagePetugas extends StatefulWidget {
+  const AddAnakPagePetugas({super.key});
 
   @override
-  State<AddIbuPage> createState() => _AddIbuPageState();
+  State<AddAnakPagePetugas> createState() => _AddAnakPagePetugasState();
 }
 
-class _AddIbuPageState extends State<AddIbuPage> {
+class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
   final _formKey = GlobalKey<FormState>();
-  DateTime selectedDate = DateTime.now();
   TextEditingController _nikController = TextEditingController();
   TextEditingController _namaController = TextEditingController();
   TextEditingController _alamatController = TextEditingController();
@@ -41,7 +40,7 @@ class _AddIbuPageState extends State<AddIbuPage> {
           ),
         ),
         title: Text(
-          'Tambah data Ibu di Posyandu',
+          'Tambah Profile Anak',
           style: TextStyle(fontWeight: FontWeight.w300, fontSize: 16),
         ),
         toolbarHeight: 50,
@@ -88,32 +87,6 @@ class _AddIbuPageState extends State<AddIbuPage> {
                     ),
                   ),
                   const SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    controller: _nikController,
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: 'NIK',
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                        )),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
                     height: 20,
                   ),
                   TextFormField(
@@ -143,11 +116,37 @@ class _AddIbuPageState extends State<AddIbuPage> {
                     height: 20,
                   ),
                   TextFormField(
+                    controller: _tglLahirController,
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Tanggal Lahir',
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: Constant().margin),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide:
+                              const BorderSide(color: Colors.white, width: 0.0),
+                        )),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
                     controller: _alamatController,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
-                        hintText: 'Alamat',
+                        hintText: 'Jenis Kelamin',
                         contentPadding:
                             EdgeInsets.symmetric(horizontal: Constant().margin),
                         border: OutlineInputBorder(
@@ -173,7 +172,7 @@ class _AddIbuPageState extends State<AddIbuPage> {
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
-                        hintText: 'Email',
+                        hintText: 'Apakah Anak lahir Prematur ?',
                         contentPadding:
                             EdgeInsets.symmetric(horizontal: Constant().margin),
                         border: OutlineInputBorder(
@@ -199,191 +198,6 @@ class _AddIbuPageState extends State<AddIbuPage> {
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
-                        hintText: 'No HP',
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                        )),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    controller: _tglLahirController,
-                    decoration: InputDecoration(
-                        suffixIcon: IconButton(
-                            icon: const Icon(Icons.calendar_today),
-                            onPressed: () => _selectDate(context)),
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: 'Tanggal Lahir',
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                        )),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    controller: _kelurahanController,
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: 'Kelurahan / Desa',
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                        )),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    controller: _kecamatanController,
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: 'Distrik / Kecamatan',
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                        )),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    controller: _pendidikanController,
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: 'Pendidikan',
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                        )),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    controller: _pekerjaanController,
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: 'Pekerjaan',
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                        )),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    controller: _statusController,
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: 'Status Nikah',
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                        )),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    controller: _beratBadanController,
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
                         hintText: 'Berat Badan',
                         contentPadding:
                             EdgeInsets.symmetric(horizontal: Constant().margin),
@@ -403,10 +217,10 @@ class _AddIbuPageState extends State<AddIbuPage> {
                     },
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   TextFormField(
-                    controller: _tinggiBadanController,
+                    controller: _nikController,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -432,11 +246,167 @@ class _AddIbuPageState extends State<AddIbuPage> {
                     height: 20,
                   ),
                   TextFormField(
-                    controller: _statusKkController,
+                    controller: _kelurahanController,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
-                        hintText: 'Status Kartu keluarga',
+                        hintText: 'Lingkar Kepala saat lahir',
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: Constant().margin),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide:
+                              const BorderSide(color: Colors.white, width: 0.0),
+                        )),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: _kecamatanController,
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Golongan Darah',
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: Constant().margin),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide:
+                              const BorderSide(color: Colors.white, width: 0.0),
+                        )),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: _pendidikanController,
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Tinggi Badan Ibu',
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: Constant().margin),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide:
+                              const BorderSide(color: Colors.white, width: 0.0),
+                        )),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: _pekerjaanController,
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Berat Badan Ibu',
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: Constant().margin),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide:
+                              const BorderSide(color: Colors.white, width: 0.0),
+                        )),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: _statusController,
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Imunisasi terakhir',
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: Constant().margin),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide:
+                              const BorderSide(color: Colors.white, width: 0.0),
+                        )),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: _beratBadanController,
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Riwayat Diare dalam sebulan',
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: Constant().margin),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide:
+                              const BorderSide(color: Colors.white, width: 0.0),
+                        )),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: _tinggiBadanController,
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Riwayat ISPA dalam sebulan',
                         contentPadding:
                             EdgeInsets.symmetric(horizontal: Constant().margin),
                         border: OutlineInputBorder(
@@ -478,25 +448,10 @@ class _AddIbuPageState extends State<AddIbuPage> {
             style: TextStyle(fontSize: 18),
           ),
           onPressed: () {
-            Navigator.pushNamed(context, '/listIbu');
+            Navigator.pushNamed(context, '/listAnakPage');
           },
         ),
       )),
     );
-  }
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate) {
-      setState(() {
-        selectedDate = picked;
-        var dates = selectedDate.toString().split(' ');
-        _tglLahirController.text = dates[0];
-      });
-    }
   }
 }

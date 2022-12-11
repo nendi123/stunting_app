@@ -21,19 +21,20 @@ class _ProfilePetugasPageState extends State<ProfilePetugasPage> {
     return Scaffold(
       appBar: AppBar(
         // title: Text('Profile Petugas'),
-        leading: IconButton( //menu icon button at start left of appbar
-          onPressed: (){
+        leading: IconButton(
+          //menu icon button at start left of appbar
+          onPressed: () {
             //code to execute when this button is pressed
             Navigator.pushNamed(context, '/homePetugas');
           },
-          icon: Icon(Icons.arrow_back, size: 20,),
-        ),
-        title: Text(
-          'Profile Petugas',
-          style: TextStyle(
-              fontWeight: FontWeight.w300,
-              fontSize: 16
+          icon: const Icon(
+            Icons.arrow_back,
+            size: 20,
           ),
+        ),
+        title: const Text(
+          'Profile Petugas',
+          style: TextStyle(fontWeight: FontWeight.w300, fontSize: 16),
         ),
         toolbarHeight: 50,
         elevation: 30.0,

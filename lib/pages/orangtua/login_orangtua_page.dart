@@ -8,9 +8,15 @@ import 'package:http/http.dart';
 import 'package:stunting_app/pages/orangtua/home_orangtua_page.dart';
 import 'package:stunting_app/shared/session.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stunting_app/model/anak.dart';
 
 class LoginOrangtuaPage extends StatefulWidget {
+  // const LoginOrangtuaPage({ Key ? key, required this.anak}) : super(key: key);
+  // final Anak anak;
+
   const LoginOrangtuaPage({super.key});
+
+  // const LoginOrangtuaPage(Key key);
 
   @override
   State<LoginOrangtuaPage> createState() => _LoginOrangtuaPageState();

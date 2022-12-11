@@ -21,6 +21,7 @@ void logOut(BuildContext context) {
       (route) => false));
 }
 
+
 dialog(_context, msg, {title}) {
   showDialog(
       context: _context,
@@ -35,3 +36,4 @@ dialog(_context, msg, {title}) {
       },
   );
 }
+

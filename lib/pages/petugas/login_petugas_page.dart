@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:stunting_app/model/petugas/login_model.dart';
+import 'package:stunting_app/model/userAuth.dart';
 import 'package:stunting_app/shared/constant.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPetugasPage extends StatefulWidget {
   const LoginPetugasPage({super.key});
@@ -10,6 +13,7 @@ class LoginPetugasPage extends StatefulWidget {
 
 class _LoginPetugasPageState extends State<LoginPetugasPage> {
   final _formKey = GlobalKey<FormState>();
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   var _obsecText = true;
@@ -18,6 +22,8 @@ class _LoginPetugasPageState extends State<LoginPetugasPage> {
   TextEditingController _emailResController = TextEditingController();
   TextEditingController _passwordResController = TextEditingController();
   TextEditingController _rePasswordResController = TextEditingController();
+
+  var onPressed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -260,31 +266,99 @@ class _LoginPetugasPageState extends State<LoginPetugasPage> {
             const SizedBox(
               height: 20,
             ),
-            Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 58,
-                  margin: EdgeInsets.symmetric(horizontal: Constant().margin),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromRGBO(87, 81, 203, 1),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 50, vertical: 10),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30))),
-                    child: const Text(
-                      'Sign In',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/homePetugas');
-                    },
-                  ),
-                ))
+            onPressed == false
+                ? Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 58,
+                      margin:
+                          EdgeInsets.symmetric(horizontal: Constant().margin),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromRGBO(87, 81, 203, 1),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 50, vertical: 10),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30))),
+                        child: const Text(
+                          'Sign In',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        onPressed: () {
+                          onPressed = true;
+                          setState(() {});
+                          LoginModel.loginApp(_usernameController.text,
+                                  _passwordController.text)
+                              .then((value) => {
+                                    if (value.status)
+                                      {
+                                        _saveUser(
+                                            value.userid,
+                                            value.password,
+                                            value.namaLengkap,
+                                            value.nik,
+                                            value.category),
+                                        Navigator.of(context)
+                                            .pushNamedAndRemoveUntil(
+                                                '/homePetugas',
+                                                (Route<dynamic> route) => false)
+                                      }
+                                    else
+                                      {
+                                        onPressed = false,
+                                        setState(() {}),
+                                        _showMyDialog()
+                                      }
+                                  });
+                        },
+                      ),
+                    ))
+                : const CircularProgressIndicator()
           ],
         ),
       )),
     );
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Pemberitahuan'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('Email atau Password salah!'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _saveUser(String userid, String password, String namaLengkap,
+      String nik, String category) async {
+    final SharedPreferences prefs = await _prefs;
+
+    prefs.setString('userid', userid);
+    prefs.setString('password', password);
+    prefs.setString('nik', nik);
+    prefs.setString('namaLengkap', namaLengkap);
+    prefs.setString('category', category);
+
+    setState(() {});
   }
 }

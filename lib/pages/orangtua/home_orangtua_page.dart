@@ -14,7 +14,10 @@ import 'package:async/async.dart';
 import 'package:stunting_app/pages/orangtua/test_detail_anak.dart';
 
 class HomeOrangtuaPage extends StatefulWidget {
+  // const HomeOrangtuaPage({Key ? key, required this.anak});
+  // final Anak anak;
   const HomeOrangtuaPage({super.key});
+
 
   // final List list;
   // const HomeOrangtuaPage({required this.list});
@@ -53,6 +56,7 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
   late final List<Anak> anak;
 
   myApiWidget() {
+
     return FutureBuilder(
       future: response,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -366,14 +370,15 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
 //
 //   @override
 //   Widget build(BuildContext context) {
+//
 //     return ListView.builder(
 //         itemCount: list == null ? 0 : list.length,
 //         itemBuilder: (context, i) {
 //           return Container(
 //             child: GestureDetector(
-//               onTap: () => Navigator.pushNamed(context, '/profileAnak'),
-//               // onTap: () => Navigator.of(context).push(MaterialPageRoute(
-//                   // builder: (BuildContext context) => new DetailAnakPage(anak: i)))),
+//               // onTap: () => Navigator.pushNamed(context, '/profileAnak'),
+//               onTap: () => Navigator.of(context).push(MaterialPageRoute(
+//                   builder: (BuildContext context) => new TestDetailAnak(anak: anak, id_anak: id_anak, nik_ibu: nik_ibu, nama_lengkap: nama_lengkap, jenis_kelamin: jenis_kelamin, tgl_lahir: tgl_lahir, akte_lahir: akte_lahir, persalinan_oleh: persalinan_oleh, bb_lahir: bb_lahir, panjang_lahir: panjang_lahir, prematur: prematur, usia_kehamilan: usia_kehamilan, alergi: alergi, gol_darah: gol_darah, lingkar_kepala: lingkar_kepala, tb_lahir: tb_lahir)AnakPage(anak: i)))),
 //             ),
 //           );
 //         }

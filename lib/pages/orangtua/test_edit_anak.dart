@@ -90,20 +90,30 @@ class _TestEditAnakState extends State<TestEditAnakPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    width: 300,
-                    decoration: BoxDecoration(boxShadow: [
-                    ]),
-                    child: Textfield(
-                      hintStyle: TextStyle(color: Colors.black45),
-                      controller: id_anak,
-                      onChanged: (val) {
-                        id_anak.text = val;
-                      },
-                      hintText: 'ID Anak',
-                      icon: Icon(Icons.accessibility),
+                  Padding(padding: EdgeInsets.only(top: 15.0)),
+                  TextField(
+                    controller: id_anak,
+                    decoration: InputDecoration(
+                      hintText: 'Input ID Anak',
+                      labelText: 'ID Anak',
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
+                    ),
                   ),
-                ),
+
+                //   Container(
+                //     width: 300,
+                //     decoration: BoxDecoration(boxShadow: [
+                //     ]),
+                //     child: Textfield(
+                //       hintStyle: TextStyle(color: Colors.black45),
+                //       controller: id_anak,
+                //       onChanged: (val) {
+                //         id_anak.text = val;
+                //       },
+                //       hintText: 'ID Anak',
+                //       icon: Icon(Icons.accessibility),
+                //   ),
+                // ),
               ],
 
             ),

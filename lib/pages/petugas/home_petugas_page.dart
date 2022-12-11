@@ -11,6 +11,11 @@ class HomePetugasPage extends StatefulWidget {
 
 class _HomePetugasPageState extends State<HomePetugasPage> {
   final _formKey = GlobalKey<FormState>();
+
+  final _formKeyRes = GlobalKey<FormState>();
+  TextEditingController _emailResController = TextEditingController();
+  TextEditingController _passwordResController = TextEditingController();
+  TextEditingController _rePasswordResController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,7 +123,7 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                   GestureDetector(
                     onTap: (() {
                       // Navigator.pushNamed(context, '/listPelatih');
-                      Navigator.pushNamed(context, '/listAnak');
+                      Navigator.pushNamed(context, '/listAnakPage');
                     }),
                     child: Container(
                       width: MediaQuery.of(context).size.width / 3.5,
@@ -144,7 +149,120 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: (() {}),
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Dialog(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0)),
+                              child: Container(
+                                margin: EdgeInsets.all(Constant().margin),
+                                child: Form(
+                                  key: _formKeyRes,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Text('SKRINING',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20)),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      TextFormField(
+                                        controller: _emailResController,
+                                        decoration: InputDecoration(
+                                            filled: true,
+                                            fillColor: Colors.grey.shade200,
+                                            hintText: 'NIK Orang Tua',
+                                            suffixIcon: Icon(Icons.search),
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    horizontal:
+                                                        Constant().margin),
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                            ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                              borderSide: const BorderSide(
+                                                  color: Colors.white,
+                                                  width: 0.0),
+                                            )),
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Please enter some text';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      const Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          'Daftar Anak',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                              context, '/skriningPage');
+                                        },
+                                        child: const ListTile(
+                                          title: Text('LULU FAZA KAMILA'),
+                                          trailing:
+                                              Icon(Icons.arrow_circle_right),
+                                        ),
+                                      ),
+                                      Align(
+                                          alignment: Alignment.bottomCenter,
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 58,
+                                            margin: EdgeInsets.symmetric(
+                                                horizontal: Constant().margin),
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                  backgroundColor:
+                                                      const Color.fromRGBO(
+                                                          87, 81, 203, 1),
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 30,
+                                                      vertical: 10),
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              30))),
+                                              child: const Text(
+                                                'Skrining',
+                                                style: TextStyle(fontSize: 18),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ))
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          });
+                    },
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width / 3.5,
                       child: Card(
@@ -296,8 +414,9 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                       child: const Text('Tidak'),
                     ),
                     TextButton(
-                      onPressed: () =>
-                          Navigator.pushNamed(context, '/loginPetugas'),
+                      onPressed: () => Navigator.of(context)
+                          .pushNamedAndRemoveUntil(
+                              '/loginPetugas', (Route<dynamic> route) => false),
                       child: const Text('Ya'),
                     ),
                   ],

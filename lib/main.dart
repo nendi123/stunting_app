@@ -11,16 +11,24 @@ import 'package:stunting_app/pages/orangtua/register_orangtua_page.dart';
 import 'package:stunting_app/pages/orangtua/add_anak_page.dart';
 import 'package:stunting_app/pages/orangtua/edit_anak_page.dart';
 import 'package:stunting_app/pages/orangtua/posyandu_page.dart';
+import 'package:stunting_app/pages/petugas/add_anak_page.dart';
 
 import 'package:stunting_app/pages/petugas/add_ibu_page.dart';
+import 'package:stunting_app/pages/petugas/add_skrining_page.dart';
+import 'package:stunting_app/pages/petugas/edit_anak_page.dart';
 import 'package:stunting_app/pages/petugas/edit_ibu_page.dart';
+import 'package:stunting_app/pages/petugas/home_ibu_page.dart';
 import 'package:stunting_app/pages/petugas/home_petugas_page.dart';
 import 'package:stunting_app/pages/petugas/list_ibu_page.dart';
 import 'package:stunting_app/pages/petugas/login_petugas_page.dart' as LoginPetugas;
+import 'package:stunting_app/pages/petugas/llist_anak_page.dart';
+import 'package:stunting_app/pages/petugas/login_petugas_page.dart';
+import 'package:stunting_app/pages/petugas/mpasi_anak_page.dart';
 import 'package:stunting_app/pages/petugas/profile_petugas_page.dart';
 import 'package:stunting_app/pages/petugas/list_anak.dart';
 import 'package:stunting_app/splash_page.dart';
 import 'package:stunting_app/start_page.dart';
+import 'package:stunting_app/model/anak.dart';
 
 import 'package:stunting_app/shared/session.dart';
 
@@ -29,8 +37,9 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  // const MyApp({Key ? key, required this.anak}) : super(key: key);
+  // final Anak anak;
   const MyApp({super.key});
-
 
   Widget loading() {
     return Scaffold(
@@ -44,6 +53,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final Anak _anak;
     return MaterialApp(
       title: 'Pencegahan Dini Stunting',
       debugShowCheckedModeBanner: false,
@@ -96,14 +106,22 @@ class MyApp extends StatelessWidget {
         '/profilePetugas': (context) => const ProfilePetugasPage(),
         '/addIbu': (context) => const AddIbuPage(),
         '/editIbu': (context) => const EditIbuPage(),
+        '/homeIbu': (context) => const HomeIbuPage(),
+        '/listAnakPage': (context) => const ListAnakPage(),
+        '/editAnakPage': (context) => const EditAnakPagePetugas(),
+        '/mpasiPetugasPage': (context) => const MpasiAnakPagePetugas(),
+        '/addAnakPage': (context) => const AddAnakPagePetugas(),
+        '/skriningPage': (context) => const AddSkriningPage(),
         //orang tua
-        '/loginIbu': (context) => const LoginOrangtua.LoginOrangtuaPage(),
+        // '/loginIbu': (context) => const LoginOrangtua.LoginOrangtuaPage(),
         '/listIbu': (context) => const ListIbuPage(),
         '/profileIbu': (context) => const ProfileOrangTuaPage(),
-        '/homeOrangtua': (context) => const HomeOrangtuaPage(),
+        // '/homeOrangtua': (context) => const HomeOrangtuaPage(),
         '/listAnak': (context) => const List_anakWidget(),
         '/lupaPassword': (context) => const LupaPasswordPage(),
         '/addAnak': (context) => const AddAnakPage(),
+        // '/profileAnak': (context) => const ProfileAnakPage(),
+        // '/editAnak': (context) => const EditAnakPage(),
         // '/profileAnak': (context) => const ProfileAnakPage(),
         // '/editAnak': (context) => const EditAnakPage(),
         '/mpasiAnak': (context) => const MpasiAnakPage(),

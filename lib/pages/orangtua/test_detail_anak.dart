@@ -217,7 +217,7 @@ class TestDetailAnak extends StatelessWidget {
                                         alergi: this.alergi, gol_darah: this.gol_darah, lingkar_kepala: this.lingkar_kepala,tb_lahir: this.tb_lahir)));
 
                                 // Navigator.of(context).push(MaterialPageRoute(builder:
-                                //     (context)=>TestEditAnakPage(anak: anak)));
+                                //     (context)=>TestEditAnakPage(anak: anak,)));
 
                               },
                               // borderRadius: BorderRadius.circular(50.0),
