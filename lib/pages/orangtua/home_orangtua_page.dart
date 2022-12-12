@@ -12,6 +12,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:async/async.dart';
 import 'package:stunting_app/pages/orangtua/test_detail_anak.dart';
+import 'package:stunting_app/pages/orangtua//edit_ibu_page.dart';
 
 class HomeOrangtuaPage extends StatefulWidget {
   // const HomeOrangtuaPage({Key ? key, required this.anak});
@@ -45,18 +46,31 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
   //   return nik;
   // }
 
+  String user = '';
+
   Future<List<dynamic>> getData() async {
     final prefs = await SharedPreferences.getInstance();
     final nik = prefs.getString('nik');
+    final userid = prefs.getString('userid');
+    print(nik);
+    print(userid);
+    user = await userid!;
     final response = await http.get(Uri.parse(AppConfig.API_ENDPOINT+'/showAnakIbu/'+nik!));
     return jsonDecode(response.body);
+  }
+
+  Future<String?> getUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    final userid = prefs.getString('userid');
+    return userid;
   }
 
   late Future<List<dynamic>> response;
   late final List<Anak> anak;
 
-  myApiWidget() {
+  var _nik = '';
 
+  myApiWidget() {
     return FutureBuilder(
       future: response,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -95,6 +109,7 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
                           } else {
                             _prematur = 'true';
                           }
+                          _nik = snapshot.data[index]['nik_ibu'];
 
                           Navigator.of(context).push(MaterialPageRoute(builder:
                               (context)=>
@@ -126,10 +141,9 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
+    // String user = getUser().toString();
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -168,8 +182,8 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
             Container(
               alignment: Alignment.center,
               margin: EdgeInsets.symmetric(horizontal: Constant().margin),
-              child: const Text(
-                "Selamat Datang Ibu",
+              child: Text(
+                "Selamat Datang Ibu $user",
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
@@ -329,7 +343,13 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
                 color: Colors.white60,
               ),
               onPressed: () {
-                Navigator.pushNamed(context, '/profileIbu');
+                // Navigator.pushNamed(context, '/profileIbu');
+                // Navigator.pushNamed(context, EditIbuPage(nik: _nik,));
+                print('nik $_nik');
+                if (_nik != '') {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => EditIbuPage(nik: _nik)));
+                }
+                Navigator.push(context, MaterialPageRoute(builder: (context) => EditIbuPage(nik: _nik)));
               },
             ),
             IconButton(

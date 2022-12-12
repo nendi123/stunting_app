@@ -399,17 +399,41 @@ class _EditAnakPageState extends State<EditAnakPage> {
                                       'Simpan',
                                       style: TextStyle(fontSize: 18),
                                     ),
-                                    // onPressed: () {
-                                    //   Navigator.pushNamed(context, '/homeOrangtua');
-                                    // },
+                                    onPressed: () {
+                                      _formKey.currentState?.save();
+                                      if(_formKey.currentState!.validate()) {
+                                        editAnak(Anak(id_anak: id_anak.text,
+                                            nik_ibu: nik_ibu.text,
+                                            nama_lengkap: nama_lengkap.text,
+                                            jenis_kelamin: jenis_kelamin
+                                                .toString(),
+                                            tgl_lahir: tgl_lahir.text,
+                                            akte_lahir: akte_lahir.text,
+                                            persalinan_oleh: persalinan_oleh
+                                                .text,
+                                            bb_lahir: bb_lahir.text,
+                                            panjang_lahir: panjang_lahir.text,
+                                            prematur: _prematur,
+                                            usia_kehamilan: usia_kehamilan.text,
+                                            alergi: alergi.text,
+                                            gol_darah: gol_darah.text,
+                                            tb_lahir: tb_lahir.text,
+                                            lingkar_kepala: lingkar_kepala
+                                                .text ?? ""));
+                                        Navigator.pushNamed(
+                                            context, '/homeOrangtua');
+                                        setState(() {});
+                                      };
+                                    },
 
-                                    onPressed: () async => (_formKey.currentState!.validate())
-                                      ?   editAnak(Anak(id_anak: id_anak.text, nik_ibu: nik_ibu.text,
-                                          nama_lengkap: nama_lengkap.text, jenis_kelamin: jenis_kelamin.toString() , tgl_lahir: tgl_lahir.text,
-                                          akte_lahir: akte_lahir.text, persalinan_oleh: persalinan_oleh.text, bb_lahir: bb_lahir.text,
-                                          panjang_lahir: panjang_lahir.text, prematur: _prematur, usia_kehamilan: usia_kehamilan.text,
-                                          alergi: alergi.text, gol_darah: gol_darah.text, tb_lahir: tb_lahir.text, lingkar_kepala: lingkar_kepala.text ?? ""))
-                                      : null,
+                                    // onPressed: ()  async => (_formKey.currentState!.validate())
+                                    //   ?   editAnak(Anak(id_anak: id_anak.text, nik_ibu: nik_ibu.text,
+                                    //       nama_lengkap: nama_lengkap.text, jenis_kelamin: jenis_kelamin.toString() , tgl_lahir: tgl_lahir.text,
+                                    //       akte_lahir: akte_lahir.text, persalinan_oleh: persalinan_oleh.text, bb_lahir: bb_lahir.text,
+                                    //       panjang_lahir: panjang_lahir.text, prematur: _prematur, usia_kehamilan: usia_kehamilan.text,
+                                    //       alergi: alergi.text, gol_darah: gol_darah.text, tb_lahir: tb_lahir.text, lingkar_kepala: lingkar_kepala.text ?? ""))
+                                    //   : null,
+
                                       // Navigator.pop(context, "${response.body.toString()}")
 
                                     // async => (_formKey.currentState!.validate())

@@ -47,7 +47,22 @@ class _EditIbuPageState extends State<EditIbuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Edit Data Ibu')),
+      appBar: AppBar(
+        leading: IconButton( //menu icon button at start left of appbar
+          onPressed: (){
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back, size: 20,),
+          ),
+        title: const Text('Edit Data Ibu',
+          style: TextStyle(
+              fontWeight: FontWeight.w300,
+              fontSize: 16
+          ),
+        ),
+        toolbarHeight: 50,
+        elevation: 10.0,
+      ),
       body: SingleChildScrollView(
           child: Container(
         color: Colors.grey.shade200,
