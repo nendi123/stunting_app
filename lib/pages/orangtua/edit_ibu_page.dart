@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:stunting_app/model/petugas/ibu_post_model.dart';
@@ -587,6 +587,8 @@ class _EditIbuPageState extends State<EditIbuPage> {
   void _fetchIbu() async {
     // final response = await http
     //     .get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbu?nik=" + widget.nik));
+    final prefs = await SharedPreferences.getInstance();
+    final nik = prefs.getString('nik');
     final response =
     await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbuAll"));
 
