@@ -47,6 +47,7 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
   // }
 
   String user = '';
+  String _nik = '';
 
   Future<List<dynamic>> getData() async {
     final prefs = await SharedPreferences.getInstance();
@@ -55,6 +56,7 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
     print(nik);
     print(userid);
     user = await userid!;
+    _nik = await nik!;
     final response = await http.get(Uri.parse(AppConfig.API_ENDPOINT+'/showAnakIbu/'+nik!));
     return jsonDecode(response.body);
   }
@@ -67,8 +69,6 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
 
   late Future<List<dynamic>> response;
   late final List<Anak> anak;
-
-  var _nik = '';
 
   myApiWidget() {
     return FutureBuilder(
@@ -143,7 +143,7 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
 
   @override
   Widget build(BuildContext context) {
-    // String user = getUser().toString();
+    // String nik = _nik;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(

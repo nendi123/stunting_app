@@ -654,7 +654,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
               child: const Text('OK'),
               onPressed: () {
                 if (hasil) {
-                  Navigator.pushNamed(context, '/homeIbu');
+                  Navigator.pushNamed(context, '/homeOrangtua');
                 } else {
                   Navigator.of(context).pop();
                 }
