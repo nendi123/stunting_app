@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:stunting_app/model/petugas/anak_model.dart';
 import 'package:stunting_app/pages/petugas/login_petugas_page.dart';
+import 'package:stunting_app/shared/config.dart';
 import 'package:stunting_app/shared/constant.dart';
+import 'package:http/http.dart' as http;
 
 class HomePetugasPage extends StatefulWidget {
   const HomePetugasPage({super.key});
@@ -16,6 +21,14 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
   TextEditingController _emailResController = TextEditingController();
   TextEditingController _passwordResController = TextEditingController();
   TextEditingController _rePasswordResController = TextEditingController();
+
+  TextEditingController _searchNikController = TextEditingController();
+  var namaIbu = '';
+  var nikIbu = '';
+  List listIdAnak = [];
+  List listNamaAnak = [];
+  List listTglLahirAnak = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -353,10 +366,16 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                                 height: 20,
                               ),
                               TextField(
+                                controller: _searchNikController,
                                 decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Colors.grey.shade200,
                                     hintText: 'NIK ORANGTUA',
+                                    suffixIcon: GestureDetector(
+                                        onTap: () {
+                                          _fetchIbu();
+                                        },
+                                        child: const Icon(Icons.search)),
                                     contentPadding: EdgeInsets.symmetric(
                                         horizontal: Constant().margin),
                                     border: OutlineInputBorder(
@@ -377,6 +396,24 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                                     alignment: Alignment.centerLeft,
                                     child: Text('DATA ANAK')),
                               ),
+                              ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: listIdAnak.length,
+                                itemBuilder: (context, index) {
+                                  return ListTile(
+                                    title: Text(listNamaAnak[index]),
+                                    trailing: IconButton(
+                                      icon:
+                                          const Icon(Icons.arrow_circle_right),
+                                      onPressed: () {
+                                        Navigator.pushNamed(
+                                            context, '/kmsPetugasPage');
+                                      },
+                                    ),
+                                  );
+                                },
+                              )
                             ],
                           ),
                         ),
@@ -427,5 +464,57 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
         ),
       ),
     );
+  }
+
+  void _fetchIbu() async {
+    // final response = await http
+    //     .get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbu?nik=" + widget.nik));
+
+    final response =
+        await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbuAll"));
+
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(response.body);
+      if (jsonResponse.isEmpty) {
+        setState(() {});
+      }
+      for (var i = 0; i < jsonResponse.length; i++) {
+        if (jsonResponse[i]['nik'] == _searchNikController.text) {
+          namaIbu = jsonResponse[i]['nama_lengkap'];
+          nikIbu = jsonResponse[i]['nik'];
+          setState(() {});
+        }
+      }
+      _fetchAnak();
+    } else {
+      throw Exception('Failed to load jobs from API');
+    }
+  }
+
+  Future<List<AnakModel>> _fetchAnak() async {
+    listIdAnak = [];
+    listNamaAnak = [];
+    listTglLahirAnak = [];
+    final response =
+        await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showAnakAll"));
+    print(nikIbu);
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(response.body);
+      if (jsonResponse.isEmpty) {
+        setState(() {});
+      }
+      for (var i = 0; i < jsonResponse.length; i++) {
+        if (jsonResponse[i]['nik_ibu'] == nikIbu) {
+          setState(() {
+            listIdAnak.add(jsonResponse[i]['id_anak']);
+            listNamaAnak.add(jsonResponse[i]['nama_lengkap']);
+            listTglLahirAnak.add(jsonResponse[i]['tgl_lahir']);
+          });
+        }
+      }
+      return jsonResponse.map((job) => AnakModel.responseApi(job)).toList();
+    } else {
+      throw Exception('Failed to load jobs from API');
+    }
   }
 }
