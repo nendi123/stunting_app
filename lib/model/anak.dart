@@ -124,7 +124,7 @@ Future editAnak(Anak anak) async {
   }
 }
 
-Future eraseAnak(String id_anak) async {
+Future eraseAnak(int id_anak) async {
   String route = AppConfig.API_ENDPOINT + '/delAnak';
   // id_anak
   try {

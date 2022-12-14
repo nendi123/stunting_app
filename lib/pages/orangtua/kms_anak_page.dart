@@ -3,10 +3,12 @@ import 'package:stunting_app/shared/constant.dart';
 // import 'package:flutter_charts/flutter_charts.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
+import 'package:stunting_app/pages/orangtua/riwayat_balita.dart';
 
 
 class KmsAnakPage extends StatefulWidget {
-  const KmsAnakPage({super.key});
+  const KmsAnakPage({Key ? key, required this.id_anak});
+  final int id_anak;
 
   @override
   State<KmsAnakPage> createState() => _KmsAnakPagetate();
@@ -95,6 +97,7 @@ class _KmsAnakPagetate extends State<KmsAnakPage> with SingleTickerProviderState
   ];
 
 
+
   @override
   Widget build(BuildContext context) {
     final ColorScheme colors = Theme.of(context).colorScheme;
@@ -118,10 +121,10 @@ class _KmsAnakPagetate extends State<KmsAnakPage> with SingleTickerProviderState
         ),
         title: Text(
           'KMS Anak',
-          // style: TextStyle(
-          //     fontWeight: FontWeight.w300,
-          //     fontSize: 16
-          // ),
+          style: TextStyle(
+              fontWeight: FontWeight.w300,
+              fontSize: 16
+          ),
         ),
         toolbarHeight: 50,
         elevation: 10.0,
@@ -268,64 +271,65 @@ class _KmsAnakPagetate extends State<KmsAnakPage> with SingleTickerProviderState
                   ),
 
                   Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Table(
-                        border: TableBorder.all(color: Colors.black38),
-                        children: [
-                          TableRow(
-                            decoration: BoxDecoration(color: Colors.black87, borderRadius: BorderRadius.circular(5)),
-                            children: [
-                              Column(
-                                children: [
-                                  Text('\nTanggal',style: TextStyle(color: Colors.white),)
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  Text('Berat \n(kg)\n', style: TextStyle(color: Colors.white))
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  Text('Tinggi \n(cm)', style: TextStyle(color: Colors.white))
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text('Lingkar\nKepala \n(cm)', style: TextStyle(color: Colors.white))
-                                ],
-                              )
-                            ]
-                          ),
-                          for(var item in list)
-                          TableRow(
-                            decoration: BoxDecoration(color: Colors.black12, borderRadius: BorderRadius.circular(10.0)),
-                            children: [
-                              Column(children: [Text(item['tanggal']!,style: TextStyle(color: Colors.black54))],),
-                              Column(children: [Text(item['bb']!, style: TextStyle(color: Colors.black54))],),
-                              Column(children: [Text(item['tb']!, style: TextStyle(color: Colors.black54))],),
-                              Column(children: [Text(item['lk']!, style: TextStyle(color: Colors.black54))],),
-                            ],
-                          )
-                        ],
-                      )
-                      //Initialize the spark charts widget
-                      // child: SfSparkLineChart.custom(
-                      //   //Enable the trackball
-                      //   trackball: SparkChartTrackball(
-                      //       activationMode: SparkChartActivationMode.tap),
-                      //   //Enable marker
-                      //   marker: SparkChartMarker(
-                      //       displayMode: SparkChartMarkerDisplayMode.all),
-                      //   //Enable data label
-                      //   labelDisplayMode: SparkChartLabelDisplayMode.all,
-                      //   xValueMapper: (int index) => data[index].year,
-                      //   yValueMapper: (int index) => data[index].sales,
-                      //   dataCount: 5,
-                      // ),
-                    ),
+                    child: RiwayatBalitaPage(id_anak: widget.id_anak),
+                    // child: Padding(
+                    //   padding: const EdgeInsets.all(8.0),
+                    //   child: Table(
+                    //     border: TableBorder.all(color: Colors.black38),
+                    //     children: [
+                    //       TableRow(
+                    //         decoration: BoxDecoration(color: Colors.indigo, borderRadius: BorderRadius.circular(5)),
+                    //         children: [
+                    //           Column(
+                    //             children: [
+                    //               Text('\nTanggal',style: TextStyle(color: Colors.white),)
+                    //             ],
+                    //           ),
+                    //           Column(
+                    //             children: [
+                    //               Text('Berat \n(kg)\n', style: TextStyle(color: Colors.white))
+                    //             ],
+                    //           ),
+                    //           Column(
+                    //             children: [
+                    //               Text('Tinggi \n(cm)', style: TextStyle(color: Colors.white))
+                    //             ],
+                    //           ),
+                    //           Column(
+                    //             crossAxisAlignment: CrossAxisAlignment.center,
+                    //             children: [
+                    //               Text('Lingkar\nKepala \n(cm)', style: TextStyle(color: Colors.white))
+                    //             ],
+                    //           )
+                    //         ]
+                    //       ),
+                    //       for(var item in list)
+                    //       TableRow(
+                    //         decoration: BoxDecoration(color: Colors.black12, borderRadius: BorderRadius.circular(10.0)),
+                    //         children: [
+                    //           Column(children: [Text(item['tanggal']!,style: TextStyle(color: Colors.black54))],),
+                    //           Column(children: [Text(item['bb']!, style: TextStyle(color: Colors.black54))],),
+                    //           Column(children: [Text(item['tb']!, style: TextStyle(color: Colors.black54))],),
+                    //           Column(children: [Text(item['lk']!, style: TextStyle(color: Colors.black54))],),
+                    //         ],
+                    //       )
+                    //     ],
+                    //   )
+                    //   //Initialize the spark charts widget
+                    //   // child: SfSparkLineChart.custom(
+                    //   //   //Enable the trackball
+                    //   //   trackball: SparkChartTrackball(
+                    //   //       activationMode: SparkChartActivationMode.tap),
+                    //   //   //Enable marker
+                    //   //   marker: SparkChartMarker(
+                    //   //       displayMode: SparkChartMarkerDisplayMode.all),
+                    //   //   //Enable data label
+                    //   //   labelDisplayMode: SparkChartLabelDisplayMode.all,
+                    //   //   xValueMapper: (int index) => data[index].year,
+                    //   //   yValueMapper: (int index) => data[index].sales,
+                    //   //   dataCount: 5,
+                    //   // ),
+                    // ),
                   )
                 ],
                 controller: _tabController,

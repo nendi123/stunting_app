@@ -51,7 +51,7 @@ class SplashPage extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: Constant().margin),
                   child: const Text(
-                    "Lörem ipsum dataskade könat preren. Plade etnostik. Der euse om fåliga teledade. Debelt. Telenera kavis, samt skynka, som blandkostare, eller sabäliga. ",
+                    "Aplikasi untuk mencatat dan memonitor status kesehatan & tumbuh kembang balita dalam lingkup layanan sebuah posyandu.",
                     style: TextStyle(
                       fontSize: 10,
                     ),

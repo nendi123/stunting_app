@@ -41,8 +41,8 @@ List<RiwayatBalita> petugasFromJson(jsonData) {
   return result;
 }
 
-Future<List<RiwayatBalita>> fetchIbu() async {
-  String route = AppConfig.API_ENDPOINT + '/showRiwayatBalita';
+Future<List<RiwayatBalita>> showRiwayat(String id_anak) async {
+  String route = AppConfig.API_ENDPOINT + '/showRiwayatBalita/'+id_anak;
   final response = await http.get(Uri.parse(route));
 
   if (response.statusCode == 200) {
@@ -52,4 +52,39 @@ Future<List<RiwayatBalita>> fetchIbu() async {
     throw Exception('Failed load $route, status : ${response.statusCode}');
   }
 }
+
+Future eraseRiwayat(String id_anak) async {
+  String route = AppConfig.API_ENDPOINT + '/delRiwayatBalita';
+  // id_anak
+  try {
+    final response = await http.post(
+      Uri.parse(route),
+      headers: {"Content-Type" : "application/json"},
+      body: jsonEncode({'id_anak': id_anak}),
+    );
+    return response;
+  } catch (e) {
+    print('Error : ${e.toString()}');
+    return null;
+  }
+}
+
+Future addRiwayatBalita(RiwayatBalita rb) async {
+  String route = AppConfig.API_ENDPOINT + '/addRiwayatBalita';
+  // id_anak, tgl_riwayat, tinggi_badan, berat_badan, bb_usia, tb_usia, lingkar_kepala, riwayat_diare, riwayat_ispa
+  try {
+    final response = await http.post(
+      Uri.parse(route),
+      headers: {"Content-Type" : "application/json"},
+      body: jsonEncode({'id_anak': rb.id_anak, 'tgl_riwayat': rb.tgl_riwayat, 'tinggi_badan' : rb.tinggi_badan,
+        'berat_badan': rb.berat_badan, 'bb_usia' : rb.bb_usia, 'tb_usia' : rb.tb_usia, 'lingkar_kepala' : rb.lingkar_kepala,
+        'riwayat_diare': rb.riwayat_diare, 'riwayat_ispa': rb.riwayat_ispa}),
+    );
+    return response;
+  } catch (e) {
+    print('Error : ${e.toString()}');
+    return null;
+  }
+}
+
 

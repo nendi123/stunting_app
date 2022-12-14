@@ -238,18 +238,18 @@ class _AddAnakPageState extends State<AddAnakPage> {
                        height: 120.0,
                        width: 120.0,
                        color: Colors.transparent,
-                       child: Image.asset('assets/image/logo.png'),
+                       child: Image.asset('assets/image/foto_anak.png'),
                      ),
                    ),
                  ),
-                 Container(
-                   alignment: Alignment.center,
-                   margin: EdgeInsets.symmetric(horizontal: Constant().margin),
-                   child: const Text(
-                     "Unggah Foto",
-                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
-                   ),
-                 ),
+                 // Container(
+                 //   alignment: Alignment.center,
+                 //   margin: EdgeInsets.symmetric(horizontal: Constant().margin),
+                 //   child: const Text(
+                 //     "Unggah Foto",
+                 //     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                 //   ),
+                 // ),
                ],
              ),
              const SizedBox(
@@ -262,10 +262,10 @@ class _AddAnakPageState extends State<AddAnakPage> {
                    child: Column(
                        children: <Widget> [
                          // textInput(_namaController,  'Nama lengkap'),
-                         _inputText(id_anak, 'ID Anak'),
-                         const SizedBox(
-                           height: 10,
-                         ),
+                         // _inputText(id_anak, 'ID Anak'),
+                         // const SizedBox(
+                         //   height: 10,
+                         // ),
                          // _inputText(nik_ibu, 'NIK Ibu'),
                          // const SizedBox(
                          //   height: 10,
@@ -428,7 +428,9 @@ class _AddAnakPageState extends State<AddAnakPage> {
       print(response.body.toString());
       if(response.statusCode == 200) {
         var jsonResp = jsonDecode(response.body);
-        Navigator.pop(context, jsonResp['message']);
+        // Navigator.pop(context, jsonResp['message']);
+        // Navigator.pop(context, true);
+        Navigator.pushNamed(context, '/homeOrangtua');
       } else {
         // dialog(context, "${response.body.toString()}");
         Navigator.pop(context, "${response.body.toString()}");
@@ -454,7 +456,7 @@ class RadioGroupWidget extends State {
   List<JenisKelaminList> jList = [
     JenisKelaminList(
       index: 1,
-      name: "Laki-lakk",
+      name: "Laki-laki",
     ),
     JenisKelaminList(
       index: 2,

@@ -12,6 +12,8 @@ import 'package:stunting_app/pages/orangtua/register_orangtua_page.dart';
 import 'package:stunting_app/pages/orangtua/add_anak_page.dart';
 import 'package:stunting_app/pages/orangtua/edit_anak_page.dart';
 import 'package:stunting_app/pages/orangtua/posyandu_page.dart';
+import 'package:stunting_app/pages/orangtua/dash_ortu.dart';
+
 import 'package:stunting_app/pages/petugas/add_anak_page.dart';
 
 import 'package:stunting_app/pages/petugas/add_ibu_page.dart';
@@ -130,8 +132,9 @@ class MyApp extends StatelessWidget {
         // '/profileAnak': (context) => const ProfileAnakPage(),
         // '/editAnak': (context) => const EditAnakPage(),
         '/mpasiAnak': (context) => const MpasiAnakPage(),
-        '/kmsAnak': (context) => const KmsAnakPage(),
+        // '/kmsAnak': (context) => const KmsAnakPage(),
         '/posyandu': (context) => const PosyanduPage(),
+        '/dashOrtu': (context) => DashOrtuPage(),
       },
     );
   }

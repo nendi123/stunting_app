@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stunting_app/pages/orangtua/kms_anak_page.dart';
 import 'package:stunting_app/pages/orangtua/test_edit_anak.dart';
 import 'package:stunting_app/shared/constant.dart';
 import 'package:stunting_app/pages/orangtua/edit_anak_page.dart';
@@ -7,10 +8,10 @@ import 'package:stunting_app/model/anak.dart';
 class TestDetailAnak extends StatelessWidget {
   // String nama_lengkap, tgl_lahir, jenis_kelamin;
   // final Anak anak;
-  String id_anak, nik_ibu, nama_lengkap, jenis_kelamin, tgl_lahir, akte_lahir,
+  String nik_ibu, nama_lengkap, jenis_kelamin, tgl_lahir, akte_lahir,
       persalinan_oleh, bb_lahir, panjang_lahir, prematur, alergi, gol_darah, lingkar_kepala,tb_lahir ;
 
-  int usia_kehamilan;
+  int usia_kehamilan, id_anak;
 
   TestDetailAnak({Key ? key, required this.id_anak, required this.nik_ibu, required this.nama_lengkap, required this.jenis_kelamin,
     required this.tgl_lahir,  required this.akte_lahir, required this.persalinan_oleh, required this.bb_lahir, required this.panjang_lahir,
@@ -143,7 +144,11 @@ class TestDetailAnak extends StatelessWidget {
                             ),
                             child: InkWell(
                               onTap: () {
-                                Navigator.pushNamed(context, '/kmsAnak');
+                                // Navigator.pushNamed(context, '/kmsAnak');
+                                Navigator.of(context).push(MaterialPageRoute(builder:
+                                    (context)=>
+                                    KmsAnakPage(id_anak: this.id_anak)));
+
                               },
                               // borderRadius: BorderRadius.circular(50.0),
                               child: Padding(
@@ -295,7 +300,7 @@ class TestDetailAnak extends StatelessWidget {
               ),
               // id_anak, nik_ibu, nama_lengkap, jenis_kelamin, tgl_lahir, akte_lahir,
               // persalinan_oleh, bb_lahir, panjang_lahir, prematur, alergi, gol_darah, lingkar_kepala,tb_lahir
-              _detailAnak(id_anak, 'ID Anak'),
+              _detailAnak(id_anak.toString(), 'ID Anak'),
               _detailAnak(nik_ibu, 'NIK Ibu'),
               _detailAnak(nama_lengkap, 'Nama lengkap'),
               _detailAnak(tgl_lahir, 'Tanggal lahir'),

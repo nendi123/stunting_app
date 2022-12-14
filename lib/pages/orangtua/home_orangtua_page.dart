@@ -13,15 +13,11 @@ import 'dart:async';
 import 'package:async/async.dart';
 import 'package:stunting_app/pages/orangtua/test_detail_anak.dart';
 import 'package:stunting_app/pages/orangtua//edit_ibu_page.dart';
+import 'package:stunting_app/pages/orangtua/dash_ortu.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class HomeOrangtuaPage extends StatefulWidget {
-  // const HomeOrangtuaPage({Key ? key, required this.anak});
-  // final Anak anak;
   const HomeOrangtuaPage({super.key});
-
-
-  // final List list;
-  // const HomeOrangtuaPage({required this.list});
 
   @override
   State<HomeOrangtuaPage> createState() => _HomeOrangtuaPageState();
@@ -32,11 +28,10 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
 
   @override
   void initState() {
-    response = getData();
+    setState(() {
+      response = getData();
+    });
     super.initState();
-    // getNik().then((_) {
-    //   response = getData(getNik());
-    // });
   }
 
   // static Future getNik() async {
@@ -46,10 +41,19 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
   //   return nik;
   // }
 
+  final spinkit = SpinKitSpinningLines(
+    color: Colors.deepPurple,
+    size: 80.0,
+  );
+
   String user = '';
   String _nik = '';
+  bool _isLoading = false;
 
   Future<List<dynamic>> getData() async {
+    setState(() {
+      _isLoading = true;
+    });
     final prefs = await SharedPreferences.getInstance();
     final nik = prefs.getString('nik');
     final userid = prefs.getString('userid');
@@ -58,6 +62,8 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
     user = await userid!;
     _nik = await nik!;
     final response = await http.get(Uri.parse(AppConfig.API_ENDPOINT+'/showAnakIbu/'+nik!));
+    await Future.delayed(Duration(seconds: 2));
+    setState(() { _isLoading = false; });
     return jsonDecode(response.body);
   }
 
@@ -146,6 +152,7 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
     // String nik = _nik;
     return Scaffold(
       body: SingleChildScrollView(
+
         child: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -222,7 +229,10 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
               height: 10,
             ),
             Expanded(
-              child: myApiWidget(),
+              child: _isLoading
+                  // ? const CircularProgressIndicator()
+                  ? spinkit
+                  : myApiWidget(),
             ),
 
 
@@ -326,7 +336,9 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
                 Icons.qr_code,
                 color: Colors.white60,
               ),
-              onPressed: () {},
+              onPressed: () {
+                // Navigator.pushNamed(context, '/dashOrtu');
+              },
             ),
             IconButton(
               icon: const Icon(

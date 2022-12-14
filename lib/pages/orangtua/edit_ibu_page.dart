@@ -385,7 +385,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
                             filled: true,
                             fillColor: Colors.white,
                             hintText: 'Status Nikah',
-                            label: Text("Status Nikah"),
+                            label: Text("Status Nikah (Ya/Tidak/Janda/Duda)"),
                             contentPadding:
                             EdgeInsets.symmetric(horizontal: Constant().margin),
                             border: OutlineInputBorder(
@@ -412,7 +412,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
                             filled: true,
                             fillColor: Colors.white,
                             hintText: 'Berat Badan',
-                            label: Text("Berat Badan"),
+                            label: Text("Berat Badan (kg)"),
                             contentPadding:
                             EdgeInsets.symmetric(horizontal: Constant().margin),
                             border: OutlineInputBorder(
@@ -439,7 +439,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
                             filled: true,
                             fillColor: Colors.white,
                             hintText: 'Tinggi Badan',
-                            label: Text("Tinggi Badan"),
+                            label: Text("Tinggi Badan (cm)"),
                             contentPadding:
                             EdgeInsets.symmetric(horizontal: Constant().margin),
                             border: OutlineInputBorder(
@@ -465,8 +465,8 @@ class _EditIbuPageState extends State<EditIbuPage> {
                         decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.white,
-                            hintText: 'Status Kartu keluarga',
-                            label: Text("Status Kartu keluarga"),
+                            hintText: 'Memiliki Kartu keluarga',
+                            label: Text("Memiliki Kartu keluarga (Ya/Tidak"),
                             contentPadding:
                             EdgeInsets.symmetric(horizontal: Constant().margin),
                             border: OutlineInputBorder(
@@ -623,7 +623,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
+        firstDate: DateTime(1970, 8),
         lastDate: DateTime(2101));
     if (picked != null && picked != selectedDate) {
       setState(() {
@@ -656,7 +656,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
                 if (hasil) {
                   Navigator.pushNamed(context, '/homeOrangtua');
                 } else {
-                  Navigator.of(context).pop();
+                  Navigator.pushNamed(context, '/homeOrangtua');
                 }
               },
             ),

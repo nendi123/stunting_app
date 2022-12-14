@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stunting_app/shared/constant.dart';
 import 'package:stunting_app/model/userAuth.dart';
 import 'dart:convert';
+import 'package:stunting_app/shared/util.dart';
 // import 'package:stunting_app/shared/util.dart';
 // import 'package:async/async.dart';
 // import 'package:http/http.dart';
@@ -127,7 +128,7 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
                       decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
-                          hintText: 'E-mail',
+                          hintText: 'UserID',
                           contentPadding: EdgeInsets.symmetric(
                               horizontal: Constant().margin),
                           border: OutlineInputBorder(
@@ -291,7 +292,7 @@ class _RegisterOrangTuaPageState extends State<RegisterOrangTuaPage> {
         var jsonResp = jsonDecode(response.body);
         Navigator.pop(context, jsonResp['message']);
       } else {
-        // dialog(context, "${response.body.toString()}");
+        dialog(context, "${response.body.toString()}");
         Navigator.pop(context, "${response.body.toString()}");
       }
     }

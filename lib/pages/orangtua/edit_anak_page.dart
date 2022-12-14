@@ -11,9 +11,9 @@ const List<String> jns_kelamin = <String>['Laki-laki', 'Perempuan'];
 const List<String> jns_prematur = <String>['Ya', 'Tidak'];
 
 class EditAnakPage extends StatefulWidget {
-  String id_anak, nik_ibu, nama_lengkap, jenis_kelamin, tgl_lahir, akte_lahir,
+  String nik_ibu, nama_lengkap, jenis_kelamin, tgl_lahir, akte_lahir,
       persalinan_oleh, bb_lahir, panjang_lahir, prematur, alergi, gol_darah, lingkar_kepala,tb_lahir ;
-  int usia_kehamilan;
+  int usia_kehamilan, id_anak;
 
   EditAnakPage({Key ? key, required this.id_anak, required this.nik_ibu, required this.nama_lengkap, required this.jenis_kelamin,
     required this.tgl_lahir,  required this.akte_lahir, required this.persalinan_oleh, required this.bb_lahir, required this.panjang_lahir,
@@ -192,7 +192,7 @@ class _EditAnakPageState extends State<EditAnakPage> {
     final ColorScheme colors = Theme.of(context).colorScheme;
     // id_anak, nik_ibu, jenis_kelamin, tgl_lahir, akte_lahir, persalinan_oleh, bb_lahir, panjang_lahir, prematur, alergi,
     // gol_darah, lingkar_kepala,tb_lahir, usia_kehamilan
-    id_anak.text = widget.id_anak;
+    id_anak.text = widget.id_anak.toString();
     nik_ibu.text = widget.nik_ibu;
     nama_lengkap.text = widget.nama_lengkap;
     tgl_lahir.text = widget.tgl_lahir;
