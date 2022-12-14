@@ -147,7 +147,7 @@ class _LoginPetugasPageState extends State<LoginPetugasPage> {
                                   decoration: InputDecoration(
                                       filled: true,
                                       fillColor: Colors.grey.shade200,
-                                      hintText: 'Email',
+                                      hintText: 'User ID',
                                       contentPadding: EdgeInsets.symmetric(
                                           horizontal: Constant().margin),
                                       border: OutlineInputBorder(
