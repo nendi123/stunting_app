@@ -22,8 +22,9 @@ class _ListIbuPageState extends State<ListIbuPage> {
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
+        // height: MediaQuery.of(context).size.height,
         color: Colors.grey.shade200,
+        child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
@@ -112,7 +113,7 @@ class _ListIbuPageState extends State<ListIbuPage> {
             )
           ],
         ),
-      ),
+      ),),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
         onPressed: () {

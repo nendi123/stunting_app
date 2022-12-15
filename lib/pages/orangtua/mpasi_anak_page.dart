@@ -109,7 +109,8 @@ class _MpasiAnakPageState extends State<MpasiAnakPage> {
                     border: Border.all(width: 1, color: Colors.transparent),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
-                  padding: EdgeInsets.all(14),
+
+                  padding: EdgeInsets.all(10),
                   child: Row(
                     children: [
                       Column(
@@ -120,11 +121,7 @@ class _MpasiAnakPageState extends State<MpasiAnakPage> {
                           Text('Jadwal', style: TextStyle(color: Colors.black54),)
                         ],
                       ),
-                      Column(
-                        children: [
-                          Text('      '),
-                        ],
-                      ),
+                      Spacer(),
                       Column(
                         // crossAxisAlignment: CrossAxisAlignment.start,
                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -160,11 +157,7 @@ class _MpasiAnakPageState extends State<MpasiAnakPage> {
                               return Text(elemen, style: TextStyle(color: Colors.black54),);
                             }).toList(),
                           ),
-                          Column(
-                            children: [
-                              Text('         '),
-                            ],
-                          ),
+                          Spacer(),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: mpasi.map((elemen) {

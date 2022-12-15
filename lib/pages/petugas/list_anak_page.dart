@@ -36,6 +36,25 @@ class _ListAnakPageState extends State<ListAnakPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton( //menu icon button at start left of appbar
+          onPressed: (){
+            //code to execute when this button is pressed
+            Navigator.pushNamed(context, '/homeOrangtua');
+          },
+          icon: Icon(Icons.arrow_back, size: 20,),
+        ),
+        title: Text(
+          'Daftar anak dari ibu',
+          style: TextStyle(
+              fontWeight: FontWeight.w300,
+              fontSize: 16
+          ),
+        ),
+        toolbarHeight: 50,
+        elevation: 10.0,
+      ),
+      resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
@@ -152,7 +171,7 @@ class _ListAnakPageState extends State<ListAnakPage> {
     listNamaAnak = [];
     listTglLahirAnak = [];
     final response =
-        await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showAnakAll"));
+        await http.get(Uri.parse(AppConfig.API_ENDPOINT+'/showAnakAll'));
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
@@ -162,7 +181,7 @@ class _ListAnakPageState extends State<ListAnakPage> {
       for (var i = 0; i < jsonResponse.length; i++) {
         if (jsonResponse[i]['nik_ibu'] == nikIbu) {
           setState(() {
-            listIdAnak.add(jsonResponse[i]['id_anak']);
+            listIdAnak.add(jsonResponse[i]['id_anak'].toString());
             listNamaAnak.add(jsonResponse[i]['nama_lengkap']);
             listTglLahirAnak.add(jsonResponse[i]['tgl_lahir']);
           });
@@ -192,7 +211,7 @@ class _ListAnakPageState extends State<ListAnakPage> {
               child: ListTile(
                   title: Text(
                     nama,
-                    style: TextStyle(fontWeight: FontWeight.w200),
+                    style: TextStyle(fontWeight: FontWeight.w400),
                   ),
                   subtitle: Text(umur),
                   trailing: GestureDetector(
@@ -205,10 +224,10 @@ class _ListAnakPageState extends State<ListAnakPage> {
                           ),
                         );
                       },
-                      child: Icon(Icons.edit))),
+                      child: Icon(Icons.edit, color: Colors.deepPurple,))),
             ),
             Container(
-              color: Colors.green,
+              color: Colors.white,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 mainAxisSize: MainAxisSize.max,
@@ -228,9 +247,9 @@ class _ListAnakPageState extends State<ListAnakPage> {
                       children: [
                         Image.asset(
                           'assets/image/Tableware.png',
-                          width: 30,
+                          width: 20,
                         ),
-                        const Text('MPASI')
+                        const Text('MPASI', style: TextStyle(fontSize: 10, color: Colors.black54))
                       ],
                     ),
                   ),
@@ -242,10 +261,10 @@ class _ListAnakPageState extends State<ListAnakPage> {
                       children: const [
                         Icon(
                           Icons.laptop,
-                          size: 30,
+                          size: 20,
                           color: Color.fromRGBO(87, 81, 203, 1),
                         ),
-                        Text('KMS')
+                        Text('KMS', style: TextStyle(fontSize: 10, color: Colors.black54))
                       ],
                     ),
                   ),
@@ -253,9 +272,9 @@ class _ListAnakPageState extends State<ListAnakPage> {
                     children: [
                       Image.asset(
                         'assets/image/Motherroom.png',
-                        width: 30,
+                        width: 20,
                       ),
-                      const Text('Posyandu')
+                      const Text('Posyandu', style: TextStyle(fontSize: 10, color: Colors.black54))
                     ],
                   )
                 ],
