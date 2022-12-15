@@ -161,6 +161,8 @@ class _EditAnakPageState extends State<EditAnakPage> {
 
   TextEditingController id_anak = TextEditingController();
   TextEditingController nik_ibu = TextEditingController();
+  TextEditingController _jeniskelamin = TextEditingController();
+  TextEditingController _prematur = TextEditingController();
   TextEditingController nama_lengkap = TextEditingController();
   TextEditingController tgl_lahir = TextEditingController();
   TextEditingController akte_lahir = TextEditingController();
@@ -221,6 +223,7 @@ class _EditAnakPageState extends State<EditAnakPage> {
     // String _lingkar_kepala = widget.lingkar_kepala;
     // int _usia_kehamilan = widget.usia_kehamilan;
     // String _tb_lahir = widget.tb_lahir;
+    print(_prematur);
     print(widget.tgl_lahir);
 
     return Scaffold(

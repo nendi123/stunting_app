@@ -118,6 +118,36 @@ class _AddAnakPageState extends State<AddAnakPage> {
         }
         return null;
       },
+      keyboardType: TextInputType.text,
+      textCapitalization: TextCapitalization.words,
+    );
+  }
+
+  Widget _inputNumeric(TextEditingController nama_control, String judul) {
+    return new TextFormField(
+      controller: nama_control,
+      decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          hintText: judul,
+          hintStyle: TextStyle(color: Colors.black38, fontSize: 14),
+          contentPadding: EdgeInsets.symmetric(
+              horizontal: Constant().margin),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+                color: Colors.white, width: 0.0),
+          )),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Harus diisi!';
+        }
+        return null;
+      },
+      keyboardType: TextInputType.number,
     );
   }
 
@@ -333,19 +363,20 @@ class _AddAnakPageState extends State<AddAnakPage> {
                          const SizedBox(
                            height: 10,
                          ),
-                         _inputText(bb_lahir, 'Berat badan saat lahir (kg)'),
+                         _inputNumeric(bb_lahir, 'Berat badan saat lahir (kg)'),
                          const SizedBox(
                            height: 10,
                          ),
-                         _inputText(tb_lahir, 'Tinggi badan saat lahir (cm)'),
+                         _inputNumeric(tb_lahir, 'Tinggi badan saat lahir (cm)'),
                          const SizedBox(
                            height: 10,
                          ),
-                         _inputText(lingkar_kepala, 'Lingkar kepala saat lahir (cm)'),
+                         _inputNumeric(lingkar_kepala, 'Lingkar kepala saat lahir (cm)'),
                          const SizedBox(
                            height: 10,
                          ),
                          _inputText(gol_darah, 'Golongan Darah'),
+
                          const SizedBox(
                            height: 10,
                          ),
@@ -353,7 +384,7 @@ class _AddAnakPageState extends State<AddAnakPage> {
                          const SizedBox(
                            height: 10,
                          ),
-                         _inputText(usia_kehamilan, 'Usia kehamilan sebelum lahir (minggu)'),
+                         _inputNumeric(usia_kehamilan, 'Usia kehamilan sebelum lahir (minggu)'),
                          const SizedBox(
                            height: 10,
                          ),

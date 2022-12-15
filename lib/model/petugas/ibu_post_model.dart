@@ -69,7 +69,7 @@ class IbuPostMode {
       String status,
       String beratBadan,
       String tinggiBadan,
-      bool statusKk) async {
+      String statusKk) async {
     var post = await http.post(
         Uri.parse("https://quantri.lipi.go.id/stunting/editIbu"),
         headers: <String, String>{
@@ -89,7 +89,7 @@ class IbuPostMode {
           "pekerjaan": pekerjaan,
           "status_nikah": status,
           "jumlah_anak": 0,
-          "memiliki_kk": statusKk.toString()
+          "memiliki_kk": statusKk
         }));
 
     if (post.statusCode == 201 || post.statusCode == 200) {

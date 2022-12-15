@@ -571,7 +571,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
                     _statusController.text,
                     _beratBadanController.text,
                     _tinggiBadanController.text,
-                    statusKk)
+                    _statusKkController.text)
                 .then((value) => {
                       if (value)
                         {_showMyDialog("Data Berhasil di Edit", true)}
