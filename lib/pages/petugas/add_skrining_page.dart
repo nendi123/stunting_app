@@ -63,6 +63,7 @@ class _AddSkriningPageState extends State<AddSkriningPage> {
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
+              const SizedBox(height: 20.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
@@ -76,7 +77,7 @@ class _AddSkriningPageState extends State<AddSkriningPage> {
                         height: 150.0,
                         width: 150.0,
                         color: Colors.transparent,
-                        child: Image.asset('assets/image/logo.png'),
+                        child: Image.asset('assets/image/foto_anak.png'),
                       ),
                     ),
                   ),

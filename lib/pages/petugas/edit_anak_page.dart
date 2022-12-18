@@ -34,7 +34,6 @@ class _EditAnakPageState extends State<EditAnakPagePetugas> {
 
   @override
   void initState() {
-    // TODO: implement initState
     _fetchAnak();
     super.initState();
   }
@@ -418,7 +417,7 @@ class _EditAnakPageState extends State<EditAnakPagePetugas> {
         setState(() {});
       }
       for (var i = 0; i < jsonResponse.length; i++) {
-        if (jsonResponse[i]['id_anak'] == widget.idAnak) {
+        if (jsonResponse[i]['id_anak'].toString() == widget.idAnak) {
           _namaLengkapController.text = jsonResponse[i]['nama_lengkap'];
           _tanggalLahirController.text = jsonResponse[i]['tgl_lahir'];
           _jenisKelaminController.text = jsonResponse[i]['jenis_kelamin'];

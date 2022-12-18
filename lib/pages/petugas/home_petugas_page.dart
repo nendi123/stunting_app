@@ -163,118 +163,7 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Dialog(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0)),
-                              child: Container(
-                                margin: EdgeInsets.all(Constant().margin),
-                                child: Form(
-                                  key: _formKeyRes,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      const Text('SKRINING',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20)),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      TextFormField(
-                                        controller: _emailResController,
-                                        decoration: InputDecoration(
-                                            filled: true,
-                                            fillColor: Colors.grey.shade200,
-                                            hintText: 'NIK Orang Tua',
-                                            suffixIcon: Icon(Icons.search),
-                                            contentPadding:
-                                                EdgeInsets.symmetric(
-                                                    horizontal:
-                                                        Constant().margin),
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              borderSide: const BorderSide(
-                                                  color: Colors.white,
-                                                  width: 0.0),
-                                            )),
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return 'Please enter some text';
-                                          }
-                                          return null;
-                                        },
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      const Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Daftar Anak',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                              context, '/skriningPage');
-                                        },
-                                        child: const ListTile(
-                                          title: Text('LULU FAZA KAMILA'),
-                                          trailing:
-                                              Icon(Icons.arrow_circle_right),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.bottomCenter,
-                                          child: Container(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            height: 58,
-                                            margin: EdgeInsets.symmetric(
-                                                horizontal: Constant().margin),
-                                            child: ElevatedButton(
-                                              style: ElevatedButton.styleFrom(
-                                                  backgroundColor:
-                                                      const Color.fromRGBO(
-                                                          87, 81, 203, 1),
-                                                  padding: const EdgeInsets
-                                                          .symmetric(
-                                                      horizontal: 30,
-                                                      vertical: 10),
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              30))),
-                                              child: const Text(
-                                                'Skrining',
-                                                style: TextStyle(fontSize: 18),
-                                              ),
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                            ),
-                                          ))
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          });
+                      _showDialog();
                     },
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width / 3.5,
@@ -466,10 +355,95 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
     );
   }
 
+  Future<void> _showDialog() {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0)),
+            child: Container(
+              margin: EdgeInsets.all(Constant().margin),
+              child: Form(
+                key: _formKeyRes,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text('SKRINING',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20)),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      controller: _searchNikController,
+                      decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.grey.shade200,
+                          hintText: 'NIK Orang Tua',
+                          suffixIcon: IconButton(
+                              onPressed: () {
+                                _fetchIbu();
+                              },
+                              icon: const Icon(Icons.search)),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: Constant().margin),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: const BorderSide(
+                                color: Colors.white, width: 0.0),
+                          )),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Daftar Anak',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: listIdAnak.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(listNamaAnak[index]),
+                          trailing: IconButton(
+                            icon: const Icon(Icons.arrow_circle_right),
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/kmsPetugasPage');
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+  }
+
   void _fetchIbu() async {
     // final response = await http
     //     .get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbu?nik=" + widget.nik));
-
     final response =
         await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbuAll"));
 
@@ -491,13 +465,10 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
     }
   }
 
-  Future<List<AnakModel>> _fetchAnak() async {
-    listIdAnak = [];
-    listNamaAnak = [];
-    listTglLahirAnak = [];
+  void _fetchAnak() async {
     final response =
         await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showAnakAll"));
-    print(nikIbu);
+
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
       if (jsonResponse.isEmpty) {
@@ -505,14 +476,12 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
       }
       for (var i = 0; i < jsonResponse.length; i++) {
         if (jsonResponse[i]['nik_ibu'] == nikIbu) {
-          setState(() {
-            listIdAnak.add(jsonResponse[i]['id_anak']);
-            listNamaAnak.add(jsonResponse[i]['nama_lengkap']);
-            listTglLahirAnak.add(jsonResponse[i]['tgl_lahir']);
-          });
+          listIdAnak.add(jsonResponse[i]['id_anak'].toString());
+          listNamaAnak.add(jsonResponse[i]['nama_lengkap']);
+          listTglLahirAnak.add(jsonResponse[i]['tgl_lahir']);
+          setState(() {});
         }
       }
-      return jsonResponse.map((job) => AnakModel.responseApi(job)).toList();
     } else {
       throw Exception('Failed to load jobs from API');
     }

@@ -162,7 +162,7 @@ class _ListAnakPageState extends State<ListAnakPage> {
       for (var i = 0; i < jsonResponse.length; i++) {
         if (jsonResponse[i]['nik_ibu'] == nikIbu) {
           setState(() {
-            listIdAnak.add(jsonResponse[i]['id_anak']);
+            listIdAnak.add(jsonResponse[i]['id_anak'].toString());
             listNamaAnak.add(jsonResponse[i]['nama_lengkap']);
             listTglLahirAnak.add(jsonResponse[i]['tgl_lahir']);
           });
@@ -192,7 +192,7 @@ class _ListAnakPageState extends State<ListAnakPage> {
               child: ListTile(
                   title: Text(
                     nama,
-                    style: TextStyle(fontWeight: FontWeight.w200),
+                    style: const TextStyle(fontWeight: FontWeight.w200),
                   ),
                   subtitle: Text(umur),
                   trailing: GestureDetector(
@@ -205,7 +205,7 @@ class _ListAnakPageState extends State<ListAnakPage> {
                           ),
                         );
                       },
-                      child: Icon(Icons.edit))),
+                      child: const Icon(Icons.edit))),
             ),
             Container(
               color: Colors.green,
