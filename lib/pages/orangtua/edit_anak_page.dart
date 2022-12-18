@@ -74,6 +74,34 @@ class _EditAnakPageState extends State<EditAnakPage> {
     );
   }
 
+  Widget _inputNumeric(TextEditingController nama_control, String judul) {
+    return new TextFormField(
+      controller: nama_control,
+      decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          hintText: judul,
+          hintStyle: TextStyle(color: Colors.black38, fontSize: 14),
+          contentPadding: EdgeInsets.symmetric(
+              horizontal: Constant().margin),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+                color: Colors.white, width: 0.0),
+          )),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Harus diisi!';
+        }
+        return null;
+      },
+      keyboardType: TextInputType.number,
+    );
+  }
+
   Widget _jenisKelaminDropdown() {
     return DropdownButton<String>(
       value: jenis_kelamin,
@@ -161,6 +189,8 @@ class _EditAnakPageState extends State<EditAnakPage> {
 
   TextEditingController id_anak = TextEditingController();
   TextEditingController nik_ibu = TextEditingController();
+  TextEditingController _jeniskelamin = TextEditingController();
+  TextEditingController _prematur = TextEditingController();
   TextEditingController nama_lengkap = TextEditingController();
   TextEditingController tgl_lahir = TextEditingController();
   TextEditingController akte_lahir = TextEditingController();
@@ -221,6 +251,7 @@ class _EditAnakPageState extends State<EditAnakPage> {
     // String _lingkar_kepala = widget.lingkar_kepala;
     // int _usia_kehamilan = widget.usia_kehamilan;
     // String _tb_lahir = widget.tb_lahir;
+    print(_prematur);
     print(widget.tgl_lahir);
 
     return Scaffold(
@@ -349,17 +380,18 @@ class _EditAnakPageState extends State<EditAnakPage> {
                               height: 10,
                             ),
 
-                            _inputText(bb_lahir, 'Berat badan saat lahir (kg)'),
+                            _inputNumeric(bb_lahir, 'Berat badan saat lahir (kg)'),
+
                             const SizedBox(
                               height: 10,
                             ),
 
-                            _inputText(tb_lahir, 'Tinggi badan saat lahir (cm)'),
+                            _inputNumeric(tb_lahir, 'Tinggi badan saat lahir (cm)'),
                             const SizedBox(
                               height: 10,
                             ),
 
-                            _inputText(lingkar_kepala, 'Lingkar kepala saat lahir (cm)'),
+                            _inputNumeric(lingkar_kepala, 'Lingkar kepala saat lahir (cm)'),
                             const SizedBox(
                               height: 10,
                             ),
@@ -374,7 +406,7 @@ class _EditAnakPageState extends State<EditAnakPage> {
                               height: 10,
                             ),
 
-                            _inputText(usia_kehamilan, 'Usia kehaliman (minggu)'),
+                            _inputNumeric(usia_kehamilan, 'Usia kehamilan (minggu)'),
                             const SizedBox(
                               height: 10,
                             ),

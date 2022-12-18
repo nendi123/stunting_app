@@ -93,207 +93,8 @@ class TestDetailAnak extends StatelessWidget {
                   border: Border.all(width: 1, color: Colors.transparent),
                   borderRadius: BorderRadius.all(Radius.circular(0)),
                 ),
-
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-
-                    Column(
-                      children: [
-                        const SizedBox( height: 10, ),
-                        Material(
-                          type: MaterialType.transparency,
-                          child: Ink(
-                            decoration: BoxDecoration(
-                                border: Border.all(width: 1, color: Colors.white70),
-                                borderRadius: BorderRadius.circular(20.0),
-                                color: Colors.indigo
-                            ),
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(context, '/mpasiAnak');
-                              },
-                              // borderRadius: BorderRadius.circular(50.0),
-                              child: Padding(
-                                padding: EdgeInsets.all(10.0),
-                                child: Icon(
-                                  Icons.emoji_food_beverage,
-                                  size: 20.0,
-                                  color: Colors.white70,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox( height: 5 ),
-                        Text('    MPASI   '),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        const SizedBox( height: 10, ),
-                        Material(
-                          type: MaterialType.transparency,
-                          child: Ink(
-                            decoration: BoxDecoration(
-                                border: Border.all(width: 1 , color: Colors.white70),
-                                borderRadius: BorderRadius.circular(20.0),
-                                color: Colors.indigo
-                            ),
-                            child: InkWell(
-                              onTap: () {
-                                // Navigator.pushNamed(context, '/kmsAnak');
-                                Navigator.of(context).push(MaterialPageRoute(builder:
-                                    (context)=>
-                                    KmsAnakPage(id_anak: this.id_anak)));
-
-                              },
-                              // borderRadius: BorderRadius.circular(50.0),
-                              child: Padding(
-                                padding: EdgeInsets.all(10.0),
-                                child: Icon(
-                                  Icons.add_chart,
-                                  size: 20.0,
-                                  color: Colors.white70,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox( height: 5 ),
-                        Text('    KMS    '),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        const SizedBox( height: 10, ),
-                        Material(
-                          type: MaterialType.transparency,
-                          child: Ink(
-                            decoration: BoxDecoration(
-                                border: Border.all(width: 1, color: Colors.white70),
-                                borderRadius: BorderRadius.circular(20.0),
-                                color: Colors.indigo
-                            ),
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(context, '/posyandu');
-                              },
-                              // borderRadius: BorderRadius.circular(50.0),
-                              child: Padding(
-                                padding: EdgeInsets.all(10.0),
-                                child: Icon(
-                                  Icons.home,
-                                  size: 20.0,
-                                  color: Colors.white70,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox( height: 5 ),
-                        Text('  Posyandu  '),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        const SizedBox( height: 10, ),
-                        Material(
-                          type: MaterialType.transparency,
-                          child: Ink(
-                            decoration: BoxDecoration(
-                                border: Border.all(width: 1, color: Colors.white70),
-                                borderRadius: BorderRadius.circular(20.0),
-                                color: Colors.indigo
-                            ),
-                            child: InkWell(
-                              onTap: () {
-                                // Navigator.pushNamed(context, '/editAnak');
-                                //this.id_anak, required this.nik_ibu, required this.nama_lengkap, required this.jenis_kelamin,
-                                //     required this.tgl_lahir,  required this.akte_lahir, required this.persalinan_oleh, required this.bb_lahir, required this.panjang_lahir,
-                                //     required this.prematur, required this.usia_kehamilan, required this.alergi, required this.gol_darah, required this.lingkar_kepala, required this.tb_lahir });
-                                Navigator.of(context).push(MaterialPageRoute(builder:
-                                    (context)=>
-                                        EditAnakPage(id_anak: this.id_anak, nik_ibu: this.nik_ibu, nama_lengkap: this.nama_lengkap, jenis_kelamin: this.jenis_kelamin,
-                                        tgl_lahir: this.tgl_lahir, akte_lahir : this.akte_lahir, persalinan_oleh : this.persalinan_oleh,
-                                        bb_lahir: this.bb_lahir, panjang_lahir: this.panjang_lahir, prematur: this.prematur, usia_kehamilan: this.usia_kehamilan,
-                                        alergi: this.alergi, gol_darah: this.gol_darah, lingkar_kepala: this.lingkar_kepala,tb_lahir: this.tb_lahir)));
-
-                                // Navigator.of(context).push(MaterialPageRoute(builder:
-                                //     (context)=>TestEditAnakPage(anak: anak,)));
-
-                              },
-                              // borderRadius: BorderRadius.circular(50.0),
-                              child: Padding(
-                                padding: EdgeInsets.all(10.0),
-                                child: Icon(
-                                  Icons.edit,
-                                  size: 20.0,
-                                  color: Colors.white70,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox( height: 5 ),
-                        Text('   Update   '),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        const SizedBox( height: 10, ),
-                        Material(
-                          type: MaterialType.transparency,
-                          child: Ink(
-                            decoration: BoxDecoration(
-                                border: Border.all(width: 1, color: Colors.white70),
-                                borderRadius: BorderRadius.circular(20.0),
-                                color: Colors.indigo
-                            ),
-                            child: InkWell(
-                              onTap: () => showDialog<String>(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: const Text('Delete Data'),
-                                  content: const Text('Yakin Data Akan Dihapus '),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () => Navigator.pop(context, 'Tidak'),
-                                      child: const Text('Tidak'),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        eraseAnak(id_anak);
-                                        Navigator.pushNamed(context, '/homeOrangtua');
-                                      },
-                                      // =>
-
-                                      child: const Text('Ya'),
-                                    ),
-                                  ],
-                                ),
-                              ),
-
-                              // borderRadius: BorderRadius.circular(50.0),
-                              child: Padding(
-                                padding: EdgeInsets.all(10.0),
-                                child: Icon(
-                                  Icons.delete,
-                                  size: 20.0,
-                                  color: Colors.white70,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox( height: 5 ),
-                        Text('  Delete  '),
-                      ],
-                    ),
-                  ],
-                ),
+                
+                child: _menuTengah(context),
               ),
               const SizedBox(
                 height: 10,
@@ -365,6 +166,205 @@ class TestDetailAnak extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+  
+  Widget _menuTengah(BuildContext context) {
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Spacer(),
+          Column(
+            children: [
+              const SizedBox( height: 10, ),
+              Material(
+                type: MaterialType.transparency,
+                child: Ink(
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 1, color: Colors.white70),
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.indigo
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/mpasiAnak');
+                    },
+                    // borderRadius: BorderRadius.circular(50.0),
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Icon(
+                        Icons.emoji_food_beverage,
+                        size: 20.0,
+                        color: Colors.white70,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox( height: 5 ),
+              Text(' MPASI ', style: TextStyle(fontSize: 10, color: Colors.black54),),
+            ],
+          ),
+          Spacer(),
+          Column(
+            children: [
+              const SizedBox( height: 10, ),
+              Material(
+                type: MaterialType.transparency,
+                child: Ink(
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 1 , color: Colors.white70),
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.indigo
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      // Navigator.pushNamed(context, '/kmsAnak');
+                      Navigator.of(context).push(MaterialPageRoute(builder:
+                          (context)=>
+                          KmsAnakPage(id_anak: this.id_anak)));
+
+                    },
+                    // borderRadius: BorderRadius.circular(50.0),
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Icon(
+                        Icons.add_chart,
+                        size: 20.0,
+                        color: Colors.white70,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox( height: 5 ),
+              Text(' KMS ', style: TextStyle(fontSize: 10, color: Colors.black54),),
+            ],
+          ),
+          Spacer(),
+          Column(
+            children: [
+              const SizedBox( height: 10, ),
+              Material(
+                type: MaterialType.transparency,
+                child: Ink(
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 1, color: Colors.white70),
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.indigo
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/posyandu');
+                    },
+                    // borderRadius: BorderRadius.circular(50.0),
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Icon(
+                        Icons.home,
+                        size: 20.0,
+                        color: Colors.white70,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox( height: 5 ),
+              Text('Posyandu', style: TextStyle(fontSize: 10, color: Colors.black54),),
+            ],
+          ),
+          Spacer(),
+          Column(
+            children: [
+              const SizedBox( height: 10, ),
+              Material(
+                type: MaterialType.transparency,
+                child: Ink(
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 1, color: Colors.white70),
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.indigo
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder:
+                          (context)=>
+                              EditAnakPage(id_anak: this.id_anak, nik_ibu: this.nik_ibu, nama_lengkap: this.nama_lengkap, jenis_kelamin: this.jenis_kelamin,
+                              tgl_lahir: this.tgl_lahir, akte_lahir : this.akte_lahir, persalinan_oleh : this.persalinan_oleh,
+                              bb_lahir: this.bb_lahir, panjang_lahir: this.panjang_lahir, prematur: this.prematur, usia_kehamilan: this.usia_kehamilan,
+                              alergi: this.alergi, gol_darah: this.gol_darah, lingkar_kepala: this.lingkar_kepala,tb_lahir: this.tb_lahir)));
+                    },
+                    // borderRadius: BorderRadius.circular(50.0),
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Icon(
+                        Icons.edit,
+                        size: 20.0,
+                        color: Colors.white70,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox( height: 5 ),
+              Text('Update', style: TextStyle(fontSize: 10, color: Colors.black54),),
+            ],
+          ),
+          Spacer(),
+          Column(
+            children: [
+              const SizedBox( height: 10, ),
+              Material(
+                type: MaterialType.transparency,
+                child: Ink(
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 1, color: Colors.white70),
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.indigo
+                  ),
+                  child: InkWell(
+                    onTap: () => showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Delete Data'),
+                        content: const Text('Yakin Data Akan Dihapus '),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'Tidak'),
+                            child: const Text('Tidak'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              eraseAnak(id_anak);
+                              Navigator.pushNamed(context, '/homeOrangtua');
+                            },
+
+                            child: const Text('Ya'),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // borderRadius: BorderRadius.circular(50.0),
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Icon(
+                        Icons.delete,
+                        size: 20.0,
+                        color: Colors.white70,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox( height: 5 ),
+              Text('Delete', style: TextStyle(fontSize: 10, color: Colors.black54),),
+            ],
+          ),
+        Spacer(),
+      ],
     );
   }
 }

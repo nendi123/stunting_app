@@ -20,6 +20,8 @@ class _RiwayatBalitaPageState extends State<RiwayatBalitaPage> {
   Future<List<dynamic>> getData(String id_anak) async {
     final response = await http.get(Uri.parse(AppConfig.API_ENDPOINT+'/showRiwayatBalita/'+id_anak!));
     await Future.delayed(Duration(seconds: 1));
+    print(response.statusCode);
+    statusCode = response.statusCode.toString();
     return jsonDecode(response.body);
   }
 
@@ -31,6 +33,7 @@ class _RiwayatBalitaPageState extends State<RiwayatBalitaPage> {
   }
 
   late Future<List> response;
+  late String statusCode = '';
 
   @override
   Widget build(BuildContext context) {
@@ -95,10 +98,12 @@ class _RiwayatBalitaPageState extends State<RiwayatBalitaPage> {
           );
 
         } else {
-          return Center(
-            // child: CircularProgressIndicator(),
-            child: Text('Data anak tidak ditemukan.'),
-          );
+          print(statusCode);
+          if(statusCode == '422') {
+            return Center(child: Text('Data tidak ditemukan.'));
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
         }
       }
 
