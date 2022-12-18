@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stunting_app/model/petugas/petugas_model.dart';
 import 'package:stunting_app/model/petugas/petugas_post_model.dart';
+import 'package:stunting_app/model/petugas/posyandu_model.dart';
 import 'package:stunting_app/shared/config.dart';
 import 'package:stunting_app/shared/constant.dart';
 import 'package:http/http.dart' as http;
@@ -23,6 +24,9 @@ class _ProfilePetugasPageState extends State<ProfilePetugasPage> {
   TextEditingController _hpController = TextEditingController();
   TextEditingController _posyanduController = TextEditingController();
   TextEditingController _alamatController = TextEditingController();
+
+  String? txtCity;
+  List<Posyandu> listPosyandu = [];
 
   @override
   void initState() {
@@ -222,29 +226,66 @@ class _ProfilePetugasPageState extends State<ProfilePetugasPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    TextFormField(
-                      controller: _posyanduController,
-                      decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
-                          hintText: 'Nama Posyandu',
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: Constant().margin),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: const BorderSide(
-                                color: Colors.white, width: 0.0),
-                          )),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
+                    FutureBuilder<List<Posyandu>>(
+                      future: _fetchPosyandu(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          List<Posyandu>? data = snapshot.data;
+                          return Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal: Constant().margin),
+                            child: DropdownButton<String>(
+                              dropdownColor: Colors.grey.shade200,
+                              underline: Container(),
+                              isExpanded: true,
+                              elevation: 16,
+                              hint: const Text("Pilih Posyandu"),
+                              style: const TextStyle(color: Colors.black),
+                              value: txtCity,
+                              items: snapshot.data
+                                  ?.map((data) => DropdownMenuItem<String>(
+                                        value: data.kodePosyandu,
+                                        child: Text(data.namaPosyandu),
+                                      ))
+                                  .toList(),
+                              onChanged: (value) {
+                                txtCity = value;
+                                setState(() {});
+                              },
+                            ),
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text("${snapshot.error}");
                         }
-                        return null;
+                        return const CircularProgressIndicator();
                       },
                     ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    // TextFormField(
+                    //   controller: _posyanduController,
+                    //   decoration: InputDecoration(
+                    //       filled: true,
+                    //       fillColor: Colors.white,
+                    //       hintText: 'Nama Posyandu',
+                    //       contentPadding: EdgeInsets.symmetric(
+                    //           horizontal: Constant().margin),
+                    //       border: OutlineInputBorder(
+                    //         borderRadius: BorderRadius.circular(30),
+                    //       ),
+                    //       enabledBorder: OutlineInputBorder(
+                    //         borderRadius: BorderRadius.circular(30),
+                    //         borderSide: const BorderSide(
+                    //             color: Colors.white, width: 0.0),
+                    //       )),
+                    //   validator: (value) {
+                    //     if (value == null || value.isEmpty) {
+                    //       return 'Please enter some text';
+                    //     }
+                    //     return null;
+                    //   },
+                    // ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -319,11 +360,27 @@ class _ProfilePetugasPageState extends State<ProfilePetugasPage> {
           _emailController.text = jsonResponse[i]['email'];
           _hpController.text = jsonResponse[i]['no_hp'];
           _posyanduController.text = jsonResponse[i]['kode_posyandu'];
+          txtCity = jsonResponse[i]['kode_posyandu'];
           _namaController.text = jsonResponse[i]['nama_lengkap'];
           _nikController.text = jsonResponse[i]['nik'];
           setState(() {});
         }
       }
+    } else {
+      throw Exception('Failed to load jobs from API');
+    }
+  }
+
+  Future<List<Posyandu>> _fetchPosyandu() async {
+    final response =
+        await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showPosyanduAll"));
+
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(response.body);
+      if (jsonResponse.isEmpty) {
+        setState(() {});
+      }
+      return jsonResponse.map((job) => Posyandu.responseApi(job)).toList();
     } else {
       throw Exception('Failed to load jobs from API');
     }
