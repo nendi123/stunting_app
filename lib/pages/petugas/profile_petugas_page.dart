@@ -315,7 +315,7 @@ class _ProfilePetugasPageState extends State<ProfilePetugasPage> {
                                       _alamatController.text,
                                       _emailController.text,
                                       _hpController.text,
-                                      "1",
+                                      txtCity!,
                                       _posyanduController.text)
                                   .then((value) => {
                                         if (value)
