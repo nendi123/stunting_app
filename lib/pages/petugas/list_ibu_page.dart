@@ -20,34 +20,34 @@ class _ListIbuPageState extends State<ListIbuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        // height: MediaQuery.of(context).size.height,
-        color: Colors.grey.shade200,
-        child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(
-              height: 40,
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: Constant().margin),
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Card(
-                  color: Colors.greenAccent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.all(10),
-                    child: const Text(
-                      "Daftar Ibu Posyandu",
-                      style: TextStyle(fontSize: 20),
+      body: SingleChildScrollView(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          color: Colors.grey.shade200,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(
+                height: 40,
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: Constant().margin),
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Card(
+                    color: Colors.greenAccent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: const EdgeInsets.all(10),
+                      child: const Text(
+                        "Daftar Ibu Posyandu",
+                        style: TextStyle(fontSize: 20),
+                      ),
                     ),
                   ),
                 ),
@@ -76,7 +76,7 @@ class _ListIbuPageState extends State<ListIbuPage> {
             ],
           ),
         ),
-      ),),
+      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
         onPressed: () {
