@@ -37,19 +37,20 @@ class _ListAnakPageState extends State<ListAnakPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton( //menu icon button at start left of appbar
-          onPressed: (){
+        leading: IconButton(
+          //menu icon button at start left of appbar
+          onPressed: () {
             //code to execute when this button is pressed
             Navigator.pushNamed(context, '/homePetugas');
           },
-          icon: Icon(Icons.arrow_back, size: 20,),
+          icon: Icon(
+            Icons.arrow_back,
+            size: 20,
+          ),
         ),
         title: Text(
           'Daftar anak dari ibu',
-          style: TextStyle(
-              fontWeight: FontWeight.w300,
-              fontSize: 16
-          ),
+          style: TextStyle(fontWeight: FontWeight.w300, fontSize: 16),
         ),
         toolbarHeight: 50,
         elevation: 10.0,
@@ -57,6 +58,7 @@ class _ListAnakPageState extends State<ListAnakPage> {
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Container(
+
           width: MediaQuery.of(context).size.width,
           color: Colors.grey.shade200,
           child: Column(
@@ -171,7 +173,7 @@ class _ListAnakPageState extends State<ListAnakPage> {
     listNamaAnak = [];
     listTglLahirAnak = [];
     final response =
-        await http.get(Uri.parse(AppConfig.API_ENDPOINT+'/showAnakAll'));
+        await http.get(Uri.parse(AppConfig.API_ENDPOINT + '/showAnakAll'));
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
@@ -224,7 +226,12 @@ class _ListAnakPageState extends State<ListAnakPage> {
                           ),
                         );
                       },
-                      child: Icon(Icons.edit, color: Colors.deepPurple,size: 18,))),
+
+                      child: Icon(Icons.edit, color: Colors.deepPurple,size: 18,)
+                  )
+              ),
+                      // child: Icon(Icons.edit, color: Colors.deepPurple),
+
             ),
             Container(
               color: Colors.white,
@@ -249,7 +256,9 @@ class _ListAnakPageState extends State<ListAnakPage> {
                           'assets/image/Tableware.png',
                           width: 20,
                         ),
-                        const Text('MPASI', style: TextStyle(fontSize: 10, color: Colors.black54))
+                        const Text('MPASI',
+                            style:
+                                TextStyle(fontSize: 10, color: Colors.black54))
                       ],
                     ),
                   ),
@@ -264,7 +273,9 @@ class _ListAnakPageState extends State<ListAnakPage> {
                           size: 20,
                           color: Color.fromRGBO(87, 81, 203, 1),
                         ),
-                        Text('KMS', style: TextStyle(fontSize: 10, color: Colors.black54))
+                        Text('KMS',
+                            style:
+                                TextStyle(fontSize: 10, color: Colors.black54))
                       ],
                     ),
                   ),
@@ -274,7 +285,8 @@ class _ListAnakPageState extends State<ListAnakPage> {
                         'assets/image/Motherroom.png',
                         width: 20,
                       ),
-                      const Text('Posyandu', style: TextStyle(fontSize: 10, color: Colors.black54))
+                      const Text('Posyandu',
+                          style: TextStyle(fontSize: 10, color: Colors.black54))
                     ],
                   )
                 ],
