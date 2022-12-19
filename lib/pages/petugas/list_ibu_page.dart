@@ -20,6 +20,25 @@ class _ListIbuPageState extends State<ListIbuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton( //menu icon button at start left of appbar
+          onPressed: (){
+            //code to execute when this button is pressed
+            Navigator.pushNamed(context, '/homePetugas');
+          },
+          icon: Icon(Icons.arrow_back, size: 20,),
+        ),
+        title: Text(
+          'Daftar ibu anggota Posyandu',
+          style: TextStyle(
+              fontWeight: FontWeight.w300,
+              fontSize: 16
+          ),
+        ),
+        toolbarHeight: 50,
+        elevation: 10.0,
+      ),
+      resizeToAvoidBottomInset: false,
       body: Container(
         width: MediaQuery.of(context).size.width,
         // height: MediaQuery.of(context).size.height,
@@ -31,28 +50,28 @@ class _ListIbuPageState extends State<ListIbuPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(
-              height: 40,
+              height: 10,
             ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: Constant().margin),
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Card(
-                  color: Colors.greenAccent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.all(10),
-                    child: const Text(
-                      "Daftar Ibu Posyandu",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // Container(
+            //   margin: EdgeInsets.symmetric(horizontal: Constant().margin),
+            //   child: Align(
+            //     alignment: Alignment.topCenter,
+            //     child: Card(
+            //       color: Colors.greenAccent,
+            //       shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(15.0),
+            //       ),
+            //       child: Container(
+            //         width: MediaQuery.of(context).size.width,
+            //         padding: EdgeInsets.all(10),
+            //         child: const Text(
+            //           "Daftar Ibu Posyandu",
+            //           style: TextStyle(fontSize: 20),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             Container(
               margin: EdgeInsets.symmetric(
                   horizontal: Constant().margin, vertical: 10),

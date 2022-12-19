@@ -1,11 +1,13 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stunting_app/model/petugas/anak_model.dart';
 import 'package:stunting_app/pages/petugas/login_petugas_page.dart';
 import 'package:stunting_app/shared/config.dart';
 import 'package:stunting_app/shared/constant.dart';
 import 'package:http/http.dart' as http;
+import 'dart:async';
+
 
 class HomePetugasPage extends StatefulWidget {
   const HomePetugasPage({super.key});
@@ -16,6 +18,29 @@ class HomePetugasPage extends StatefulWidget {
 
 class _HomePetugasPageState extends State<HomePetugasPage> {
   final _formKey = GlobalKey<FormState>();
+
+  String _userid='';
+  String _nik='';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  Future<void> getUserid() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? userid = await prefs.getString('userid');
+    print(userid);
+    setState(() => _userid = userid!);
+  }
+
+  static Future getNik() async {
+    final prefs = await SharedPreferences.getInstance();
+    final nik = prefs.getString('nik') ?? 0;
+    return nik;
+  }
+
 
   final _formKeyRes = GlobalKey<FormState>();
   TextEditingController _emailResController = TextEditingController();
@@ -31,6 +56,7 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(_userid);
     return Scaffold(
       body: SingleChildScrollView(
           child: Container(
@@ -66,8 +92,8 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
             Container(
               alignment: Alignment.center,
               margin: EdgeInsets.symmetric(horizontal: Constant().margin),
-              child: const Text(
-                "Selamat Datang Petugas",
+              child: Text(
+                'Selamat Datang Petugas $_userid',
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,

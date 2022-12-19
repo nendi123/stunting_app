@@ -40,7 +40,7 @@ class _ListAnakPageState extends State<ListAnakPage> {
         leading: IconButton( //menu icon button at start left of appbar
           onPressed: (){
             //code to execute when this button is pressed
-            Navigator.pushNamed(context, '/homeOrangtua');
+            Navigator.pushNamed(context, '/homePetugas');
           },
           icon: Icon(Icons.arrow_back, size: 20,),
         ),
@@ -224,7 +224,7 @@ class _ListAnakPageState extends State<ListAnakPage> {
                           ),
                         );
                       },
-                      child: Icon(Icons.edit, color: Colors.deepPurple,))),
+                      child: Icon(Icons.edit, color: Colors.deepPurple,size: 18,))),
             ),
             Container(
               color: Colors.white,
