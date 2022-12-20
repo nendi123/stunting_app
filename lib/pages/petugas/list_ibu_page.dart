@@ -1,7 +1,4 @@
-// ignore_for_file: unnecessary_brace_in_string_interps
-
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:stunting_app/model/petugas/ibu_model.dart';
 import 'package:stunting_app/pages/petugas/edit_ibu_page.dart';
@@ -51,7 +48,7 @@ class _ListIbuPageState extends State<ListIbuPage> {
         toolbarHeight: 50,
         elevation: 10.0,
       ),
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       // body: Container(
       //   width: MediaQuery.of(context).size.width,
       //   // height: MediaQuery.of(context).size.height,
@@ -147,7 +144,7 @@ class _ListIbuPageState extends State<ListIbuPage> {
       //   ),
       // ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(2.0),
+        // padding: EdgeInsets.all(2.0),
         child: Container(
           width: MediaQuery.of(context).size.width,
           color: Colors.grey.shade200,
@@ -209,27 +206,27 @@ class _ListIbuPageState extends State<ListIbuPage> {
         },
         child: const Icon(Icons.add),
       ),
-      bottomNavigationBar: BottomAppBar(
-          child: Container(
-        color: Colors.grey.shade200,
-        width: MediaQuery.of(context).size.width,
-        height: 58,
-        padding: EdgeInsets.symmetric(horizontal: Constant().margin),
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              backgroundColor: const Color.fromRGBO(87, 81, 203, 1),
-              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30))),
-          child: const Text(
-            'Kembali',
-            style: TextStyle(fontSize: 18),
-          ),
-          onPressed: () {
-            Navigator.pushNamed(context, '/homePetugas');
-          },
-        ),
-      )),
+      // bottomNavigationBar: BottomAppBar(
+      //     child: Container(
+      //   color: Colors.grey.shade200,
+      //   width: MediaQuery.of(context).size.width,
+      //   height: 58,
+      //   padding: EdgeInsets.symmetric(horizontal: Constant().margin),
+      //   child: ElevatedButton(
+      //     style: ElevatedButton.styleFrom(
+      //         backgroundColor: const Color.fromRGBO(87, 81, 203, 1),
+      //         padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+      //         shape: RoundedRectangleBorder(
+      //             borderRadius: BorderRadius.circular(30))),
+      //     child: const Text(
+      //       'Kembali',
+      //       style: TextStyle(fontSize: 18),
+      //     ),
+      //     onPressed: () {
+      //       Navigator.pushNamed(context, '/homePetugas');
+      //     },
+      //   ),
+      // )),
     );
   }
 
@@ -287,8 +284,6 @@ class _ListIbuPageState extends State<ListIbuPage> {
                 ),
               ],
             ),
-
-
 
         // IconButton(
         //   icon: const Icon(
