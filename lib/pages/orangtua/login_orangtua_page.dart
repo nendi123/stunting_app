@@ -31,6 +31,13 @@ class _LoginOrangtuaPageState extends State<LoginOrangtuaPage> {
   Icon _iconLock = Icon(Icons.lock);
 
   String inkwell='';
+  bool remember_me = false;
+
+  void onRemember(bool value) {
+    setState(() {
+      this.remember_me = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,14 +63,14 @@ class _LoginOrangtuaPageState extends State<LoginOrangtuaPage> {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             Container(
                 margin: EdgeInsets.symmetric(horizontal: Constant().margin),
                 width: 200,
                 child: Image.asset('assets/image/login.png')),
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: Constant().margin),
@@ -95,7 +102,7 @@ class _LoginOrangtuaPageState extends State<LoginOrangtuaPage> {
                         },
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       TextFormField(
                         controller: _passwordController,
@@ -124,7 +131,7 @@ class _LoginOrangtuaPageState extends State<LoginOrangtuaPage> {
                   )),
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             Align(
                 alignment: Alignment.bottomCenter,
@@ -177,7 +184,29 @@ class _LoginOrangtuaPageState extends State<LoginOrangtuaPage> {
                 )
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
+            ),
+            Container(
+              alignment: Alignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Checkbox(
+                      value: this.remember_me,
+                      onChanged: (bool? newValue) {
+                        setState(() {
+                          this.remember_me = newValue!;
+                        });
+                      }
+                  ),
+                  Text('Remember me', style: TextStyle(color: Colors.indigo),)
+                ],
+              ),
+              
+            ),
+            const SizedBox(
+              height: 10,
             ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: Constant().margin),
@@ -241,6 +270,7 @@ class _LoginOrangtuaPageState extends State<LoginOrangtuaPage> {
         await prefs.setBool('IS_LOGIN', true);
         await prefs.setString('userid', userid);
         await prefs.setString('nik', nik);
+        await prefs.setBool('remember_me', this.remember_me);
         // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeOrangtuaPage(list: jsonResp)));
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeOrangtuaPage()));
       } else {

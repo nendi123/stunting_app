@@ -27,9 +27,9 @@ List<Distrik> petugasFromJson(jsonData) {
   return result;
 }
 
-Future<List<Distrik>> fetchIbu() async {
-  String route = AppConfig.API_ENDPOINT + '/showDistrik';
-  final response = await http.get(Uri.parse(route));
+Future<List<Distrik>> fetchDistrik() async {
+  String route = AppConfig.API_ENDPOINT + '/showDistrikAll';
+  final response = await http.get(Uri.parse(route)).timeout(Duration(seconds: 1));
 
   if (response.statusCode == 200) {
     var jsonResp = json.decode(response.body);

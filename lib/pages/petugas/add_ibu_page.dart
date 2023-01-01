@@ -31,12 +31,17 @@ class _AddIbuPageState extends State<AddIbuPage> {
   TextEditingController _tglLahirController = TextEditingController();
   TextEditingController _beratBadanController = TextEditingController();
   TextEditingController _tinggiBadanController = TextEditingController();
+<<<<<<< HEAD
 
   @override
   void initState() {
     super.initState();
   }
 
+=======
+  TextEditingController _statusKkController = TextEditingController();
+  TextEditingController _kode_posyanduController = TextEditingController();
+>>>>>>> 57b9b1cc3d22c345a1a74b681657c959067ec17d
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -517,7 +522,6 @@ class _AddIbuPageState extends State<AddIbuPage> {
                     _nikController.text,
                     _namaController.text,
                     _alamatController.text,
-                    _emailController.text,
                     _hpController.text,
                     _tglLahirController.text,
                     desaDrop.toString(),
@@ -527,7 +531,13 @@ class _AddIbuPageState extends State<AddIbuPage> {
                     statusNikahDrop.toString(),
                     _beratBadanController.text,
                     _tinggiBadanController.text,
+<<<<<<< HEAD
                     kkDrop.toString())
+=======
+                    _statusKkController.text,
+                    _kode_posyanduController.text
+                  )
+>>>>>>> 57b9b1cc3d22c345a1a74b681657c959067ec17d
                 .then((value) => {
                       if (value)
                         {_showMyDialog("Data Berhasil di Input", true)}
