@@ -28,16 +28,18 @@ class _EditAnakPageState extends State<EditAnakPage> {
   final _formKey = GlobalKey<FormState>();
 
   DateTime selectedDate = DateTime.now();
+  String? _jenis_kelamin1;
+  String? _prematur1;
 
   @override
   void initState() {
     // TODO: implement initState
+    _jenis_kelamin1 = widget.jenis_kelamin;
     super.initState();
+    // _prematur1 = widget.prematur;
+    // print(_prematur1);
   }
 
-  // String dropdownValue = jns_kelamin.first;
-  String? jenis_kelamin;
-  String? prematur;
 
   String _valueChanged1 = '';
   String _valueToValidate1 = '';
@@ -81,6 +83,7 @@ class _EditAnakPageState extends State<EditAnakPage> {
           filled: true,
           fillColor: Colors.white,
           hintText: judul,
+          label: Text('$judul'),
           hintStyle: TextStyle(color: Colors.black38, fontSize: 14),
           contentPadding: EdgeInsets.symmetric(
               horizontal: Constant().margin),
@@ -104,7 +107,7 @@ class _EditAnakPageState extends State<EditAnakPage> {
 
   Widget _jenisKelaminDropdown() {
     return DropdownButton<String>(
-      value: jenis_kelamin,
+      value: _jenis_kelamin1,
       icon: const Icon(Icons.arrow_downward),
       elevation: 16,
       hint: Text("Pilih jenis kelamin disini!     ", style: TextStyle(color: Colors.black38),),
@@ -116,7 +119,7 @@ class _EditAnakPageState extends State<EditAnakPage> {
       onChanged: (String? value) {
         // This is called when the user selects an item.
         setState(() {
-          jenis_kelamin = value!;
+          _jenis_kelamin1 = value!;
         });
       },
       items: jns_kelamin.map<DropdownMenuItem<String>>((String value) {
@@ -157,13 +160,14 @@ class _EditAnakPageState extends State<EditAnakPage> {
 
   void get_jeniskelamin() {
     setState(() {
-      jenis_kelamin = widget.jenis_kelamin;
+      _jenis_kelamin1 = widget.jenis_kelamin;
     });
   }
 
   Widget _prematurDropdown() {
     return DropdownButton<String>(
-      value: prematur,
+      value: _prematur1,
+      key: (_prematur1 != null) ? Key(_prematur1!) : UniqueKey(),
       icon: const Icon(Icons.arrow_downward),
       elevation: 16,
       hint: Text("Apakah anak lahir prematur? ", style: TextStyle(color: Colors.black38),),
@@ -175,13 +179,13 @@ class _EditAnakPageState extends State<EditAnakPage> {
       onChanged: (String? value) {
         // This is called when the user selects an item.
         setState(() {
-          prematur = value!;
+          _prematur1 = value!;
         });
       },
-      items: jns_prematur.map<DropdownMenuItem<String>>((String value) {
+      items: jns_prematur.map<DropdownMenuItem<String>>((String item) {
         return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
+          value: item,
+          child: Text(item),
         );
       }).toList(),
     );
@@ -190,7 +194,7 @@ class _EditAnakPageState extends State<EditAnakPage> {
   TextEditingController id_anak = TextEditingController();
   TextEditingController nik_ibu = TextEditingController();
   TextEditingController _jeniskelamin = TextEditingController();
-  TextEditingController _prematur = TextEditingController();
+  TextEditingController prematur = TextEditingController();
   TextEditingController nama_lengkap = TextEditingController();
   TextEditingController tgl_lahir = TextEditingController();
   TextEditingController akte_lahir = TextEditingController();
@@ -205,19 +209,6 @@ class _EditAnakPageState extends State<EditAnakPage> {
 
   @override
   Widget build(BuildContext context) {
-    // TextEditingController id_anak = TextEditingController(text: widget.id_anak);
-    // TextEditingController nik_ibu = TextEditingController(text: widget.nik_ibu);
-    // TextEditingController nama_lengkap = TextEditingController(text: widget.nama_lengkap);
-    // TextEditingController tgl_lahir = TextEditingController(text: widget.tgl_lahir);
-    // TextEditingController akte_lahir = TextEditingController(text: widget.akte_lahir);
-    // TextEditingController tb_lahir = TextEditingController(text: widget.tb_lahir);
-    // TextEditingController bb_lahir = TextEditingController(text: widget.bb_lahir);
-    // TextEditingController panjang_lahir = TextEditingController(text: widget.panjang_lahir);
-    // TextEditingController lingkar_kepala = TextEditingController(text: widget.lingkar_kepala);
-    // TextEditingController usia_kehamilan = TextEditingController(text: widget.usia_kehamilan.toString());
-    // TextEditingController alergi = TextEditingController(text: widget.alergi);
-    // TextEditingController gol_darah = TextEditingController(text: widget.gol_darah);
-    // TextEditingController persalinan_oleh = TextEditingController(text: widget.persalinan_oleh);
 
     final ColorScheme colors = Theme.of(context).colorScheme;
     // id_anak, nik_ibu, jenis_kelamin, tgl_lahir, akte_lahir, persalinan_oleh, bb_lahir, panjang_lahir, prematur, alergi,
@@ -276,7 +267,8 @@ class _EditAnakPageState extends State<EditAnakPage> {
         elevation: 10.0,
       ),
       resizeToAvoidBottomInset: false,
-      body: Container(
+      body: SingleChildScrollView (
+        child: Container(
         width: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
             child: Column(
@@ -369,11 +361,13 @@ class _EditAnakPageState extends State<EditAnakPage> {
                             ),
 
                             Text('Jenis kelamin', style: TextStyle(color: Colors.black38),),
+                            Text(widget.jenis_kelamin.toUpperCase()),
                             _jenisKelaminDropdown(),
                             const SizedBox(
                               height: 10,
                             ),
                             Text('Lahir prematur?', style: TextStyle(color: Colors.black38),),
+                            Text(widget.prematur.toUpperCase()),
                             _prematurDropdown(),
                             // _inputText(_prematurController, 'Apakah anak lahir prematur?'),
                             const SizedBox(
@@ -437,21 +431,18 @@ class _EditAnakPageState extends State<EditAnakPage> {
                                         editAnak(Anak(id_anak: id_anak.text,
                                             nik_ibu: nik_ibu.text,
                                             nama_lengkap: nama_lengkap.text,
-                                            jenis_kelamin: jenis_kelamin
-                                                .toString(),
+                                            jenis_kelamin: _jenis_kelamin1!,
                                             tgl_lahir: tgl_lahir.text,
                                             akte_lahir: akte_lahir.text,
-                                            persalinan_oleh: persalinan_oleh
-                                                .text,
+                                            persalinan_oleh: persalinan_oleh.text,
                                             bb_lahir: bb_lahir.text,
                                             panjang_lahir: panjang_lahir.text,
-                                            prematur: _prematur,
+                                            prematur: _prematur1!,
                                             usia_kehamilan: usia_kehamilan.text,
                                             alergi: alergi.text,
                                             gol_darah: gol_darah.text,
                                             tb_lahir: tb_lahir.text,
-                                            lingkar_kepala: lingkar_kepala
-                                                .text ?? ""));
+                                            lingkar_kepala: lingkar_kepala.text ?? ""));
                                         Navigator.pushNamed(
                                             context, '/homeOrangtua');
                                         setState(() {});
@@ -475,7 +466,7 @@ class _EditAnakPageState extends State<EditAnakPage> {
                                   ),
                                 )),
                             const SizedBox(
-                              height: 300,
+                              height: 200,
                             ),
                           ]
                       ),
@@ -485,7 +476,7 @@ class _EditAnakPageState extends State<EditAnakPage> {
             )
         ),
       ),
-    );
+    ));
   }
 
   Future<void> _selectDate(BuildContext context) async {

@@ -35,6 +35,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
   TextEditingController _beratBadanController = TextEditingController();
   TextEditingController _tinggiBadanController = TextEditingController();
   TextEditingController _statusKkController = TextEditingController();
+  TextEditingController _kode_posyanduController = TextEditingController();
 
   DateTime selectedDate = DateTime.now();
 
@@ -553,15 +554,14 @@ class _EditIbuPageState extends State<EditIbuPage> {
             style: TextStyle(fontSize: 18),
           ),
           onPressed: () {
-            var statusKk = false;
+            var statusKk = "";
             if (dropdownValue == "Punya") {
-              statusKk = true;
+              statusKk = "Ya";
             }
             IbuPostMode.editIbu(
                     _nikController.text,
                     _namaController.text,
                     _alamatController.text,
-                    _emailController.text,
                     _hpController.text,
                     _tglLahirController.text,
                     _kelurahanController.text,
@@ -571,7 +571,8 @@ class _EditIbuPageState extends State<EditIbuPage> {
                     _statusController.text,
                     _beratBadanController.text,
                     _tinggiBadanController.text,
-                    _statusKkController.text)
+                    _statusKkController.text,
+                    _kode_posyanduController.text)
                 .then((value) => {
                       if (value)
                         {_showMyDialog("Data Berhasil di Edit", true)}
@@ -610,6 +611,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
           _pekerjaanController.text = jsonResponse[i]['pekerjaan'];
           _statusController.text = jsonResponse[i]['status_nikah'];
           _statusKkController.text = jsonResponse[i]['memiliki_kk'].toString();
+          _kode_posyanduController.text = jsonResponse[i]['kode_posyandu'].toString();
         }
       }
     } else {

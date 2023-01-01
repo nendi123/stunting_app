@@ -12,9 +12,10 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:async/async.dart';
 import 'package:stunting_app/pages/orangtua/test_detail_anak.dart';
-import 'package:stunting_app/pages/orangtua//edit_ibu_page.dart';
+import 'package:stunting_app/pages/orangtua/edit_ibu_page.dart';
 import 'package:stunting_app/pages/orangtua/dash_ortu.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 
 class HomeOrangtuaPage extends StatefulWidget {
   const HomeOrangtuaPage({super.key});
@@ -110,18 +111,18 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
                           //
                           // Navigator.of(context).push(MaterialPageRoute(builder: (context)=>(nama: _name.text, email: _email.text, phone: _phone.text)));
                           String _prematur;
-                          if(snapshot.data[index]['prematur'] == 'Tidak') {
-                            _prematur = 'false';
-                          } else {
-                            _prematur = 'true';
-                          }
+                          // if(snapshot.data[index]['prematur'] == 'Tidak') {
+                          //   _prematur = 'false';
+                          // } else {
+                          //   _prematur = 'true';
+                          // }
                           _nik = snapshot.data[index]['nik_ibu'];
 
                           Navigator.of(context).push(MaterialPageRoute(builder:
                               (context)=>
                                   TestDetailAnak(id_anak: snapshot.data[index]['id_anak'], nik_ibu: snapshot.data[index]['nik_ibu'], nama_lengkap: snapshot.data[index]['nama_lengkap'], jenis_kelamin: snapshot.data[index]['jenis_kelamin'],
                                     tgl_lahir: snapshot.data[index]['tgl_lahir'], akte_lahir : snapshot.data[index]['akte_lahir'], persalinan_oleh : snapshot.data[index]['persalinan_oleh'],
-                                    bb_lahir: snapshot.data[index]['bb_lahir'], panjang_lahir: snapshot.data[index]['panjang_lahir'], prematur: _prematur, usia_kehamilan: snapshot.data[index]['usia_kehamilan'],
+                                    bb_lahir: snapshot.data[index]['bb_lahir'], panjang_lahir: snapshot.data[index]['panjang_lahir'], prematur: snapshot.data[index]['prematur'], usia_kehamilan: snapshot.data[index]['usia_kehamilan'],
                                     alergi: snapshot.data[index]['alergi'], gol_darah: snapshot.data[index]['gol_darah'], lingkar_kepala: snapshot.data[index]['lingkar_kepala'],tb_lahir: snapshot.data[index]['tb_lahir'])));
 
                           // id_anak, nik_ibu, nama_lengkap, jenis_kelamin, tgl_lahir, akte_lahir,
@@ -204,7 +205,7 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
               margin: EdgeInsets.symmetric(horizontal: Constant().margin),
               child: Card(
                 elevation: 0,
-                color: Colors.white.withOpacity(0.5),
+                color: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
@@ -311,6 +312,8 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
         ),
       )),
       floatingActionButton: FloatingActionButton(
+        elevation: 5.0,
+        backgroundColor: Colors.indigo,
         onPressed: () {
           Navigator.pushNamed(context, '/addAnak');
         },
@@ -318,7 +321,7 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        color: Colors.black26,
+        color: Colors.indigo,
         shape: const CircularNotchedRectangle(),
         child: Row(
           mainAxisSize: MainAxisSize.max,
@@ -360,8 +363,10 @@ class _HomeOrangtuaPageState extends State<HomeOrangtuaPage> {
                 print('nik $_nik');
                 if (_nik != '') {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => EditIbuPage(nik: _nik)));
+                } else {
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => EditIbuPage(nik: _nik)));
                 }
-                Navigator.push(context, MaterialPageRoute(builder: (context) => EditIbuPage(nik: _nik)));
               },
             ),
             IconButton(

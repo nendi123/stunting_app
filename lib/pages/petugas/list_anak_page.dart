@@ -60,14 +60,15 @@ class _ListAnakPageState extends State<ListAnakPage> {
         child: Container(
 
           width: MediaQuery.of(context).size.width,
-          color: Colors.grey.shade200,
+          // color: Colors.grey.shade200,
+
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
-                height: 40,
+                height: 30,
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: Constant().margin),
@@ -76,7 +77,7 @@ class _ListAnakPageState extends State<ListAnakPage> {
                   decoration: InputDecoration(
                       suffixIcon: GestureDetector(
                           onTap: () {
-                            _fetchIbu();
+                            _fetchIbu(_searchNikController.text);
                           },
                           child: const Icon(Icons.search)),
                       filled: true,
@@ -85,12 +86,12 @@ class _ListAnakPageState extends State<ListAnakPage> {
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: Constant().margin),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(20),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(20),
                         borderSide:
-                            const BorderSide(color: Colors.white, width: 0.0),
+                            const BorderSide(color: Colors.black45, width: 0.0),
                       )),
                 ),
               ),
@@ -115,9 +116,22 @@ class _ListAnakPageState extends State<ListAnakPage> {
                         ),
                         Align(
                             alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Ibu $namaIbu",
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                            child: Row(
+                              children: [
+                                Column(
+                                  children: [
+                                    Icon(Icons.account_circle, size: 40, color: Colors.black54,),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      " Ibu $namaIbu",
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             )),
                         const Divider(),
                         // FutureBuilder<List<AnakModel>>(
@@ -168,12 +182,12 @@ class _ListAnakPageState extends State<ListAnakPage> {
     );
   }
 
-  Future<List<AnakModel>> _fetchAnak() async {
+  Future<List<AnakModel>> _fetchAnak(String nik) async {
     listIdAnak = [];
     listNamaAnak = [];
     listTglLahirAnak = [];
     final response =
-        await http.get(Uri.parse(AppConfig.API_ENDPOINT + '/showAnakAll'));
+        await http.get(Uri.parse(AppConfig.API_ENDPOINT + '/showAnakIbu/'+nik));
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
@@ -181,13 +195,13 @@ class _ListAnakPageState extends State<ListAnakPage> {
         setState(() {});
       }
       for (var i = 0; i < jsonResponse.length; i++) {
-        if (jsonResponse[i]['nik_ibu'] == nikIbu) {
+        // if (jsonResponse[i]['nik_ibu'] == nikIbu) {
           setState(() {
             listIdAnak.add(jsonResponse[i]['id_anak'].toString());
             listNamaAnak.add(jsonResponse[i]['nama_lengkap']);
             listTglLahirAnak.add(jsonResponse[i]['tgl_lahir']);
           });
-        }
+        // }
       }
       return jsonResponse.map((job) => AnakModel.responseApi(job)).toList();
     } else {
@@ -209,7 +223,7 @@ class _ListAnakPageState extends State<ListAnakPage> {
         child: Column(
           children: [
             Container(
-              color: Colors.grey.shade200,
+              color: Colors.deepPurple.shade100,
               child: ListTile(
                   title: Text(
                     nama,
@@ -227,14 +241,27 @@ class _ListAnakPageState extends State<ListAnakPage> {
                         );
                       },
 
-                      child: Icon(Icons.edit, color: Colors.deepPurple,size: 18,)
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        // icon of the button
+                        child: Icon(Icons.edit, color: Colors.white, size: 18,),
+                        style: ElevatedButton.styleFrom(
+                          shape: CircleBorder(),
+                          padding: EdgeInsets.all(10),
+                          backgroundColor: Colors.deepPurpleAccent,
+                          foregroundColor: Colors.cyan,
+                        ),
+                      ),
+
+                      // Icon(Icons.edit, color: Colors.deepPurple,size: 18,)
                   )
               ),
                       // child: Icon(Icons.edit, color: Colors.deepPurple),
-
             ),
+            SizedBox(height: 10,),
             Container(
               color: Colors.white,
+              height: 40,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 mainAxisSize: MainAxisSize.max,
@@ -296,27 +323,28 @@ class _ListAnakPageState extends State<ListAnakPage> {
         ),
       );
 
-  void _fetchIbu() async {
+  void _fetchIbu(String nik1) async {
     // final response = await http
     //     .get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbu?nik=" + widget.nik));
     final response =
-        await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbuAll"));
+        await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbu/"+nik1));
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
       if (jsonResponse.isEmpty) {
         setState(() {});
       }
-      for (var i = 0; i < jsonResponse.length; i++) {
-        if (jsonResponse[i]['nik'] == _searchNikController.text) {
+        for (var i = 0; i < jsonResponse.length; i++) {
+        // if (jsonResponse[i]['nik'] == _searchNikController.text) {
           namaIbu = jsonResponse[i]['nama_lengkap'];
           nikIbu = jsonResponse[i]['nik'];
           setState(() {});
-        }
+          //   }
+          }
+          _fetchAnak(_searchNikController.text);
+        // } else {
+        //   throw Exception('Failed to load jobs from API');
+        // }
       }
-      _fetchAnak();
-    } else {
-      throw Exception('Failed to load jobs from API');
-    }
   }
 }

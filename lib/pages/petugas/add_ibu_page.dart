@@ -26,6 +26,7 @@ class _AddIbuPageState extends State<AddIbuPage> {
   TextEditingController _beratBadanController = TextEditingController();
   TextEditingController _tinggiBadanController = TextEditingController();
   TextEditingController _statusKkController = TextEditingController();
+  TextEditingController _kode_posyanduController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -483,7 +484,6 @@ class _AddIbuPageState extends State<AddIbuPage> {
                     _nikController.text,
                     _namaController.text,
                     _alamatController.text,
-                    _emailController.text,
                     _hpController.text,
                     _tglLahirController.text,
                     _kelurahanController.text,
@@ -493,7 +493,9 @@ class _AddIbuPageState extends State<AddIbuPage> {
                     _statusController.text,
                     _beratBadanController.text,
                     _tinggiBadanController.text,
-                    _statusKkController.text)
+                    _statusKkController.text,
+                    _kode_posyanduController.text
+                  )
                 .then((value) => {
                       if (value)
                         {_showMyDialog("Data Berhasil di Input", true)}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stunting_app/shared/constant.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({super.key});
@@ -61,7 +62,7 @@ class StartPage extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             Container(
               alignment: Alignment.centerLeft,
@@ -74,7 +75,7 @@ class StartPage extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             GestureDetector(
               onTap: () {
@@ -108,8 +109,12 @@ class StartPage extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, '/loginIbu');
+              onTap: ()  {
+                if(getRemeber() == true) {
+                  Navigator.pushNamed(context, '/homeOrangtua');
+                } else {
+                  Navigator.pushNamed(context, '/loginIbu');
+                }
               },
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -142,5 +147,11 @@ class StartPage extends StatelessWidget {
         ),
       )),
     );
+  }
+
+  Future<bool> getRemeber() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool? ingat =  prefs.getBool('rembember_me');
+    return ingat!;
   }
 }

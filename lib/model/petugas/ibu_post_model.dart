@@ -15,7 +15,6 @@ class IbuPostMode {
       String nik,
       String nama,
       String alamat,
-      String email,
       String hp,
       String tglLahir,
       String kelurahan,
@@ -25,7 +24,8 @@ class IbuPostMode {
       String status,
       String beratBadan,
       String tinggiBadan,
-      String statusKk) async {
+      String statusKk,
+      String kode_posyandu) async {
     var post =
         await http.post(Uri.parse("https://quantri.lipi.go.id/stunting/addIbu"),
             headers: <String, String>{
@@ -45,7 +45,8 @@ class IbuPostMode {
               "pekerjaan": pekerjaan,
               "status_nikah": status,
               "jumlah_anak": 0,
-              "memiliki_kk": statusKk
+              "memiliki_kk": statusKk,
+              "kode_posyandu" : kode_posyandu
             }));
 
     if (post.statusCode == 201 || post.statusCode == 200) {
@@ -59,7 +60,6 @@ class IbuPostMode {
       String nik,
       String nama,
       String alamat,
-      String email,
       String hp,
       String tglLahir,
       String kelurahan,
@@ -69,9 +69,11 @@ class IbuPostMode {
       String status,
       String beratBadan,
       String tinggiBadan,
-      String statusKk) async {
+      String statusKk,
+      String kode_posyandu
+      ) async {
     var post = await http.post(
-        Uri.parse("https://quantri.lipi.go.id/stunting/editIbu"),
+        Uri.parse(AppConfig.API_ENDPOINT+"/editIbu"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -82,19 +84,25 @@ class IbuPostMode {
           "alamat": alamat,
           "no_hp": hp,
           "kode_kelurahan": kelurahan,
+          "nama_kelurahan" : kelurahan,
           "kode_distrik": kecamatan,
+          "nama_distrik": kecamatan,
           "berat_badan": beratBadan,
           "tinggi_badan": tinggiBadan,
           "pendidikan": pendidikan,
           "pekerjaan": pekerjaan,
           "status_nikah": status,
           "jumlah_anak": 0,
-          "memiliki_kk": statusKk
+          "memiliki_kk": statusKk,
+          "kode_posyandu" : kode_posyandu,
+          "nama_posyandu" : kode_posyandu
         }));
 
     if (post.statusCode == 201 || post.statusCode == 200) {
+      print(post.statusCode);
       return true;
     } else {
+      print(post.statusCode);
       return false;
     }
   }

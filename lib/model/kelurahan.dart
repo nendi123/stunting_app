@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:stunting_app/shared/config.dart';
 import 'dart:async';
 
+
 class Kelurahan {
   // kode_kelurahan, kode_distrik, nama_kelurahan, alamat
 
@@ -30,22 +31,35 @@ class Kelurahan {
         nama_kelurahan: json['nama_kelurahan'],
         alamat: json['alamat']);
   }
+
+  Map<String, dynamic> toJson() => {
+    "kode_kelurahan": kode_kelurahan,
+    "kode_distrik": kode_distrik,
+    "nama_kelurahan": nama_kelurahan,
+    "alamat": alamat,
+  };
 }
 
-List<Kelurahan> petugasFromJson(jsonData) {
+List<Kelurahan> kelurahanFromJson(jsonData) {
   List<Kelurahan> result =
       List<Kelurahan>.from(jsonData.map((item) => Kelurahan.fromJson(item)));
   return result;
 }
 
-Future<List<Kelurahan>> fetchIbu() async {
-  String route = '${AppConfig.API_ENDPOINT}/showKelurahan';
-  final response = await http.get(Uri.parse(route));
+Future<List<Kelurahan>> fetchKelurahan() async {
+  String route = '${AppConfig.API_ENDPOINT}/showKelurahanAll';
 
-  if (response.statusCode == 200) {
-    var jsonResp = json.decode(response.body);
-    return petugasFromJson(jsonResp);
-  } else {
-    throw Exception('Failed load $route, status : ${response.statusCode}');
+  try {
+    final response = await http.get(Uri.parse(route)).timeout(
+        Duration(seconds: 1));
+
+    if (response.statusCode == 200) {
+      var jsonResp = json.decode(response.body);
+      return kelurahanFromJson(jsonResp);
+    } else {
+      throw Exception('Failed load $route, status : ${response.statusCode}');
+    }
+  } catch(err) {
+    return Future.error(err);
   }
 }

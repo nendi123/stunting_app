@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stunting_app/model/petugas/petugas_model.dart';
@@ -31,6 +30,7 @@ class _ProfilePetugasPageState extends State<ProfilePetugasPage> {
   @override
   void initState() {
     _fetchPetugas();
+    super.initState();
   }
 
   @override
@@ -79,29 +79,31 @@ class _ProfilePetugasPageState extends State<ProfilePetugasPage> {
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(horizontal: Constant().margin),
-                  child: const Text(
-                    "Unggah Foto Anda",
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
-                const SizedBox(
                   height: 30,
                 ),
+                // Container(
+                //   alignment: Alignment.center,
+                //   margin: EdgeInsets.symmetric(horizontal: Constant().margin),
+                //   child: const Text(
+                //     "Unggah Foto Anda",
+                //     style: TextStyle(
+                //       fontSize: 14,
+                //     ),
+                //   ),
+                // ),
+                // const SizedBox(
+                //   height: 30,
+                // ),
                 Column(
                   children: [
                     TextFormField(
+                      readOnly: true,
                       controller: _nikController,
                       decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
                           hintText: 'NIK',
+                          label: Text('N I K'),
                           contentPadding: EdgeInsets.symmetric(
                               horizontal: Constant().margin),
                           border: OutlineInputBorder(
@@ -128,6 +130,7 @@ class _ProfilePetugasPageState extends State<ProfilePetugasPage> {
                           filled: true,
                           fillColor: Colors.white,
                           hintText: 'Nama Lengkap',
+                          label: Text('Nama Lengkap'),
                           contentPadding: EdgeInsets.symmetric(
                               horizontal: Constant().margin),
                           border: OutlineInputBorder(
@@ -154,6 +157,7 @@ class _ProfilePetugasPageState extends State<ProfilePetugasPage> {
                           filled: true,
                           fillColor: Colors.white,
                           hintText: 'Alamat',
+                          label: Text('Alamat'),
                           contentPadding: EdgeInsets.symmetric(
                               horizontal: Constant().margin),
                           border: OutlineInputBorder(
@@ -180,6 +184,7 @@ class _ProfilePetugasPageState extends State<ProfilePetugasPage> {
                           filled: true,
                           fillColor: Colors.white,
                           hintText: 'E-mail',
+                          label: Text('E-mail'),
                           contentPadding: EdgeInsets.symmetric(
                               horizontal: Constant().margin),
                           border: OutlineInputBorder(
@@ -206,6 +211,7 @@ class _ProfilePetugasPageState extends State<ProfilePetugasPage> {
                           filled: true,
                           fillColor: Colors.white,
                           hintText: 'No HP',
+                          label: Text('No HP'),
                           contentPadding: EdgeInsets.symmetric(
                               horizontal: Constant().margin),
                           border: OutlineInputBorder(
@@ -309,6 +315,7 @@ class _ProfilePetugasPageState extends State<ProfilePetugasPage> {
                               style: TextStyle(fontSize: 18),
                             ),
                             onPressed: () {
+                              print(_posyanduController.text);
                               PetugasPostMode.editPetugas(
                                       _nikController.text,
                                       _namaController.text,
@@ -321,7 +328,7 @@ class _ProfilePetugasPageState extends State<ProfilePetugasPage> {
                                         if (value)
                                           {
                                             _showMyDialog(
-                                                "Data Berhasil di Edit", true)
+                                                "Update Data Telah Disimpan!", true)
                                           }
                                         else
                                           {
@@ -345,8 +352,9 @@ class _ProfilePetugasPageState extends State<ProfilePetugasPage> {
 
   void _fetchPetugas() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? _nik = prefs.getString('nik');
     final response = await http
-        .get(Uri.parse("${AppConfig.API_ENDPOINT}/showPetugasPosyanduAll"));
+        .get(Uri.parse("${AppConfig.API_ENDPOINT}/showPetugasPosyandu/"+_nik!));
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
@@ -355,6 +363,7 @@ class _ProfilePetugasPageState extends State<ProfilePetugasPage> {
       }
 
       for (var i = 0; i < jsonResponse.length; i++) {
+        print(prefs.get('nik'));
         if (jsonResponse[i]['nik'] == prefs.getString('nik')) {
           _alamatController.text = jsonResponse[i]['alamat'];
           _emailController.text = jsonResponse[i]['email'];

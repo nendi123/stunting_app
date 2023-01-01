@@ -113,6 +113,7 @@ class _MpasiAnakPageState extends State<MpasiAnakPage> {
                   padding: EdgeInsets.all(10),
                   child: Row(
                     children: [
+                      Spacer(),
                       Column(
                         // crossAxisAlignment: CrossAxisAlignment.start,
                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -130,6 +131,7 @@ class _MpasiAnakPageState extends State<MpasiAnakPage> {
                           Text('Menu', style: TextStyle(color: Colors.black54),)
                         ],
                       ),
+                      Spacer(),
                     ],
                   ),
                 ),
@@ -149,6 +151,7 @@ class _MpasiAnakPageState extends State<MpasiAnakPage> {
                   child:
                       Row(
                         children: [
+                          Spacer(),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: jadwalMpasi.map((elemen) {
@@ -165,7 +168,8 @@ class _MpasiAnakPageState extends State<MpasiAnakPage> {
                               print(index);
                               return Text(elemen, style: TextStyle(color: Colors.black54),);
                             }).toList(),
-                          )
+                          ),
+                          Spacer(),
                         ],
                       )
                 ),

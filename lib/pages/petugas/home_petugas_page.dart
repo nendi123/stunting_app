@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 
 
+
 class HomePetugasPage extends StatefulWidget {
   const HomePetugasPage({super.key});
 
@@ -221,15 +222,15 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
           ],
         ),
       )),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          child: const Icon(
-            Icons.child_care,
-            size: 50,
-          )),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // floatingActionButton: FloatingActionButton(
+      //     onPressed: () {},
+      //     child: const Icon(
+      //       Icons.child_care,
+      //       size: 50,
+      //     )),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        color: Colors.black12,
+        color: Colors.indigo,
         elevation: 10,
         shape: const CircularNotchedRectangle(),
         child: Row(
@@ -238,13 +239,13 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
           children: <Widget>[
             IconButton(
               icon: const Icon(
-                Icons.home,
+                Icons.home, color: Colors.white,
               ),
               onPressed: () {},
             ),
             IconButton(
               icon: const Icon(
-                Icons.qr_code,
+                Icons.qr_code, color: Colors.white,
               ),
               onPressed: () {
                 showDialog(
@@ -288,8 +289,12 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                                     hintText: 'NIK ORANGTUA',
                                     suffixIcon: GestureDetector(
                                         onTap: () {
-                                          _fetchIbu();
+                                          _fetchAnak(_searchNikController.text);
+                                          setState(() {
+
+                                          });
                                         },
+                                      // onTap: ((_fetchAnak(_searchNikController.text).(context) =>Hasil())),
                                         child: const Icon(Icons.search)),
                                     contentPadding: EdgeInsets.symmetric(
                                         horizontal: Constant().margin),
@@ -308,9 +313,10 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                               Container(
                                 margin: const EdgeInsets.all(10),
                                 child: const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text('DATA ANAK')),
+                                    alignment: Alignment.centerLeft,)
+                                    // child: Text('DATA ANAK')),
                               ),
+
                               ListView.builder(
                                 physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
@@ -345,7 +351,7 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
             // ),
             IconButton(
               icon: const Icon(
-                Icons.person,
+                Icons.person, color: Colors.white,
               ),
               onPressed: () {
                 Navigator.pushNamed(context, '/profilePetugas');
@@ -353,7 +359,7 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
             ),
             IconButton(
               icon: const Icon(
-                Icons.exit_to_app,
+                Icons.exit_to_app, color: Colors.white,
               ),
               onPressed: () => showDialog<String>(
                 context: context,
@@ -409,8 +415,10 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                           fillColor: Colors.grey.shade200,
                           hintText: 'NIK Orang Tua',
                           suffixIcon: IconButton(
-                              onPressed: () {
+                              onPressed: () async {
+                                CircularProgressIndicator;
                                 _fetchIbu();
+                                // _fetchAnak(_searchNikController.text);
                               },
                               icon: const Icon(Icons.search)),
                           contentPadding: EdgeInsets.symmetric(
@@ -453,7 +461,8 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                           trailing: IconButton(
                             icon: const Icon(Icons.arrow_circle_right),
                             onPressed: () {
-                              Navigator.pushNamed(context, '/kmsPetugasPage');
+                              // Navigator.pushNamed(context, '/kmsPetugasPage');
+                              Navigator.pushNamed(context, '/skriningPage');
                             },
                           ),
                         );
@@ -465,6 +474,27 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
             ),
           );
         });
+  }
+
+  Widget Hasil() {
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: listIdAnak.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text(listNamaAnak[index]),
+          trailing: IconButton(
+            icon:
+            const Icon(Icons.arrow_circle_right),
+            onPressed: () {
+              Navigator.pushNamed(
+                  context, '/kmsPetugasPage');
+            },
+          ),
+        );
+      },
+    );
   }
 
   void _fetchIbu() async {
@@ -485,31 +515,35 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
           setState(() {});
         }
       }
-      _fetchAnak();
+      _fetchAnak(_searchNikController.text);
     } else {
       throw Exception('Failed to load jobs from API');
+      CircularProgressIndicator;
     }
   }
 
-  void _fetchAnak() async {
+  _fetchAnak(String nik) async {
+    String nik1 = _searchNikController.text;
     final response =
-        await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showAnakAll"));
-
+        await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showAnakIbu/"+nik1));
+    print('nik $nik1');
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
       if (jsonResponse.isEmpty) {
         setState(() {});
       }
       for (var i = 0; i < jsonResponse.length; i++) {
-        if (jsonResponse[i]['nik_ibu'] == nikIbu) {
+        // if (jsonResponse[i]['nik_ibu'] == nikIbu) {
           listIdAnak.add(jsonResponse[i]['id_anak'].toString());
           listNamaAnak.add(jsonResponse[i]['nama_lengkap']);
           listTglLahirAnak.add(jsonResponse[i]['tgl_lahir']);
+          print(jsonResponse[i]['nama_lengkap']);
           setState(() {});
-        }
+        // }
       }
     } else {
       throw Exception('Failed to load jobs from API');
+      CircularProgressIndicator;
     }
   }
 }

@@ -5,6 +5,12 @@ import 'package:http/http.dart' as http;
 import 'package:stunting_app/model/petugas/ibu_post_model.dart';
 import 'package:stunting_app/shared/config.dart';
 import 'package:stunting_app/shared/constant.dart';
+import 'package:stunting_app/shared/input_number.dart';
+import 'package:stunting_app/shared/input_text.dart';
+import 'package:stunting_app/shared/input_email.dart';
+import 'package:stunting_app/model/kelurahan.dart';
+import 'package:stunting_app/model/distrik.dart';
+import 'package:search_choices/search_choices.dart';
 
 class EditIbuPage extends StatefulWidget {
   const EditIbuPage({super.key, required this.nik});
@@ -17,8 +23,16 @@ class EditIbuPage extends StatefulWidget {
 
 class _EditIbuPageState extends State<EditIbuPage> {
   List<String> list = <String>['Punya', 'Tidak'];
+  List<String> listKelurahan = [];
+  List<String>? listDistrik;
 
   String dropdownValue = '';
+  String _selectKelurahan = Wilayah().namaKelurahanKampung[0];
+  String _selectDistrik = Wilayah().namaDistrik[0];
+  // String _selectPosyandu = Wilayah().namaPosyandu[0];
+  String _selectPuskesmas = Wilayah().namaPuskesmas[0];
+  String _selectPendidikan = Wilayah().pendidikan[0];
+  String? status_nikah;
 
   final _formKey = GlobalKey<FormState>();
   TextEditingController _nikController = TextEditingController();
@@ -28,6 +42,8 @@ class _EditIbuPageState extends State<EditIbuPage> {
   TextEditingController _hpController = TextEditingController();
   TextEditingController _tglLahirController = TextEditingController();
   TextEditingController _kelurahanController = TextEditingController();
+  TextEditingController _namaKampungController = TextEditingController();
+  TextEditingController _namaDistrikController = TextEditingController();
   TextEditingController _kecamatanController = TextEditingController();
   TextEditingController _pendidikanController = TextEditingController();
   TextEditingController _pekerjaanController = TextEditingController();
@@ -35,8 +51,13 @@ class _EditIbuPageState extends State<EditIbuPage> {
   TextEditingController _beratBadanController = TextEditingController();
   TextEditingController _tinggiBadanController = TextEditingController();
   TextEditingController _statusKkController = TextEditingController();
+  TextEditingController _kode_posyandu = TextEditingController();
 
   DateTime selectedDate = DateTime.now();
+
+  var kampung;
+  var distrik;
+  var sekolah;
 
   @override
   void initState() {
@@ -44,8 +65,23 @@ class _EditIbuPageState extends State<EditIbuPage> {
     super.initState();
   }
 
+  _fetchKelurahan() async {
+    List<Kelurahan> desa = await fetchKelurahan();
+    if(desa.isNotEmpty) {
+      _selectKelurahan = desa[0].nama_kelurahan;
+    }
+  }
+
+  _fetchDistrik() async {
+    List<Distrik> distrik = await fetchDistrik();
+    if(distrik.isNotEmpty) {
+      _selectDistrik = distrik[0].nama_distrik;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    // print(Wilayah().namaKelurahanKampung);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton( //menu icon button at start left of appbar
@@ -104,142 +140,24 @@ class _EditIbuPageState extends State<EditIbuPage> {
                       //   ),
                       // ),
                       const SizedBox(
-                        height: 10,
-                      ),
-                      TextFormField(
-                        controller: _nikController,
-                        decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: 'NIK',
-                            label: Text("NIK"),
-                            contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                            )),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(
                         height: 20,
                       ),
-                      TextFormField(
-                        controller: _namaController,
-                        decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: 'Nama Lengkap',
-                            label: Text("Nama Lengkap"),
-                            contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                            )),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                      ),
+
+                      InputText(nama_control: _nikController, judul: 'NIK', status: true),
                       const SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
-                      TextFormField(
-                        controller: _alamatController,
-                        decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: 'Alamat',
-                            label: Text("Alamat"),
-                            contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                            )),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                      ),
+                      InputText(nama_control: _namaController, judul: 'Nama Lengkap', status: false),
                       const SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
-                      TextFormField(
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: 'Email',
-                            label: Text("Email"),
-                            contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                            )),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                      ),
+                      InputText(nama_control: _alamatController, judul: 'Alamat', status: false),
                       const SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
-                      TextFormField(
-                        controller: _hpController,
-                        decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: 'No HP',
-                            label: Text("No HP"),
-                            contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                            )),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                      ),
+                      InputNumber(nama_control: _hpController, judul: 'No HP', status: false),
                       const SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
                       TextFormField(
                         controller: _tglLahirController,
@@ -254,281 +172,163 @@ class _EditIbuPageState extends State<EditIbuPage> {
                             contentPadding:
                             EdgeInsets.symmetric(horizontal: Constant().margin),
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
+                              borderRadius: BorderRadius.circular(10),
                             ),
                             enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
+                              borderRadius: BorderRadius.circular(10),
                               borderSide:
                               const BorderSide(color: Colors.white, width: 0.0),
                             )),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
+                            return 'Kolom tanggal harus diisi';
                           }
                           return null;
                         },
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
-                      TextFormField(
-                        controller: _kelurahanController,
-                        decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: 'Kelurahan / Desa',
-                            label: Text("Keluarahan / Desa"),
-                            contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
+
+                      Container(
+                        height: 60,
+                        color: Colors.white,
+                        child: Center(
+                          child: DropdownButtonFormField(
+                            value: sekolah,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(6.0))),
+                              label: Text("Pendidikan : $sekolah"),
                             ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                            )),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
+                            icon: const Icon(Icons.arrow_downward, size: 20,),
+                            elevation: 16,
+                            hint: Text("Pendidikan terakhir", style: TextStyle(color: Colors.black38),),
+                            style: const TextStyle(color: Colors.black54),
+                            items: Wilayah().pendidikan.map((String val) {
+                              return DropdownMenuItem(
+                                  value: val,
+                                  child: Container(
+                                    child: Text(val),
+                                  ));
+                            }).toList(),
+                            onChanged: (newValue3) {
+                              setState(() {
+                                sekolah = newValue3.toString();
+                              });
+                            },
+                          ),
+                        ),
                       ),
+                      const SizedBox(height: 15,),
+                      Container(
+                        height: 60,
+                        color: Colors.white,
+                        child: Center(
+                          child: DropdownButtonFormField(
+                            value: distrik,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(6.0))),
+                              label: Text("Distrik : $distrik"),
+                            ),
+                            icon: const Icon(Icons.arrow_downward, size: 20,),
+                            elevation: 16,
+                            hint: Text("Distrik/Kecamatan ", style: TextStyle(color: Colors.black38),),
+                            style: const TextStyle(color: Colors.black54),
+                            items: Wilayah().namaDistrik.map((String val) {
+                              return DropdownMenuItem(
+                                  value: val,
+                                  child: Container(
+                                    child: Text(val),
+                                  ));
+                            }).toList(),
+                            onChanged: (newValue2) {
+                              setState(() {
+                                distrik = newValue2.toString();
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 15,),
+                      Container(
+                        height: 60,
+                        color: Colors.white,
+                        child: Center(
+                          child: DropdownButtonFormField(
+                            value: kampung,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(6.0))),
+                              label: Text("Kel/kampung : $kampung"),
+                            ),
+                            icon: const Icon(Icons.arrow_downward, size: 20,),
+                            elevation: 16,
+                            hint: Text("Kelurahan / Kampung ", style: TextStyle(color: Colors.black38),),
+                            style: const TextStyle(color: Colors.black54),
+                            items: Wilayah().namaKelurahanKampung.map((String val) {
+                              return DropdownMenuItem(
+                                  value: val,
+                                  child: Container(
+                                    child: Text(val),
+                                  ));
+                            }).toList(),
+                            onChanged: (newValue1) {
+                              setState(() {
+                                kampung = newValue1.toString();
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 15,),
+                      // InputText(nama_control: _kecamatanController, judul: 'Distrik / Kecamatan', status: false),
+
+                      // InputText(nama_control: _pendidikanController, judul: "Pendidikan", status: false),
+
+                      InputText(nama_control: _pekerjaanController, judul: "Pekerjaan", status: false),
                       const SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
-                      TextFormField(
-                        controller: _kecamatanController,
-                        decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: 'Distrik / Kecamatan',
-                            label: Text("Distrik / Kecamatan"),
-                            contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                            )),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
+                      InputText(nama_control: _statusController, judul: "Status Nikah (Ya/Tidak/Janda/Duda)", status: false),
+                      TextButton(
+                        style: ButtonStyle(
+                          foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                        ),
+                        onPressed: () {
+                          _statusNikahDialog(context);
                         },
+                        child: Text('>> Ubah status pernikahan'),
                       ),
+                      // ElevatedButton(
+                      //   onPressed: () {
+                      //     _displayDialog(context);
+                      //   },
+                      //   child: Text("Ubah status pernikahan"),
+                      // ),
+
+                      // const SizedBox(height: 15,),
+                      InputNumber(nama_control: _beratBadanController, judul: "Berat Badan (kg)", status: false),
                       const SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
-                      TextFormField(
-                        controller: _pendidikanController,
-                        decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: 'Pendidikan',
-                            label: Text("Pendidikan"),
-                            contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                            )),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                      ),
+                      InputNumber(nama_control: _tinggiBadanController, judul: "Tinggi Badan (cm)", status: false),
                       const SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
-                      TextFormField(
-                        controller: _pekerjaanController,
-                        decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: 'Pekerjaan',
-                            label: Text("Pekerjaan"),
-                            contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                            )),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
+                      InputText(nama_control: _statusKkController, judul: "Memiliki Kartu keluarga (Ya/Tidak)", status: false),
+                      TextButton(
+                        style: ButtonStyle(
+                          foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                        ),
+                        onPressed: () {
+                          _statusKKDialog(context);
                         },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        controller: _statusController,
-                        decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: 'Status Nikah',
-                            label: Text("Status Nikah (Ya/Tidak/Janda/Duda)"),
-                            contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                            )),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        controller: _beratBadanController,
-                        decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: 'Berat Badan',
-                            label: Text("Berat Badan (kg)"),
-                            contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                            )),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        controller: _tinggiBadanController,
-                        decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: 'Tinggi Badan',
-                            label: Text("Tinggi Badan (cm)"),
-                            contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                            )),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        controller: _statusKkController,
-                        decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: 'Memiliki Kartu keluarga',
-                            label: Text("Memiliki Kartu keluarga (Ya/Tidak"),
-                            contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                            )),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
+                        child: Text('>> Ubah status kartu keluarga'),
                       ),
                       // const SizedBox(
-                      //   height: 20,
+                      //   height: 15,
                       // ),
-                      // Container(
-                      //     margin: EdgeInsets.symmetric(horizontal: 30),
-                      //     child: Text(
-                      //       "Memiliki Kk",
-                      //       style: TextStyle(color: Colors.grey),
-                      //     )),
-                      // SizedBox(
-                      //   width: MediaQuery.of(context).size.width,
-                      //   child: DecoratedBox(
-                      //     decoration: BoxDecoration(
-                      //       color:
-                      //           Colors.white, //background color of dropdown button
-                      //       //border of dropdown button
-                      //       borderRadius: BorderRadius.circular(
-                      //           50), //border raiuds of dropdown button
-                      //     ),
-                      //     child: Container(
-                      //       padding: const EdgeInsets.only(left: 30, right: 30),
-                      //       child: DropdownButton<String>(
-                      //         dropdownColor: Colors.white,
-                      //         value: list.first,
-                      //         underline: Container(), //remove underline
-                      //         isExpanded: true,
-                      //         elevation: 16,
-                      //         style: const TextStyle(color: Colors.black),
-                      //         onChanged: (String? value) {
-                      //           // This is called when the user selects an item.
-                      //           setState(() {
-                      //             dropdownValue = value!;
-                      //           });
-                      //         },
-                      //         items: list
-                      //             .map<DropdownMenuItem<String>>((String value) {
-                      //           return DropdownMenuItem<String>(
-                      //             value: value,
-                      //             child: Text(value),
-                      //           );
-                      //         }).toList(),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
+
+                      InputText(nama_control: _kode_posyandu, judul: 'Kode Posyandu', status: true),
                       const SizedBox(
                         height: 20,
                       ),
@@ -553,15 +353,14 @@ class _EditIbuPageState extends State<EditIbuPage> {
                 style: TextStyle(fontSize: 18),
               ),
               onPressed: () {
-                var statusKk = false;
+                var statusKk = '';
                 if (dropdownValue == "Punya") {
-                  statusKk = true;
+                  statusKk = "Ya";
                 }
                 IbuPostMode.editIbu(
                     _nikController.text,
                     _namaController.text,
                     _alamatController.text,
-                    _emailController.text,
                     _hpController.text,
                     _tglLahirController.text,
                     _kelurahanController.text,
@@ -571,7 +370,9 @@ class _EditIbuPageState extends State<EditIbuPage> {
                     _statusController.text,
                     _beratBadanController.text,
                     _tinggiBadanController.text,
-                    _statusKkController.text)
+                    _statusKkController.text,
+                    _kode_posyandu.text
+                    )
                     .then((value) => {
                   if (value)
                     {_showMyDialog("Data Berhasil di Edit", true)}
@@ -585,38 +386,45 @@ class _EditIbuPageState extends State<EditIbuPage> {
   }
 
   void _fetchIbu() async {
-    // final response = await http
-    //     .get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbu?nik=" + widget.nik));
     final prefs = await SharedPreferences.getInstance();
     final nik = prefs.getString('nik');
-    final response =
-    await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbuAll"));
+    final response = await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbu/"+nik!));
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
-      if (jsonResponse.isEmpty) {
-        setState(() {});
-      }
-      for (var i = 0; i < jsonResponse.length; i++) {
-        if (jsonResponse[i]['nik'] == widget.nik) {
-          _nikController.text = jsonResponse[i]['nik'];
-          _namaController.text = jsonResponse[i]['nama_lengkap'];
-          _tglLahirController.text = jsonResponse[i]['tgl_lahir'];
-          _alamatController.text = jsonResponse[i]['alamat'];
-          _hpController.text = jsonResponse[i]['no_hp'];
-          _kelurahanController.text = jsonResponse[i]['kode_kelurahan'];
-          _kecamatanController.text = jsonResponse[i]['kode_distrik'];
-          _beratBadanController.text = jsonResponse[i]['berat_badan'];
-          _tinggiBadanController.text = jsonResponse[i]['tinggi_badan'];
-          _pendidikanController.text = jsonResponse[i]['pendidikan'];
-          _pekerjaanController.text = jsonResponse[i]['pekerjaan'];
-          _statusController.text = jsonResponse[i]['status_nikah'];
-          _statusKkController.text = jsonResponse[i]['memiliki_kk'].toString();
-        }
-      }
+      var i = 0;
+
+      sekolah = jsonResponse[i]['pendidikan'];
+      distrik = jsonResponse[i]['nama_distrik'];
+      kampung = jsonResponse[i]['nama_kelurahan'];
+
+      _nikController.text = jsonResponse[i]['nik'];
+      _namaController.text = jsonResponse[i]['nama_lengkap'];
+      _tglLahirController.text = jsonResponse[i]['tgl_lahir'];
+      _alamatController.text = jsonResponse[i]['alamat'];
+      _hpController.text = jsonResponse[i]['no_hp'];
+      _kelurahanController.text = jsonResponse[i]['kode_kelurahan'];
+      _kecamatanController.text = jsonResponse[i]['kode_distrik'];
+      _beratBadanController.text = jsonResponse[i]['berat_badan'];
+      _tinggiBadanController.text = jsonResponse[i]['tinggi_badan'];
+      _pendidikanController.text = jsonResponse[i]['pendidikan'];
+      _pekerjaanController.text = jsonResponse[i]['pekerjaan'];
+      _statusController.text = jsonResponse[i]['status_nikah'];
+      _statusKkController.text = jsonResponse[i]['memiliki_kk'];
+      _kode_posyandu.text = jsonResponse[i]['nama_posyandu'];
+      _namaKampungController.text = jsonResponse[i]['nama_kelurahan'];
+      _namaDistrikController.text = jsonResponse[i]['nama_distrik'];
+
+      print('sekolah ${sekolah}');
+      print('distrik ${distrik}');
+      print('kampung ${kampung}');
+
     } else {
+      CircularProgressIndicator();
       throw Exception('Failed to load jobs from API');
+
     }
+
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -656,9 +464,6 @@ class _EditIbuPageState extends State<EditIbuPage> {
                 if (hasil) {
                   Navigator.pushNamed(context, '/homeOrangtua');
                 }
-                // else {
-                //   Navigator.pushNamed(context, '/homeOrangtua');
-                // }
               },
             ),
           ],
@@ -666,4 +471,143 @@ class _EditIbuPageState extends State<EditIbuPage> {
       },
     );
   }
+
+  var _selected ="";
+  _statusNikahDialog(BuildContext context) async {
+    _selected = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Expanded(
+          child: SimpleDialog(
+            title: Text('Pilih status pernikahan!'),
+            children: [
+              SimpleDialogOption(
+                onPressed: () {
+                  _statusController.text = "Menikah";
+                  Navigator.pop(context,"Menikah");
+                },
+                child: Text("- Menikah"),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  _statusController.text = "Tidak Menikah";
+                  Navigator.pop(context,"Tidak Menikah");
+                },
+                child: Text("- Tidak Menikah"),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  _statusController.text = "Cerai";
+                  Navigator.pop(context,"Cerai");
+                },
+                child: Text("- Cerai"),
+              )
+            ],
+            elevation: 10,
+            //backgroundColor: Colors.green,
+          ),
+        );
+      },
+    );
+
+    if(_selected != null)
+    {
+      setState(() {
+        _selected = _selected;
+      });
+    }
+  }
+
+  var _selectedKK ="";
+  _statusKKDialog(BuildContext context) async {
+    _selected = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Expanded(
+          child: SimpleDialog(
+            title: Text('Memiliki kartu keluarga?'),
+            children: [
+              SimpleDialogOption(
+                onPressed: () {
+                  _statusKkController.text = "Ya";
+                  Navigator.pop(context,"Ya");
+                },
+                child: Text("- Ya"),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  _statusKkController.text = "Tidak";
+                  Navigator.pop(context,"Tidak");
+                },
+                child: Text("- Tidak"),
+              )
+            ],
+            elevation: 10,
+            //backgroundColor: Colors.green,
+          ),
+        );
+      },
+    );
+
+    if(_selected != null)
+    {
+      setState(() {
+        _selected = _selected;
+      });
+    }
+  }
+
+  Widget StatusPernikahan() {
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Status pernikahan:'),
+          Divider(),
+          RadioListTile(
+              title: Text("Menikah"),
+              value: "Menikah",
+              groupValue: status_nikah,
+              onChanged: (value) {
+                setState(() {
+                  status_nikah = value.toString();
+                });
+              }
+          ),
+          RadioListTile(
+              title: Text("Tidak Menikah"),
+              value: "Tidak Menikah",
+              groupValue: status_nikah,
+              onChanged: (value) {
+                setState(() {
+                  status_nikah = value.toString();
+                });
+              }
+          ),
+          RadioListTile(
+              title: Text("Duda"),
+              value: "Duda",
+              groupValue: status_nikah,
+              onChanged: (value) {
+                setState(() {
+                  status_nikah = value.toString();
+                });
+              }
+          ),
+          RadioListTile(
+              title: Text("Janda"),
+              value: "Janda",
+              groupValue: status_nikah,
+              onChanged: (value) {
+                setState(() {
+                  status_nikah = value.toString();
+                });
+              }
+          ),
+
+        ],
+      ),
+    );
+  }
+
 }
