@@ -48,17 +48,19 @@ class _EditIbuPageState extends State<EditIbuPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton( //menu icon button at start left of appbar
-          onPressed: (){
+        leading: IconButton(
+          //menu icon button at start left of appbar
+          onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back, size: 20,),
+          icon: Icon(
+            Icons.arrow_back,
+            size: 20,
           ),
-        title: const Text('Edit Data Ibu',
-          style: TextStyle(
-              fontWeight: FontWeight.w300,
-              fontSize: 16
-          ),
+        ),
+        title: const Text(
+          'Edit Data Ibu',
+          style: TextStyle(fontWeight: FontWeight.w300, fontSize: 16),
         ),
         toolbarHeight: 50,
         elevation: 10.0,
@@ -75,39 +77,12 @@ class _EditIbuPageState extends State<EditIbuPage> {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // const SizedBox(
-                  //   height: 10,
-                  // ),
-                  // Align(
-                  //   alignment: Alignment.bottomCenter,
-                  //   child: ClipRRect(
-                  //     borderRadius: BorderRadius.circular(80.0), //or 15.0
-                  //     child: Container(
-                  //       height: 150.0,
-                  //       width: 150.0,
-                  //       color: Colors.white,
-                  //       child: Image.asset('assets/image/logo.png'),
-                  //     ),
-                  //   ),
-                  // ),
-                  // const SizedBox(
-                  //   height: 10,
-                  // ),
-                  // Container(
-                  //   alignment: Alignment.center,
-                  //   margin: EdgeInsets.symmetric(horizontal: Constant().margin),
-                  //   child: const Text(
-                  //     "Unggah Foto Anda",
-                  //     style: TextStyle(
-                  //       fontSize: 14,
-                  //     ),
-                  //   ),
-                  // ),
                   const SizedBox(
                     height: 10,
                   ),
                   TextFormField(
                     controller: _nikController,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -135,6 +110,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
                   ),
                   TextFormField(
                     controller: _namaController,
+                    keyboardType: TextInputType.name,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -162,6 +138,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
                   ),
                   TextFormField(
                     controller: _alamatController,
+                    keyboardType: TextInputType.streetAddress,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -189,6 +166,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
                   ),
                   TextFormField(
                     controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -216,6 +194,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
                   ),
                   TextFormField(
                     controller: _hpController,
+                    keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -243,6 +222,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
                   ),
                   TextFormField(
                     controller: _tglLahirController,
+                    keyboardType: TextInputType.datetime,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
