@@ -356,4 +356,12 @@ class Wilayah {
     "S1/S2/S3"
   ];
 
+  final List<String> pekerjaan = [
+    "IRT",
+    "Petani/Buruh",
+    "PNS",
+    "Swasta",
+    "Wirtaswasta"
+  ];
+
 }

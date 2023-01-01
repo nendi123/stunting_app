@@ -1,15 +1,13 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:stunting_app/model/petugas/anak_model.dart';
-import 'package:stunting_app/pages/petugas/login_petugas_page.dart';
-import 'package:stunting_app/shared/config.dart';
 import 'package:stunting_app/shared/constant.dart';
-import 'package:http/http.dart' as http;
 import 'dart:async';
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 2534b7a9d1d202b9c11da9dffcae63635793cf4c
 class HomePetugasPage extends StatefulWidget {
   const HomePetugasPage({super.key});
 
@@ -20,19 +18,19 @@ class HomePetugasPage extends StatefulWidget {
 class _HomePetugasPageState extends State<HomePetugasPage> {
   final _formKey = GlobalKey<FormState>();
 
-  String _userid='';
-  String _nik='';
+  String _userid = '';
 
   @override
   void initState() {
     // TODO: implement initState
+    getNik();
     super.initState();
   }
 
   Future<void> getUserid() async {
     final prefs = await SharedPreferences.getInstance();
     final String? userid = await prefs.getString('userid');
-    print(userid);
+
     setState(() => _userid = userid!);
   }
 
@@ -41,7 +39,6 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
     final nik = prefs.getString('nik') ?? 0;
     return nik;
   }
-
 
   final _formKeyRes = GlobalKey<FormState>();
   TextEditingController _emailResController = TextEditingController();
@@ -57,7 +54,6 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(_userid);
     return Scaffold(
       body: SingleChildScrollView(
           child: Container(
@@ -95,37 +91,14 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
               margin: EdgeInsets.symmetric(horizontal: Constant().margin),
               child: Text(
                 'Selamat Datang Petugas $_userid',
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                     color: Colors.white),
               ),
             ),
             const SizedBox(
-              height: 40,
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: Constant().margin),
-              child: TextField(
-                decoration: InputDecoration(
-                    suffixIcon: Icon(Icons.search),
-                    filled: true,
-                    fillColor: Colors.white,
-                    hintText: 'Ketik NIK Ibu',
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: Constant().margin),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide:
-                          const BorderSide(color: Colors.white, width: 0.0),
-                    )),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
+              height: 100,
             ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: Constant().margin),
@@ -137,7 +110,7 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                     onTap: (() {
                       Navigator.pushNamed(context, '/listIbu');
                     }),
-                    child: Container(
+                    child: SizedBox(
                       width: MediaQuery.of(context).size.width / 3.5,
                       child: Card(
                           // color: Color.fromRGBO(0, 191, 166, 1),
@@ -146,14 +119,14 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                             borderRadius: BorderRadius.circular(15.0),
                           ),
                           child: Container(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             child: Column(
                               children: [
                                 Container(
-                                  padding: EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(10),
                                   child: Image.asset('assets/image/ibu.png'),
                                 ),
-                                Text('Ibu',
+                                const Text('Ibu',
                                     style: TextStyle(color: Colors.white60))
                               ],
                             ),
@@ -174,14 +147,14 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                             borderRadius: BorderRadius.circular(15.0),
                           ),
                           child: Container(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             child: Column(
                               children: [
                                 Container(
-                                  padding: EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(10),
                                   child: Image.asset('assets/image/anak.png'),
                                 ),
-                                Text('Anak',
+                                const Text('Anak',
                                     style: TextStyle(color: Colors.white60))
                               ],
                             ),
@@ -189,9 +162,7 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      _showDialog();
-                    },
+                    onTap: () {},
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width / 3.5,
                       child: Card(
@@ -201,11 +172,11 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                             borderRadius: BorderRadius.circular(15.0),
                           ),
                           child: Container(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             child: Column(
                               children: [
                                 Container(
-                                  padding: EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(10),
                                   child:
                                       Image.asset('assets/image/skrining.png'),
                                 ),
@@ -247,6 +218,7 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
               icon: const Icon(
                 Icons.qr_code, color: Colors.white,
               ),
+<<<<<<< HEAD
               onPressed: () {
                 showDialog(
                     context: context,
@@ -341,14 +313,10 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                       );
                     });
               },
+=======
+              onPressed: () {},
+>>>>>>> 2534b7a9d1d202b9c11da9dffcae63635793cf4c
             ),
-            // IconButton(
-            //   icon: const Icon(
-            //     Icons.child_care,
-            //     color: Colors.grey,
-            //   ),
-            //   onPressed: () {},
-            // ),
             IconButton(
               icon: const Icon(
                 Icons.person, color: Colors.white,
@@ -386,6 +354,7 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
       ),
     );
   }
+<<<<<<< HEAD
 
   Future<void> _showDialog() {
     return showDialog(
@@ -546,4 +515,6 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
       CircularProgressIndicator;
     }
   }
+=======
+>>>>>>> 2534b7a9d1d202b9c11da9dffcae63635793cf4c
 }
