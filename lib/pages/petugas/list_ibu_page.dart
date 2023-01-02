@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stunting_app/model/petugas/ibu_model.dart';
 import 'package:stunting_app/pages/petugas/edit_ibu_page.dart';
 import 'package:stunting_app/shared/config.dart';
@@ -14,6 +15,7 @@ class ListIbuPage extends StatefulWidget {
 }
 
 class _ListIbuPageState extends State<ListIbuPage> {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,8 +73,9 @@ class _ListIbuPageState extends State<ListIbuPage> {
   }
 
   Future<List<IbuModel>> _fetchIbu() async {
-    final response =
-        await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbuAll"));
+    final SharedPreferences prefs = await _prefs;
+    final response = await http.get(Uri.parse(
+        "${AppConfig.API_ENDPOINT}/showIbuPosyandu/${prefs.getString('kode_posyandu')}"));
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);

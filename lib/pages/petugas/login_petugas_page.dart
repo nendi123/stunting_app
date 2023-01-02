@@ -299,7 +299,8 @@ class _LoginPetugasPageState extends State<LoginPetugasPage> {
                                             value.password,
                                             value.namaLengkap,
                                             value.nik,
-                                            value.category),
+                                            value.category,
+                                            value.kodePosyandu),
                                         Navigator.of(context)
                                             .pushNamedAndRemoveUntil(
                                                 '/homePetugas',
@@ -350,13 +351,14 @@ class _LoginPetugasPageState extends State<LoginPetugasPage> {
   }
 
   Future<void> _saveUser(String userid, String password, String namaLengkap,
-      String nik, String category) async {
+      String nik, String category, String kodePosyandu) async {
     final SharedPreferences prefs = await _prefs;
 
     prefs.setString('userid', userid);
     prefs.setString('password', password);
     prefs.setString('nik', nik);
     prefs.setString('namaLengkap', namaLengkap);
+    prefs.setString('kode_posyandu', kodePosyandu);
     prefs.setString('category', category);
 
     setState(() {});
