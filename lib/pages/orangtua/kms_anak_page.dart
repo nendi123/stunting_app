@@ -96,6 +96,23 @@ class _KmsAnakPagetate extends State<KmsAnakPage> with SingleTickerProviderState
       Data_bbu(13, 4, 4.5, 5.8, 7.5, 8.5),
   ];
 
+  List<Data_tbu> datatbu = <Data_tbu>[
+    Data_tbu(0, 45.4,	47.3,	49.1,	51,	52.9),
+    Data_tbu(1, 46.6,	48.4,	50.3,	52.2,	54.1),
+    Data_tbu(2, 47.7,	49.6,	51.5,	53.4,	55.3),
+    Data_tbu(3, 48.6,	50.5,	52.5,	54.4,	56.3),
+    Data_tbu(4, 49.5,	51.4,	53.4,	55.3,	57.3),
+    Data_tbu(5, 50.3,	52.3,	54.2,	56.2,	58.2),
+    Data_tbu(6, 51.1,	53.1,	55.1,	57.1,	59),
+    Data_tbu(7, 51.8,	53.8,	55.8,	57.8,	59.9),
+    Data_tbu(8, 52.5,	54.6,	56.6,	58.6,	60.6),
+    Data_tbu(9, 53.2,	55.2,	57.3,	59.3,	61.4),
+    Data_tbu(10,53.8,	55.9,	57.9,	60,	62.1),
+    Data_tbu(11,54.4,	56.5,	58.6,	60.7,	62.7),
+    Data_tbu(12,55,	  57.1,	59.2,	61.3,	63.4),
+    Data_tbu(13,55.6,	57.7,	59.8,	61.9,	64),
+  ];
+
 
 
   @override
@@ -199,77 +216,12 @@ class _KmsAnakPagetate extends State<KmsAnakPage> with SingleTickerProviderState
                 //   chartToRun(),
                 // ],
                 children: [
-                  Container(
-                    child:
-                    SfCartesianChart(
-                        primaryXAxis: CategoryAxis(),
-                        title: ChartTitle(text: 'BBU 13 minggu', textStyle: TextStyle(fontSize: 12)),
-                        legend: Legend(isVisible: true),
-                        // legend: Legend(
-                        //     isVisible: true,
-                        //     // Templating the legend item
-                        //     legendItemBuilder: (String name, dynamic series, dynamic point, int index) {
-                        //       return Container(
-                        //           child: Container(
-                        //               child: Text('-3'))
-                        //       );
-                        //     }),
-                        tooltipBehavior: TooltipBehavior(enable: true),
-                        series: <ChartSeries>[
-                          StackedLineSeries<Data_bbu, String>(
-                            // groupName: 'Group A',
-                            // dataLabelSettings: DataLabelSettings(
-                            //     isVisible: true,
-                            //     useSeriesColor: true
-                            // ),
-                              dataSource: databbu,
-                              xValueMapper: (Data_bbu databb, _) => databb.usia.toString(),
-                              yValueMapper: (Data_bbu databb, _) => databb.minsd3,
-                          ),
-                          StackedLineSeries<Data_bbu, String>(
-                              dataSource: databbu,
-                            // groupName: 'Group B',
-                            // dataLabelSettings: DataLabelSettings(
-                            //     isVisible: true,
-                            //     useSeriesColor: true
-                            // ),
-                              xValueMapper: (Data_bbu data, _) => data.usia.toString(),
-                              yValueMapper: (Data_bbu data, _) => data.minsd2,
-                          ),
-                          StackedLineSeries<Data_bbu, String>(
-                            dataSource: databbu,
-                            // groupName: 'Group C',
-                            // dataLabelSettings: DataLabelSettings(
-                            //     isVisible: true,
-                            //     useSeriesColor: true
-                            // ),
-                            xValueMapper: (Data_bbu data, _) => data.usia.toString(),
-                            yValueMapper: (Data_bbu data, _) => data.sd0,
-                          ),
-                          StackedLineSeries<Data_bbu, String>(
-                            groupName: 'Group D',
-                            // dataLabelSettings: DataLabelSettings(
-                            //     isVisible: true,
-                            //     useSeriesColor: true
-                            // ),
-                            dataSource: databbu,
-                            xValueMapper: (Data_bbu data, _) => data.usia.toString(),
-                            yValueMapper: (Data_bbu data, _) => data.sd2,
-                          ),
-                          StackedLineSeries<Data_bbu, String>(
-                            groupName: 'Group E',
-                            // dataLabelSettings: DataLabelSettings(
-                            //     isVisible: true,
-                            //     useSeriesColor: true
-                            // ),
-                            dataSource: databbu,
-                            xValueMapper: (Data_bbu data, _) => data.usia.toString(),
-                            yValueMapper: (Data_bbu data, _) => data.sd3,
-                          ),
-                        ]
-                    ),
-                  ),
-
+                  Container(child: tbu(),),
+                  // SizedBox(height: 5.0,),
+                  Container(child: bbu(),),
+                  Container(child: bbtb(),),
+                  Container(child: lingkar_kepala(),),
+                  Container(child: body_mass(),),
                   Expanded(
                     child: RiwayatBalitaPage(id_anak: widget.id_anak),
                     // child: Padding(
@@ -348,6 +300,361 @@ class _KmsAnakPagetate extends State<KmsAnakPage> with SingleTickerProviderState
     _tabController.dispose();
     super.dispose();
   }
+
+  Widget tbu() {
+    return SfCartesianChart(
+        primaryXAxis: CategoryAxis(),
+        title: ChartTitle(text: 'Tinggi Badan Sesuai Usia', textStyle: TextStyle(fontSize: 12)),
+        legend: Legend(isVisible: true),
+        // legend: Legend(
+        //     isVisible: true,
+        //     // Templating the legend item
+        //     legendItemBuilder: (String name, dynamic series, dynamic point, int index) {
+        //       return Container(
+        //           child: Container(
+        //               child: Text('-3'))
+        //       );
+        //     }),
+        tooltipBehavior: TooltipBehavior(enable: true),
+        series: <ChartSeries>[
+          StackedLineSeries<Data_bbu, String>(
+            // groupName: 'Group A',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            dataSource: databbu,
+            xValueMapper: (Data_bbu databb, _) => databb.usia.toString(),
+            yValueMapper: (Data_bbu databb, _) => databb.minsd3,
+            color: Colors.black
+          ),
+          StackedLineSeries<Data_bbu, String>(
+            dataSource: databbu,
+            // groupName: 'Group B',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            xValueMapper: (Data_bbu data, _) => data.usia.toString(),
+            yValueMapper: (Data_bbu data, _) => data.minsd2,
+            color: Colors.red
+          ),
+          StackedLineSeries<Data_bbu, String>(
+            dataSource: databbu,
+            // groupName: 'Group C',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            xValueMapper: (Data_bbu data, _) => data.usia.toString(),
+            yValueMapper: (Data_bbu data, _) => data.sd0,
+            color: Colors.green
+          ),
+          StackedLineSeries<Data_bbu, String>(
+            groupName: 'Group D',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            dataSource: databbu,
+            xValueMapper: (Data_bbu data, _) => data.usia.toString(),
+            yValueMapper: (Data_bbu data, _) => data.sd2,
+            color: Colors.red
+          ),
+          StackedLineSeries<Data_bbu, String>(
+            groupName: 'Group E',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            dataSource: databbu,
+            xValueMapper: (Data_bbu data, _) => data.usia.toString(),
+            yValueMapper: (Data_bbu data, _) => data.sd3,
+            color: Colors.black
+          ),
+        ]
+    );
+  }
+
+  Widget bbu() {
+    return SfCartesianChart(
+        primaryXAxis: CategoryAxis(),
+        title: ChartTitle(text: 'Berat Badan sesuai Usia', textStyle: TextStyle(fontSize: 12)),
+        legend: Legend(isVisible: true),
+        // legend: Legend(
+        //     isVisible: true,
+        //     // Templating the legend item
+        //     legendItemBuilder: (String name, dynamic series, dynamic point, int index) {
+        //       return Container(
+        //           child: Container(
+        //               child: Text('-3'))
+        //       );
+        //     }),
+        tooltipBehavior: TooltipBehavior(enable: true),
+        series: <ChartSeries>[
+          StackedLineSeries<Data_bbu, String>(
+            // groupName: 'Group A',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            dataSource: databbu,
+            xValueMapper: (Data_bbu databb, _) => databb.usia.toString(),
+            yValueMapper: (Data_bbu databb, _) => databb.minsd3,
+          ),
+          StackedLineSeries<Data_bbu, String>(
+            dataSource: databbu,
+            // groupName: 'Group B',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            xValueMapper: (Data_bbu data, _) => data.usia.toString(),
+            yValueMapper: (Data_bbu data, _) => data.minsd2,
+          ),
+          StackedLineSeries<Data_bbu, String>(
+            dataSource: databbu,
+            // groupName: 'Group C',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            xValueMapper: (Data_bbu data, _) => data.usia.toString(),
+            yValueMapper: (Data_bbu data, _) => data.sd0,
+          ),
+          StackedLineSeries<Data_bbu, String>(
+            groupName: 'Group D',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            dataSource: databbu,
+            xValueMapper: (Data_bbu data, _) => data.usia.toString(),
+            yValueMapper: (Data_bbu data, _) => data.sd2,
+          ),
+          StackedLineSeries<Data_bbu, String>(
+            groupName: 'Group E',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            dataSource: databbu,
+            xValueMapper: (Data_bbu data, _) => data.usia.toString(),
+            yValueMapper: (Data_bbu data, _) => data.sd3,
+          ),
+        ]
+    );
+  }
+
+  Widget bbtb() {
+    return SfCartesianChart(
+        primaryXAxis: CategoryAxis(),
+        title: ChartTitle(text: 'Berat Badan terhadap Tinggi Badan (BB/TB)', textStyle: TextStyle(fontSize: 12)),
+        legend: Legend(isVisible: true),
+        // legend: Legend(
+        //     isVisible: true,
+        //     // Templating the legend item
+        //     legendItemBuilder: (String name, dynamic series, dynamic point, int index) {
+        //       return Container(
+        //           child: Container(
+        //               child: Text('-3'))
+        //       );
+        //     }),
+        tooltipBehavior: TooltipBehavior(enable: true),
+        series: <ChartSeries>[
+          StackedLineSeries<Data_bbu, String>(
+            // groupName: 'Group A',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            dataSource: databbu,
+            xValueMapper: (Data_bbu databb, _) => databb.usia.toString(),
+            yValueMapper: (Data_bbu databb, _) => databb.minsd3,
+          ),
+          StackedLineSeries<Data_bbu, String>(
+            dataSource: databbu,
+            // groupName: 'Group B',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            xValueMapper: (Data_bbu data, _) => data.usia.toString(),
+            yValueMapper: (Data_bbu data, _) => data.minsd2,
+          ),
+          StackedLineSeries<Data_bbu, String>(
+            dataSource: databbu,
+            // groupName: 'Group C',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            xValueMapper: (Data_bbu data, _) => data.usia.toString(),
+            yValueMapper: (Data_bbu data, _) => data.sd0,
+          ),
+          StackedLineSeries<Data_bbu, String>(
+            groupName: 'Group D',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            dataSource: databbu,
+            xValueMapper: (Data_bbu data, _) => data.usia.toString(),
+            yValueMapper: (Data_bbu data, _) => data.sd2,
+          ),
+          StackedLineSeries<Data_bbu, String>(
+            groupName: 'Group E',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            dataSource: databbu,
+            xValueMapper: (Data_bbu data, _) => data.usia.toString(),
+            yValueMapper: (Data_bbu data, _) => data.sd3,
+          ),
+        ]
+    );
+  }
+
+  Widget lingkar_kepala() {
+    return SfCartesianChart(
+        primaryXAxis: CategoryAxis(),
+        title: ChartTitle(text: 'Lingkar Kepala', textStyle: TextStyle(fontSize: 12)),
+        legend: Legend(isVisible: true),
+        // legend: Legend(
+        //     isVisible: true,
+        //     // Templating the legend item
+        //     legendItemBuilder: (String name, dynamic series, dynamic point, int index) {
+        //       return Container(
+        //           child: Container(
+        //               child: Text('-3'))
+        //       );
+        //     }),
+        tooltipBehavior: TooltipBehavior(enable: true),
+        series: <ChartSeries>[
+          StackedLineSeries<Data_bbu, String>(
+            // groupName: 'Group A',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            dataSource: databbu,
+            xValueMapper: (Data_bbu databb, _) => databb.usia.toString(),
+            yValueMapper: (Data_bbu databb, _) => databb.minsd3,
+          ),
+          StackedLineSeries<Data_bbu, String>(
+            dataSource: databbu,
+            // groupName: 'Group B',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            xValueMapper: (Data_bbu data, _) => data.usia.toString(),
+            yValueMapper: (Data_bbu data, _) => data.minsd2,
+          ),
+          StackedLineSeries<Data_bbu, String>(
+            dataSource: databbu,
+            // groupName: 'Group C',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            xValueMapper: (Data_bbu data, _) => data.usia.toString(),
+            yValueMapper: (Data_bbu data, _) => data.sd0,
+          ),
+          StackedLineSeries<Data_bbu, String>(
+            groupName: 'Group D',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            dataSource: databbu,
+            xValueMapper: (Data_bbu data, _) => data.usia.toString(),
+            yValueMapper: (Data_bbu data, _) => data.sd2,
+          ),
+          StackedLineSeries<Data_bbu, String>(
+            groupName: 'Group E',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            dataSource: databbu,
+            xValueMapper: (Data_bbu data, _) => data.usia.toString(),
+            yValueMapper: (Data_bbu data, _) => data.sd3,
+          ),
+        ]
+    );
+  }
+
+  Widget body_mass() {
+    return SfCartesianChart(
+        primaryXAxis: CategoryAxis(),
+        title: ChartTitle(text: '(Index Masa Tubuh sesuai Usia – IMTU', textStyle: TextStyle(fontSize: 12)),
+        legend: Legend(isVisible: true),
+        // legend: Legend(
+        //     isVisible: true,
+        //     // Templating the legend item
+        //     legendItemBuilder: (String name, dynamic series, dynamic point, int index) {
+        //       return Container(
+        //           child: Container(
+        //               child: Text('-3'))
+        //       );
+        //     }),
+        tooltipBehavior: TooltipBehavior(enable: true),
+        series: <ChartSeries>[
+          StackedLineSeries<Data_bbu, String>(
+            // groupName: 'Group A',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            dataSource: databbu,
+            xValueMapper: (Data_bbu databb, _) => databb.usia.toString(),
+            yValueMapper: (Data_bbu databb, _) => databb.minsd3,
+          ),
+          StackedLineSeries<Data_bbu, String>(
+            dataSource: databbu,
+            // groupName: 'Group B',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            xValueMapper: (Data_bbu data, _) => data.usia.toString(),
+            yValueMapper: (Data_bbu data, _) => data.minsd2,
+          ),
+          StackedLineSeries<Data_bbu, String>(
+            dataSource: databbu,
+            // groupName: 'Group C',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            xValueMapper: (Data_bbu data, _) => data.usia.toString(),
+            yValueMapper: (Data_bbu data, _) => data.sd0,
+          ),
+          StackedLineSeries<Data_bbu, String>(
+            groupName: 'Group D',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            dataSource: databbu,
+            xValueMapper: (Data_bbu data, _) => data.usia.toString(),
+            yValueMapper: (Data_bbu data, _) => data.sd2,
+          ),
+          StackedLineSeries<Data_bbu, String>(
+            groupName: 'Group E',
+            // dataLabelSettings: DataLabelSettings(
+            //     isVisible: true,
+            //     useSeriesColor: true
+            // ),
+            dataSource: databbu,
+            xValueMapper: (Data_bbu data, _) => data.usia.toString(),
+            yValueMapper: (Data_bbu data, _) => data.sd3,
+          ),
+        ]
+    );
+  }
 }
 
 
@@ -361,6 +668,17 @@ class Data_bbu{
 
   Data_bbu(this.usia, this.minsd3, this.minsd2, this.sd0, this.sd2, this.sd3);
   // Data_bbu(this.usia, this.minsd3, this.minsd2, this.sd0);
+}
+
+class Data_tbu{
+  final int usia;
+  final double? sd2neg;
+  final double? sd1neg;
+  final double? sd0;
+  final double? sd2;
+  final double? sd3;
+
+  Data_tbu(this.usia, this.sd2neg, this.sd1neg, this.sd0, this.sd2, this.sd3);
 }
 
 class _SalesData {
