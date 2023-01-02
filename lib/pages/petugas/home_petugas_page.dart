@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stunting_app/shared/config.dart';
 import 'package:stunting_app/shared/constant.dart';
 import 'dart:async';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 2534b7a9d1d202b9c11da9dffcae63635793cf4c
 class HomePetugasPage extends StatefulWidget {
   const HomePetugasPage({super.key});
 
@@ -218,7 +216,6 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
               icon: const Icon(
                 Icons.qr_code, color: Colors.white,
               ),
-<<<<<<< HEAD
               onPressed: () {
                 showDialog(
                     context: context,
@@ -313,9 +310,7 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                       );
                     });
               },
-=======
-              onPressed: () {},
->>>>>>> 2534b7a9d1d202b9c11da9dffcae63635793cf4c
+              // onPressed: () {},
             ),
             IconButton(
               icon: const Icon(
@@ -354,7 +349,6 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
       ),
     );
   }
-<<<<<<< HEAD
 
   Future<void> _showDialog() {
     return showDialog(
@@ -515,6 +509,4 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
       CircularProgressIndicator;
     }
   }
-=======
->>>>>>> 2534b7a9d1d202b9c11da9dffcae63635793cf4c
 }

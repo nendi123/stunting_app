@@ -74,6 +74,8 @@ class _ListIbuPageState extends State<ListIbuPage> {
     final response =
         await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbuAll"));
 
+    // /showIbuPosyandu/{kode_posyandu}
+
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
       if (jsonResponse.isEmpty) {
