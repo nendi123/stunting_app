@@ -208,7 +208,8 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
           children: <Widget>[
             IconButton(
               icon: const Icon(
-                Icons.home, color: Colors.white,
+                Icons.home,
+                color: Colors.white,
               ),
               onPressed: () {},
             ),
@@ -312,9 +313,15 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
               },
               // onPressed: () {},
             ),
+                // icon: const Icon(
+                //   Icons.qr_code,
+                //   color: Colors.white,
+                // ),
+                // onPressed: () {}),
             IconButton(
               icon: const Icon(
-                Icons.person, color: Colors.white,
+                Icons.person,
+                color: Colors.white,
               ),
               onPressed: () {
                 Navigator.pushNamed(context, '/profilePetugas');
@@ -322,7 +329,8 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
             ),
             IconButton(
               icon: const Icon(
-                Icons.exit_to_app, color: Colors.white,
+                Icons.exit_to_app,
+                color: Colors.white,
               ),
               onPressed: () => showDialog<String>(
                 context: context,
