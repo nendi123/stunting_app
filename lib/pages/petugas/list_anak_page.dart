@@ -26,6 +26,9 @@ class _ListAnakPageState extends State<ListAnakPage> {
   List listNamaAnak = [];
   List listTglLahirAnak = [];
 
+  bool isSearch = false;
+  bool isLoading = false;
+
   var namaIbu = '';
   var nikIbu = '';
   @override
@@ -100,69 +103,75 @@ class _ListAnakPageState extends State<ListAnakPage> {
               const SizedBox(
                 height: 20,
               ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.symmetric(horizontal: Constant().margin),
-                child: Card(
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("Hasil Pencarian :")),
-                        const SizedBox(
-                          height: 20,
+              !isLoading ? Container() : const CircularProgressIndicator(),
+              isSearch
+                  ? Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin:
+                          EdgeInsets.symmetric(horizontal: Constant().margin),
+                      child: Card(
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              const Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text("Hasil Pencarian :")),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.account_circle,
+                                        size: 40,
+                                        color: Colors.black54,
+                                      ),
+                                      Column(
+                                        children: [
+                                          Text(
+                                            " Ibu $namaIbu",
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  )),
+                              const Divider(),
+                              // FutureBuilder<List<AnakModel>>(
+                              //   future: _fetchAnak(),
+                              //   builder: (context, snapshot) {
+                              //     if (snapshot.hasData) {
+                              //       List<AnakModel>? data = snapshot.data;
+                              //       return _jobsListView(data);
+                              //     } else if (snapshot.hasError) {
+                              //       return Text("${snapshot.error}");
+                              //     }
+                              //     return const CircularProgressIndicator();
+                              //   },
+                              // )
+                              ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: listIdAnak.length,
+                                itemBuilder: (context, index) {
+                                  return _tile(
+                                      listIdAnak[index],
+                                      listNamaAnak[index],
+                                      listTglLahirAnak[index]);
+                                },
+                              )
+                            ],
+                          ),
                         ),
-                        Align(
-                            alignment: Alignment.centerLeft,
-                            child: Row(
-                              children: [
-                                const Icon(
-                                  Icons.account_circle,
-                                  size: 40,
-                                  color: Colors.black54,
-                                ),
-                                Column(
-                                  children: [
-                                    Text(
-                                      " Ibu $namaIbu",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            )),
-                        const Divider(),
-                        // FutureBuilder<List<AnakModel>>(
-                        //   future: _fetchAnak(),
-                        //   builder: (context, snapshot) {
-                        //     if (snapshot.hasData) {
-                        //       List<AnakModel>? data = snapshot.data;
-                        //       return _jobsListView(data);
-                        //     } else if (snapshot.hasError) {
-                        //       return Text("${snapshot.error}");
-                        //     }
-                        //     return const CircularProgressIndicator();
-                        //   },
-                        // )
-                        ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: listIdAnak.length,
-                          itemBuilder: (context, index) {
-                            return _tile(listIdAnak[index], listNamaAnak[index],
-                                listTglLahirAnak[index]);
-                          },
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              )
+                      ),
+                    )
+                  : Container()
             ],
           ),
         ),
@@ -206,8 +215,12 @@ class _ListAnakPageState extends State<ListAnakPage> {
         });
         // }
       }
+      isLoading = false;
+      setState(() {});
       return jsonResponse.map((job) => AnakModel.responseApi(job)).toList();
     } else {
+      isLoading = false;
+      setState(() {});
       throw Exception('Failed to load jobs from API');
     }
   }
@@ -323,7 +336,31 @@ class _ListAnakPageState extends State<ListAnakPage> {
                       const Text('Posyandu',
                           style: TextStyle(fontSize: 10, color: Colors.black54))
                     ],
-                  )
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/skriningPage');
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) =>
+                      //         MpasiAnakPagePetugas(nama: nama),
+                      //   ),
+                      // );
+                    },
+                    child: Column(
+                      children: const [
+                        Icon(
+                          Icons.search,
+                          size: 20,
+                          color: Color.fromRGBO(87, 81, 203, 1),
+                        ),
+                        Text('Skrining',
+                            style:
+                                TextStyle(fontSize: 10, color: Colors.black54))
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -332,6 +369,9 @@ class _ListAnakPageState extends State<ListAnakPage> {
       );
 
   void _fetchIbu() async {
+    isSearch = true;
+    isLoading = true;
+    setState(() {});
     final SharedPreferences prefs = await _prefs;
 
     // final response = await http.get(Uri.parse(

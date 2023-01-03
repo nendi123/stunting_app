@@ -133,7 +133,6 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                   ),
                   GestureDetector(
                     onTap: (() {
-                      // Navigator.pushNamed(context, '/listPelatih');
                       Navigator.pushNamed(context, '/listAnakPage');
                     }),
                     child: Container(
@@ -160,7 +159,9 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, '/listAnakPage');
+                    },
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width / 3.5,
                       child: Card(
@@ -215,109 +216,109 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
             ),
             IconButton(
               icon: const Icon(
-                Icons.qr_code, color: Colors.white,
+                Icons.qr_code,
+                color: Colors.white,
               ),
               onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return Dialog(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0)),
-                        child: Container(
-                          margin: const EdgeInsets.all(10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Row(children: [
-                                Image.asset(
-                                  'assets/image/iconscreening.png',
-                                  width: 100,
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                const Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    'Tumbuh Kembang Anak',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                )
-                              ]),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              TextField(
-                                controller: _searchNikController,
-                                decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: Colors.grey.shade200,
-                                    hintText: 'NIK ORANGTUA',
-                                    suffixIcon: GestureDetector(
-                                        onTap: () {
-                                          _fetchAnak(_searchNikController.text);
-                                          setState(() {
-
-                                          });
-                                        },
-                                      // onTap: ((_fetchAnak(_searchNikController.text).(context) =>Hasil())),
-                                        child: const Icon(Icons.search)),
-                                    contentPadding: EdgeInsets.symmetric(
-                                        horizontal: Constant().margin),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30),
-                                      borderSide: const BorderSide(
-                                          color: Colors.white, width: 0.0),
-                                    )),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                margin: const EdgeInsets.all(10),
-                                child: const Align(
-                                    alignment: Alignment.centerLeft,)
-                                    // child: Text('DATA ANAK')),
-                              ),
-
-                              ListView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: listIdAnak.length,
-                                itemBuilder: (context, index) {
-                                  return ListTile(
-                                    title: Text(listNamaAnak[index]),
-                                    trailing: IconButton(
-                                      icon:
-                                          const Icon(Icons.arrow_circle_right),
-                                      onPressed: () {
-                                        Navigator.pushNamed(
-                                            context, '/kmsPetugasPage');
-                                      },
-                                    ),
-                                  );
-                                },
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    });
+                // showDialog(
+                //     context: context,
+                //     builder: (BuildContext context) {
+                //       return Dialog(
+                //         shape: RoundedRectangleBorder(
+                //             borderRadius: BorderRadius.circular(20.0)),
+                //         child: Container(
+                //           margin: const EdgeInsets.all(10),
+                //           child: Column(
+                //             mainAxisAlignment: MainAxisAlignment.center,
+                //             mainAxisSize: MainAxisSize.min,
+                //             children: [
+                //               Row(children: [
+                //                 Image.asset(
+                //                   'assets/image/iconscreening.png',
+                //                   width: 100,
+                //                 ),
+                //                 const SizedBox(
+                //                   width: 10,
+                //                 ),
+                //                 const Align(
+                //                   alignment: Alignment.centerRight,
+                //                   child: Text(
+                //                     'Tumbuh Kembang Anak',
+                //                     style: TextStyle(
+                //                       fontWeight: FontWeight.w500,
+                //                     ),
+                //                   ),
+                //                 )
+                //               ]),
+                //               const SizedBox(
+                //                 height: 20,
+                //               ),
+                //               TextField(
+                //                 controller: _searchNikController,
+                //                 decoration: InputDecoration(
+                //                     filled: true,
+                //                     fillColor: Colors.grey.shade200,
+                //                     hintText: 'NIK ORANGTUA',
+                //                     suffixIcon: GestureDetector(
+                //                         onTap: () {
+                //                           _fetchAnak();
+                //                           // _fetchIbu();
+                //                           setState(() {});
+                //                         },
+                //                         // onTap: ((_fetchAnak(_searchNikController.text).(context) =>Hasil())),
+                //                         child: const Icon(Icons.search)),
+                //                     contentPadding: EdgeInsets.symmetric(
+                //                         horizontal: Constant().margin),
+                //                     border: OutlineInputBorder(
+                //                       borderRadius: BorderRadius.circular(30),
+                //                     ),
+                //                     enabledBorder: OutlineInputBorder(
+                //                       borderRadius: BorderRadius.circular(30),
+                //                       borderSide: const BorderSide(
+                //                           color: Colors.white, width: 0.0),
+                //                     )),
+                //               ),
+                //               const SizedBox(
+                //                 height: 10,
+                //               ),
+                //               Container(
+                //                   margin: const EdgeInsets.all(10),
+                //                   child: const Align(
+                //                     alignment: Alignment.centerLeft,
+                //                   )
+                //                   // child: Text('DATA ANAK')),
+                //                   ),
+                //               ListView.builder(
+                //                 physics: const NeverScrollableScrollPhysics(),
+                //                 shrinkWrap: true,
+                //                 itemCount: listIdAnak.length,
+                //                 itemBuilder: (context, index) {
+                //                   return ListTile(
+                //                     title: Text(listNamaAnak[index]),
+                //                     trailing: IconButton(
+                //                       icon:
+                //                           const Icon(Icons.arrow_circle_right),
+                //                       onPressed: () {
+                //                         Navigator.pushNamed(
+                //                             context, '/kmsPetugasPage');
+                //                       },
+                //                     ),
+                //                   );
+                //                 },
+                //               )
+                //             ],
+                //           ),
+                //         ),
+                //       );
+                //     });
               },
               // onPressed: () {},
             ),
-                // icon: const Icon(
-                //   Icons.qr_code,
-                //   color: Colors.white,
-                // ),
-                // onPressed: () {}),
+            // icon: const Icon(
+            //   Icons.qr_code,
+            //   color: Colors.white,
+            // ),
+            // onPressed: () {}),
             IconButton(
               icon: const Icon(
                 Icons.person,
@@ -456,11 +457,9 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
         return ListTile(
           title: Text(listNamaAnak[index]),
           trailing: IconButton(
-            icon:
-            const Icon(Icons.arrow_circle_right),
+            icon: const Icon(Icons.arrow_circle_right),
             onPressed: () {
-              Navigator.pushNamed(
-                  context, '/kmsPetugasPage');
+              Navigator.pushNamed(context, '/kmsPetugasPage');
             },
           ),
         );
@@ -486,35 +485,30 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
           setState(() {});
         }
       }
-      _fetchAnak(_searchNikController.text);
+      _fetchAnak();
     } else {
       throw Exception('Failed to load jobs from API');
-      CircularProgressIndicator;
     }
   }
 
-  _fetchAnak(String nik) async {
-    String nik1 = _searchNikController.text;
-    final response =
-        await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showAnakIbu/"+nik1));
-    print('nik $nik1');
+  _fetchAnak() async {
+    final response = await http.get(Uri.parse(
+        "${AppConfig.API_ENDPOINT}/showAnakIbu/" + _searchNikController.text));
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
       if (jsonResponse.isEmpty) {
         setState(() {});
       }
       for (var i = 0; i < jsonResponse.length; i++) {
-        // if (jsonResponse[i]['nik_ibu'] == nikIbu) {
-          listIdAnak.add(jsonResponse[i]['id_anak'].toString());
-          listNamaAnak.add(jsonResponse[i]['nama_lengkap']);
-          listTglLahirAnak.add(jsonResponse[i]['tgl_lahir']);
-          print(jsonResponse[i]['nama_lengkap']);
-          setState(() {});
+        // if (jsonResponse[i]['nik_ibu'] == _searchNikController.text) {
+        listIdAnak.add(jsonResponse[i]['id_anak'].toString());
+        listNamaAnak.add(jsonResponse[i]['nama_lengkap']);
+        listTglLahirAnak.add(jsonResponse[i]['tgl_lahir']);
+        setState(() {});
         // }
       }
     } else {
       throw Exception('Failed to load jobs from API');
-      CircularProgressIndicator;
     }
   }
 }
