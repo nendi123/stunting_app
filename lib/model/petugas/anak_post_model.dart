@@ -23,6 +23,20 @@ class AnakPostModel {
       String panjangLahir,
       String prematur,
       String usiaKehamilan) async {
+    var _body = jsonEncode(<String, dynamic>{
+      "id_anak": idAnak,
+      "nik_ibu": nikIbu,
+      "nama_lengkap": namaLengkap,
+      "jenis_kelamin": jenisKelamin,
+      "tgl_lahir": tglLahir,
+      "akte_lahir": akteLahir,
+      "persalinan_oleh": persalinanOleh,
+      "bb_lahir": bbLahir,
+      "panjang_lahir": panjangLahir,
+      "prematur": prematur,
+      "usia_kehamilan": usiaKehamilan
+    });
+    print(_body);
     var post = await http.post(
         Uri.parse("https://quantri.lipi.go.id/stunting/addAnak"),
         headers: <String, String>{
@@ -30,16 +44,16 @@ class AnakPostModel {
         },
         body: jsonEncode(<String, dynamic>{
           "id_anak": idAnak,
-          "nik_ibu": "",
-          "nama_lengkap": "",
-          "jenis_kelamin": "",
-          "tgl_lahir": "",
-          "akte_lahir": "",
-          "persalinan_oleh": "",
-          "bb_lahir": "",
-          "panjang_lahir": "",
-          "prematur": "",
-          "usia_kehamilan": ""
+          "nik_ibu": nikIbu,
+          "nama_lengkap": namaLengkap,
+          "jenis_kelamin": jenisKelamin,
+          "tgl_lahir": tglLahir,
+          "akte_lahir": akteLahir,
+          "persalinan_oleh": persalinanOleh,
+          "bb_lahir": bbLahir,
+          "panjang_lahir": panjangLahir,
+          "prematur": prematur,
+          "usia_kehamilan": usiaKehamilan
         }));
 
     if (post.statusCode == 201 || post.statusCode == 200) {

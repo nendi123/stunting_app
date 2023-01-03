@@ -46,7 +46,7 @@ class IbuPostMode {
               "status_nikah": status,
               "jumlah_anak": 0,
               "memiliki_kk": statusKk,
-              "kode_posyandu" : kode_posyandu
+              "kode_posyandu": kode_posyandu
             }));
 
     if (post.statusCode == 201 || post.statusCode == 200) {
@@ -70,10 +70,31 @@ class IbuPostMode {
       String beratBadan,
       String tinggiBadan,
       String statusKk,
-      String kode_posyandu
-      ) async {
-    var post = await http.post(
-        Uri.parse(AppConfig.API_ENDPOINT+"/editIbu"),
+      String kode_posyandu) async {
+    var _body = jsonEncode(<String, dynamic>{
+      "nik": nik,
+      "nama_lengkap": nama,
+      "tgl_lahir": tglLahir,
+      "alamat": alamat,
+      "no_hp": hp,
+      "kode_kelurahan": kelurahan,
+      "nama_kelurahan": kelurahan,
+      "kode_distrik": kecamatan,
+      "nama_distrik": kecamatan,
+      "berat_badan": beratBadan,
+      "tinggi_badan": tinggiBadan,
+      "pendidikan": pendidikan,
+      "pekerjaan": pekerjaan,
+      "status_nikah": status,
+      "jumlah_anak": 0,
+      "memiliki_kk": statusKk,
+      "kode_posyandu": kode_posyandu,
+      "nama_posyandu": kode_posyandu
+    });
+
+    print(_body);
+
+    var post = await http.post(Uri.parse(AppConfig.API_ENDPOINT + "/editIbu"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -84,7 +105,7 @@ class IbuPostMode {
           "alamat": alamat,
           "no_hp": hp,
           "kode_kelurahan": kelurahan,
-          "nama_kelurahan" : kelurahan,
+          "nama_kelurahan": kelurahan,
           "kode_distrik": kecamatan,
           "nama_distrik": kecamatan,
           "berat_badan": beratBadan,
@@ -94,8 +115,8 @@ class IbuPostMode {
           "status_nikah": status,
           "jumlah_anak": 0,
           "memiliki_kk": statusKk,
-          "kode_posyandu" : kode_posyandu,
-          "nama_posyandu" : kode_posyandu
+          "kode_posyandu": kode_posyandu,
+          "nama_posyandu": kode_posyandu
         }));
 
     if (post.statusCode == 201 || post.statusCode == 200) {

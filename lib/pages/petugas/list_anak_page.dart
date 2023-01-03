@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stunting_app/model/petugas/anak_model.dart';
 import 'package:stunting_app/pages/orangtua/add_anak_page.dart';
 import 'package:stunting_app/pages/petugas/add_anak_page.dart';
@@ -19,6 +20,7 @@ class ListAnakPage extends StatefulWidget {
 
 class _ListAnakPageState extends State<ListAnakPage> {
   TextEditingController _searchNikController = TextEditingController();
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   List listIdAnak = [];
   List listNamaAnak = [];
@@ -43,12 +45,12 @@ class _ListAnakPageState extends State<ListAnakPage> {
             //code to execute when this button is pressed
             Navigator.pushNamed(context, '/homePetugas');
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             size: 20,
           ),
         ),
-        title: Text(
+        title: const Text(
           'Daftar anak dari ibu',
           style: TextStyle(fontWeight: FontWeight.w300, fontSize: 16),
         ),
@@ -57,8 +59,7 @@ class _ListAnakPageState extends State<ListAnakPage> {
       ),
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
-        child: Container(
-
+        child: SizedBox(
           width: MediaQuery.of(context).size.width,
           // color: Colors.grey.shade200,
 
@@ -75,11 +76,12 @@ class _ListAnakPageState extends State<ListAnakPage> {
                 child: TextField(
                   controller: _searchNikController,
                   decoration: InputDecoration(
-                      suffixIcon: GestureDetector(
-                          onTap: () {
-                            _fetchIbu(_searchNikController.text);
-                          },
-                          child: const Icon(Icons.search)),
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.search),
+                        onPressed: () {
+                          _fetchIbu();
+                        },
+                      ),
                       filled: true,
                       fillColor: Colors.white,
                       hintText: 'Ketik NIK Ibu',
@@ -118,16 +120,17 @@ class _ListAnakPageState extends State<ListAnakPage> {
                             alignment: Alignment.centerLeft,
                             child: Row(
                               children: [
-                                Column(
-                                  children: [
-                                    Icon(Icons.account_circle, size: 40, color: Colors.black54,),
-                                  ],
+                                const Icon(
+                                  Icons.account_circle,
+                                  size: 40,
+                                  color: Colors.black54,
                                 ),
                                 Column(
                                   children: [
                                     Text(
                                       " Ibu $namaIbu",
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ],
                                 ),
@@ -186,8 +189,8 @@ class _ListAnakPageState extends State<ListAnakPage> {
     listIdAnak = [];
     listNamaAnak = [];
     listTglLahirAnak = [];
-    final response =
-        await http.get(Uri.parse(AppConfig.API_ENDPOINT + '/showAnakIbu/'+nik));
+    final response = await http
+        .get(Uri.parse(AppConfig.API_ENDPOINT + '/showAnakIbu/' + nik));
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
@@ -196,11 +199,11 @@ class _ListAnakPageState extends State<ListAnakPage> {
       }
       for (var i = 0; i < jsonResponse.length; i++) {
         // if (jsonResponse[i]['nik_ibu'] == nikIbu) {
-          setState(() {
-            listIdAnak.add(jsonResponse[i]['id_anak'].toString());
-            listNamaAnak.add(jsonResponse[i]['nama_lengkap']);
-            listTglLahirAnak.add(jsonResponse[i]['tgl_lahir']);
-          });
+        setState(() {
+          listIdAnak.add(jsonResponse[i]['id_anak'].toString());
+          listNamaAnak.add(jsonResponse[i]['nama_lengkap']);
+          listTglLahirAnak.add(jsonResponse[i]['tgl_lahir']);
+        });
         // }
       }
       return jsonResponse.map((job) => AnakModel.responseApi(job)).toList();
@@ -227,38 +230,43 @@ class _ListAnakPageState extends State<ListAnakPage> {
               child: ListTile(
                   title: Text(
                     nama,
-                    style: TextStyle(fontWeight: FontWeight.w400),
+                    style: const TextStyle(fontWeight: FontWeight.w400),
                   ),
                   subtitle: Text(umur),
                   trailing: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                EditAnakPagePetugas(idAnak: idAnak),
-                          ),
-                        );
-                      },
-
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        // icon of the button
-                        child: Icon(Icons.edit, color: Colors.white, size: 18,),
-                        style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(),
-                          padding: EdgeInsets.all(10),
-                          backgroundColor: Colors.deepPurpleAccent,
-                          foregroundColor: Colors.cyan,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              EditAnakPagePetugas(idAnak: idAnak),
                         ),
-                      ),
+                      );
+                    },
 
-                      // Icon(Icons.edit, color: Colors.deepPurple,size: 18,)
-                  )
-              ),
-                      // child: Icon(Icons.edit, color: Colors.deepPurple),
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        shape: const CircleBorder(),
+                        padding: const EdgeInsets.all(10),
+                        backgroundColor: Colors.deepPurpleAccent,
+                        foregroundColor: Colors.cyan,
+                      ),
+                      // icon of the button
+                      child: const Icon(
+                        Icons.edit,
+                        color: Colors.white,
+                        size: 18,
+                      ),
+                    ),
+
+                    // Icon(Icons.edit, color: Colors.deepPurple,size: 18,)
+                  )),
+              // child: Icon(Icons.edit, color: Colors.deepPurple),
             ),
-            SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             Container(
               color: Colors.white,
               height: 40,
@@ -323,28 +331,31 @@ class _ListAnakPageState extends State<ListAnakPage> {
         ),
       );
 
-  void _fetchIbu(String nik1) async {
-    // final response = await http
-    //     .get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbu?nik=" + widget.nik));
-    final response =
-        await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbu/"+nik1));
+  void _fetchIbu() async {
+    final SharedPreferences prefs = await _prefs;
+
+    // final response = await http.get(Uri.parse(
+    //     "${AppConfig.API_ENDPOINT}/showIbu/${_searchNikController.text}"));
+
+    final response = await http.get(Uri.parse(
+        "${AppConfig.API_ENDPOINT}/showIbuPosyandu/${prefs.getString('kode_posyandu')}"));
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
       if (jsonResponse.isEmpty) {
         setState(() {});
       }
-        for (var i = 0; i < jsonResponse.length; i++) {
-        // if (jsonResponse[i]['nik'] == _searchNikController.text) {
+      for (var i = 0; i < jsonResponse.length; i++) {
+        if (jsonResponse[i]['nik'] == _searchNikController.text) {
           namaIbu = jsonResponse[i]['nama_lengkap'];
           nikIbu = jsonResponse[i]['nik'];
           setState(() {});
-          //   }
-          }
-          _fetchAnak(_searchNikController.text);
-        // } else {
-        //   throw Exception('Failed to load jobs from API');
-        // }
+        }
       }
+      _fetchAnak(_searchNikController.text);
+      // } else {
+      //   throw Exception('Failed to load jobs from API');
+      // }
+    }
   }
 }

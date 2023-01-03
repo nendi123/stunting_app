@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:stunting_app/model/petugas/anak_post_model.dart';
 import 'package:stunting_app/shared/constant.dart';
 
@@ -14,10 +15,17 @@ class AddAnakPagePetugas extends StatefulWidget {
 }
 
 class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
+  List<String> listJk = <String>['Laki-laki', 'Perempuan'];
+  List<String> listPrematur = <String>['Ya', 'Tidak'];
+  List<String> listGolongan = <String>['A', 'B', 'O', 'AB'];
+
+  String? jkDrop;
+  String? prematurDrop;
+  String? golonganDrop;
+
   final _formKey = GlobalKey<FormState>();
   TextEditingController _namaController = TextEditingController();
   TextEditingController _tglLahirController = TextEditingController();
-  TextEditingController _jkController = TextEditingController();
   TextEditingController _prematurController = TextEditingController();
   TextEditingController _beratBadanController = TextEditingController();
   TextEditingController _tinggiBadanController = TextEditingController();
@@ -32,17 +40,6 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // leading: IconButton(
-        //   //menu icon button at start left of appbar
-        //   onPressed: () {
-        //     //code to execute when this button is pressed
-        //     Navigator.pushNamed(context, '/listIbu');
-        //   },
-        //   icon: const Icon(
-        //     Icons.arrow_back,
-        //     size: 20,
-        //   ),
-        // ),
         title: const Text(
           'Tambah Profile Anak',
           style: TextStyle(fontWeight: FontWeight.w300, fontSize: 16),
@@ -65,36 +62,12 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(80.0), //or 15.0
-                      child: Container(
-                        height: 150.0,
-                        width: 150.0,
-                        color: Colors.white,
-                        child: Image.asset('assets/image/logo.png'),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.symmetric(horizontal: Constant().margin),
-                    child: const Text(
-                      "Unggah Foto Anda",
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
                   const SizedBox(
                     height: 20,
                   ),
                   TextFormField(
                     controller: _namaController,
+                    keyboardType: TextInputType.name,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -121,6 +94,7 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
                   ),
                   TextFormField(
                     controller: _tglLahirController,
+                    keyboardType: TextInputType.datetime,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -145,60 +119,73 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    controller: _jkController,
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: 'Jenis Kelamin',
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                        )),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(40)),
+                      color: Colors.white,
+                    ),
+                    width: MediaQuery.of(context).size.width,
+                    child: DropdownButton<String>(
+                      dropdownColor: Colors.white,
+                      underline: Container(),
+                      isExpanded: true,
+                      value: jkDrop,
+                      hint: const Text("Jenis Kelamin"),
+                      style: const TextStyle(color: Colors.black),
+                      onChanged: (String? value) {
+                        // This is called when the user selects an item.
+                        setState(() {
+                          jkDrop = value!;
+                        });
+                      },
+                      items:
+                          listJk.map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    controller: _prematurController,
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: 'Apakah Anak lahir Prematur ?',
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                        )),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(40)),
+                      color: Colors.white,
+                    ),
+                    width: MediaQuery.of(context).size.width,
+                    child: DropdownButton<String>(
+                      dropdownColor: Colors.white,
+                      underline: Container(),
+                      isExpanded: true,
+                      value: prematurDrop,
+                      hint: const Text("Apakah anak lahir Prematur"),
+                      style: const TextStyle(color: Colors.black),
+                      onChanged: (String? value) {
+                        // This is called when the user selects an item.
+                        setState(() {
+                          prematurDrop = value!;
+                        });
+                      },
+                      items: listPrematur
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   TextFormField(
                     controller: _beratBadanController,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -225,6 +212,7 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
                   ),
                   TextFormField(
                     controller: _tinggiBadanController,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -251,6 +239,7 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
                   ),
                   TextFormField(
                     controller: _lingkarKepalaController,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -275,34 +264,41 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    controller: _golonganDarahController,
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: 'Golongan Darah',
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                        )),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(40)),
+                      color: Colors.white,
+                    ),
+                    width: MediaQuery.of(context).size.width,
+                    child: DropdownButton<String>(
+                      dropdownColor: Colors.white,
+                      underline: Container(),
+                      isExpanded: true,
+                      value: golonganDrop,
+                      hint: const Text("Golongan Darah"),
+                      style: const TextStyle(color: Colors.black),
+                      onChanged: (String? value) {
+                        // This is called when the user selects an item.
+                        setState(() {
+                          golonganDrop = value!;
+                        });
+                      },
+                      items: listGolongan
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   TextFormField(
                     controller: _tbIbuController,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -329,6 +325,7 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
                   ),
                   TextFormField(
                     controller: _bbIbuController,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -355,6 +352,7 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
                   ),
                   TextFormField(
                     controller: _imunisasiController,
+                    keyboardType: TextInputType.datetime,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -457,7 +455,7 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
                     rng.toString(),
                     widget.nikIbu,
                     _namaController.text,
-                    _jkController.text,
+                    jkDrop.toString(),
                     _tglLahirController.text,
                     "",
                     "Bidan",

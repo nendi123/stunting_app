@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stunting_app/model/petugas/ibu_post_model.dart';
 import 'package:stunting_app/shared/config.dart';
 import 'package:stunting_app/shared/constant.dart';
@@ -16,9 +17,17 @@ class EditIbuPage extends StatefulWidget {
 }
 
 class _EditIbuPageState extends State<EditIbuPage> {
-  List<String> list = <String>['Punya', 'Tidak'];
+  List<String> listKK = <String>['Punya', 'Tidak'];
+  List<String> listNikah = <String>['Ya', 'Tidak'];
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   String dropdownValue = '';
+  String? pendidikanDrop;
+  String? kecamatanDrop;
+  String? desaDrop;
+  String? pekerjaanDrop;
+  String? statusNikahDrop;
+  String? kkDrop;
 
   final _formKey = GlobalKey<FormState>();
   TextEditingController _nikController = TextEditingController();
@@ -54,7 +63,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             size: 20,
           ),
@@ -88,7 +97,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
                         filled: true,
                         fillColor: Colors.white,
                         hintText: 'NIK',
-                        label: Text("NIK"),
+                        label: const Text("NIK"),
                         contentPadding:
                             EdgeInsets.symmetric(horizontal: Constant().margin),
                         border: OutlineInputBorder(
@@ -116,7 +125,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
                         filled: true,
                         fillColor: Colors.white,
                         hintText: 'Nama Lengkap',
-                        label: Text("Nama Lengkap"),
+                        label: const Text("Nama Lengkap"),
                         contentPadding:
                             EdgeInsets.symmetric(horizontal: Constant().margin),
                         border: OutlineInputBorder(
@@ -144,7 +153,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
                         filled: true,
                         fillColor: Colors.white,
                         hintText: 'Alamat',
-                        label: Text("Alamat"),
+                        label: const Text("Alamat"),
                         contentPadding:
                             EdgeInsets.symmetric(horizontal: Constant().margin),
                         border: OutlineInputBorder(
@@ -172,7 +181,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
                         filled: true,
                         fillColor: Colors.white,
                         hintText: 'Email',
-                        label: Text("Email"),
+                        label: const Text("Email"),
                         contentPadding:
                             EdgeInsets.symmetric(horizontal: Constant().margin),
                         border: OutlineInputBorder(
@@ -200,7 +209,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
                         filled: true,
                         fillColor: Colors.white,
                         hintText: 'No HP',
-                        label: Text("No HP"),
+                        label: const Text("No HP"),
                         contentPadding:
                             EdgeInsets.symmetric(horizontal: Constant().margin),
                         border: OutlineInputBorder(
@@ -228,7 +237,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
                         filled: true,
                         fillColor: Colors.white,
                         hintText: 'Tanggal Lahir',
-                        label: Text("Tanggal Lahir"),
+                        label: const Text("Tanggal Lahir"),
                         suffixIcon: IconButton(
                             icon: const Icon(Icons.calendar_today),
                             onPressed: () => _selectDate(context)),
@@ -252,137 +261,166 @@ class _EditIbuPageState extends State<EditIbuPage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    controller: _kelurahanController,
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: 'Kelurahan / Desa',
-                        label: Text("Keluarahan / Desa"),
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                        )),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(40)),
+                      color: Colors.white,
+                    ),
+                    width: MediaQuery.of(context).size.width,
+                    child: DropdownButton<String>(
+                      dropdownColor: Colors.white,
+                      underline: Container(),
+                      isExpanded: true,
+                      value: desaDrop,
+                      hint: const Text("Pilih Kelurahan / Desa"),
+                      style: const TextStyle(color: Colors.black),
+                      onChanged: (String? value) {
+                        // This is called when the user selects an item.
+                        setState(() {
+                          desaDrop = value!;
+                        });
+                      },
+                      items: Constant()
+                          .namaKampung
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    controller: _kecamatanController,
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: 'Distrik / Kecamatan',
-                        label: Text("Distrik / Kecamatan"),
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                        )),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(40)),
+                      color: Colors.white,
+                    ),
+                    width: MediaQuery.of(context).size.width,
+                    child: DropdownButton<String>(
+                      dropdownColor: Colors.white,
+                      underline: Container(),
+                      isExpanded: true,
+                      value: kecamatanDrop,
+                      hint: const Text("Pilih Kecamatan"),
+                      style: const TextStyle(color: Colors.black),
+                      onChanged: (String? value) {
+                        // This is called when the user selects an item.
+                        setState(() {
+                          kecamatanDrop = value!;
+                        });
+                      },
+                      items: Constant()
+                          .namaDistrik
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    controller: _pendidikanController,
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: 'Pendidikan',
-                        label: Text("Pendidikan"),
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                        )),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(40)),
+                      color: Colors.white,
+                    ),
+                    width: MediaQuery.of(context).size.width,
+                    child: DropdownButton<String>(
+                      dropdownColor: Colors.white,
+                      underline: Container(),
+                      isExpanded: true,
+                      value: pendidikanDrop,
+                      hint: const Text("Pilih Pendidikan"),
+                      style: const TextStyle(color: Colors.black),
+                      onChanged: (String? value) {
+                        // This is called when the user selects an item.
+                        setState(() {
+                          pendidikanDrop = value!;
+                        });
+                      },
+                      items: Constant()
+                          .pendidikan
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    controller: _pekerjaanController,
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: 'Pekerjaan',
-                        label: Text("Pekerjaan"),
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                        )),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(40)),
+                      color: Colors.white,
+                    ),
+                    width: MediaQuery.of(context).size.width,
+                    child: DropdownButton<String>(
+                      dropdownColor: Colors.white,
+                      underline: Container(),
+                      isExpanded: true,
+                      value: pekerjaanDrop,
+                      hint: const Text("Pilih Pekerjaan"),
+                      style: const TextStyle(color: Colors.black),
+                      onChanged: (String? value) {
+                        // This is called when the user selects an item.
+                        setState(() {
+                          pekerjaanDrop = value!;
+                        });
+                      },
+                      items: Constant()
+                          .pekerjaan
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    controller: _statusController,
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: 'Status Nikah',
-                        label: Text("Status Nikah"),
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                        )),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(40)),
+                      color: Colors.white,
+                    ),
+                    width: MediaQuery.of(context).size.width,
+                    child: DropdownButton<String>(
+                      dropdownColor: Colors.white,
+                      underline: Container(),
+                      isExpanded: true,
+                      value: statusNikahDrop,
+                      hint: const Text("Status Nikah"),
+                      style: const TextStyle(color: Colors.black),
+                      onChanged: (String? value) {
+                        // This is called when the user selects an item.
+                        setState(() {
+                          statusNikahDrop = value!;
+                        });
+                      },
+                      items: listNikah
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
                   ),
                   const SizedBox(
                     height: 20,
@@ -393,7 +431,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
                         filled: true,
                         fillColor: Colors.white,
                         hintText: 'Berat Badan',
-                        label: Text("Berat Badan"),
+                        label: const Text("Berat Badan"),
                         contentPadding:
                             EdgeInsets.symmetric(horizontal: Constant().margin),
                         border: OutlineInputBorder(
@@ -420,7 +458,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
                         filled: true,
                         fillColor: Colors.white,
                         hintText: 'Tinggi Badan',
-                        label: Text("Tinggi Badan"),
+                        label: const Text("Tinggi Badan"),
                         contentPadding:
                             EdgeInsets.symmetric(horizontal: Constant().margin),
                         border: OutlineInputBorder(
@@ -441,75 +479,35 @@ class _EditIbuPageState extends State<EditIbuPage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    controller: _statusKkController,
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: 'Status Kartu keluarga',
-                        label: Text("Status Kartu keluarga"),
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: Constant().margin),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                        )),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(40)),
+                      color: Colors.white,
+                    ),
+                    width: MediaQuery.of(context).size.width,
+                    child: DropdownButton<String>(
+                      dropdownColor: Colors.white,
+                      underline: Container(),
+                      isExpanded: true,
+                      value: kkDrop,
+                      hint: const Text("Status Kartu Keluarga"),
+                      style: const TextStyle(color: Colors.black),
+                      onChanged: (String? value) {
+                        // This is called when the user selects an item.
+                        setState(() {
+                          kkDrop = value!;
+                        });
+                      },
+                      items:
+                          listKK.map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
                   ),
-                  // const SizedBox(
-                  //   height: 20,
-                  // ),
-                  // Container(
-                  //     margin: EdgeInsets.symmetric(horizontal: 30),
-                  //     child: Text(
-                  //       "Memiliki Kk",
-                  //       style: TextStyle(color: Colors.grey),
-                  //     )),
-                  // SizedBox(
-                  //   width: MediaQuery.of(context).size.width,
-                  //   child: DecoratedBox(
-                  //     decoration: BoxDecoration(
-                  //       color:
-                  //           Colors.white, //background color of dropdown button
-                  //       //border of dropdown button
-                  //       borderRadius: BorderRadius.circular(
-                  //           50), //border raiuds of dropdown button
-                  //     ),
-                  //     child: Container(
-                  //       padding: const EdgeInsets.only(left: 30, right: 30),
-                  //       child: DropdownButton<String>(
-                  //         dropdownColor: Colors.white,
-                  //         value: list.first,
-                  //         underline: Container(), //remove underline
-                  //         isExpanded: true,
-                  //         elevation: 16,
-                  //         style: const TextStyle(color: Colors.black),
-                  //         onChanged: (String? value) {
-                  //           // This is called when the user selects an item.
-                  //           setState(() {
-                  //             dropdownValue = value!;
-                  //           });
-                  //         },
-                  //         items: list
-                  //             .map<DropdownMenuItem<String>>((String value) {
-                  //           return DropdownMenuItem<String>(
-                  //             value: value,
-                  //             child: Text(value),
-                  //           );
-                  //         }).toList(),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -533,25 +531,26 @@ class _EditIbuPageState extends State<EditIbuPage> {
             'Simpan',
             style: TextStyle(fontSize: 18),
           ),
-          onPressed: () {
-            var statusKk = "";
-            if (dropdownValue == "Punya") {
-              statusKk = "Ya";
-            }
+          onPressed: () async {
+            // var statusKk = "";
+            // if (dropdownValue == "Punya") {
+            //   statusKk = "Ya";
+            // }
+            final SharedPreferences prefs = await _prefs;
             IbuPostMode.editIbu(
                     _nikController.text,
                     _namaController.text,
                     _alamatController.text,
                     _hpController.text,
                     _tglLahirController.text,
-                    _kelurahanController.text,
-                    _kecamatanController.text,
-                    _pendidikanController.text,
-                    _pekerjaanController.text,
-                    _statusController.text,
+                    desaDrop.toString(),
+                    kecamatanDrop.toString(),
+                    pendidikanDrop.toString(),
+                    pekerjaanDrop.toString(),
+                    statusNikahDrop.toString(),
                     _beratBadanController.text,
                     _tinggiBadanController.text,
-                    _statusKkController.text,
+                    kkDrop.toString(),
                     _kode_posyanduController.text)
                 .then((value) => {
                       if (value)
@@ -583,15 +582,17 @@ class _EditIbuPageState extends State<EditIbuPage> {
           _tglLahirController.text = jsonResponse[i]['tgl_lahir'];
           _alamatController.text = jsonResponse[i]['alamat'];
           _hpController.text = jsonResponse[i]['no_hp'];
-          _kelurahanController.text = jsonResponse[i]['kode_kelurahan'];
-          _kecamatanController.text = jsonResponse[i]['kode_distrik'];
+          desaDrop = jsonResponse[i]['kode_kelurahan'];
+          kecamatanDrop = jsonResponse[i]['kode_distrik'];
           _beratBadanController.text = jsonResponse[i]['berat_badan'];
           _tinggiBadanController.text = jsonResponse[i]['tinggi_badan'];
-          _pendidikanController.text = jsonResponse[i]['pendidikan'];
-          _pekerjaanController.text = jsonResponse[i]['pekerjaan'];
-          _statusController.text = jsonResponse[i]['status_nikah'];
-          _statusKkController.text = jsonResponse[i]['memiliki_kk'].toString();
-          _kode_posyanduController.text = jsonResponse[i]['kode_posyandu'].toString();
+          pendidikanDrop = jsonResponse[i]['pendidikan'];
+          pekerjaanDrop = jsonResponse[i]['pekerjaan'];
+          statusNikahDrop = jsonResponse[i]['status_nikah'];
+          kkDrop = jsonResponse[i]['memiliki_kk'].toString();
+          _kode_posyanduController.text =
+              jsonResponse[i]['kode_posyandu'].toString();
+          setState(() {});
         }
       }
     } else {
