@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stunting_app/model/petugas/ibu_post_model.dart';
 import 'package:stunting_app/shared/constant.dart';
 
@@ -12,6 +13,8 @@ class AddIbuPage extends StatefulWidget {
 
 class _AddIbuPageState extends State<AddIbuPage> {
   final _formKey = GlobalKey<FormState>();
+
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   List<String> listNikah = <String>['Ya', 'Tidak'];
   List<String> listKK = <String>['Punya', 'Tidak'];
@@ -508,7 +511,8 @@ class _AddIbuPageState extends State<AddIbuPage> {
             'Simpan',
             style: TextStyle(fontSize: 18),
           ),
-          onPressed: () {
+          onPressed: () async {
+            final SharedPreferences prefs = await _prefs;
             IbuPostMode.addIbu(
                     _nikController.text,
                     _namaController.text,
@@ -523,7 +527,7 @@ class _AddIbuPageState extends State<AddIbuPage> {
                     _beratBadanController.text,
                     _tinggiBadanController.text,
                     kkDrop.toString(),
-                    '')
+                    prefs.getString('kode_posyandu').toString())
                 .then((value) => {
                       if (value)
                         {_showMyDialog("Data Berhasil di Input", true)}
