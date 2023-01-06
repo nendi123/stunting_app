@@ -17,9 +17,12 @@ class EditAnakPagePetugas extends StatefulWidget {
 class _EditAnakPageState extends State<EditAnakPagePetugas> {
   final _formKey = GlobalKey<FormState>();
   List<String> list = <String>['Ya', 'Tidak'];
+  List<String> listJk = <String>['Laki-laki', 'Perempuan'];
+  List<String> listGolongan = <String>['A', 'B', 'O', 'AB'];
 
   String dropdownValue = '';
-
+  String? jkDrop;
+  String? golonganDrop;
   String namaAnak = '';
 
   TextEditingController _namaLengkapController = TextEditingController();
@@ -56,34 +59,6 @@ class _EditAnakPageState extends State<EditAnakPagePetugas> {
                 const SizedBox(
                   height: 10,
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(80.0), //or 15.0
-                    child: Container(
-                      height: 150.0,
-                      width: 150.0,
-                      color: Colors.white,
-                      child: Image.asset('assets/image/logo.png'),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(horizontal: Constant().margin),
-                  child: const Text(
-                    "Unggah Foto Anda",
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: Constant().margin),
                   child: Card(
@@ -111,13 +86,13 @@ class _EditAnakPageState extends State<EditAnakPagePetugas> {
                             ),
                           ),
                           Column(
-                            children: [
-                              const Icon(
+                            children: const [
+                              Icon(
                                 Icons.laptop,
                                 size: 30,
                                 color: Color.fromRGBO(87, 81, 203, 1),
                               ),
-                              const Text('KMS')
+                              Text('KMS')
                             ],
                           ),
                           Column(
@@ -147,6 +122,7 @@ class _EditAnakPageState extends State<EditAnakPagePetugas> {
                 ),
                 TextFormField(
                   controller: _namaLengkapController,
+                  keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.grey.shade200,
@@ -174,6 +150,7 @@ class _EditAnakPageState extends State<EditAnakPagePetugas> {
                 ),
                 TextFormField(
                   controller: _tanggalLahirController,
+                  keyboardType: TextInputType.datetime,
                   decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.grey.shade200,
@@ -200,29 +177,33 @@ class _EditAnakPageState extends State<EditAnakPagePetugas> {
                 const SizedBox(
                   height: 10,
                 ),
-                TextFormField(
-                  controller: _jenisKelaminController,
-                  decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.grey.shade200,
-                      hintText: 'Jenis Kelamin',
-                      label: const Text('Jenis Kelamin'),
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: Constant().margin),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide:
-                            const BorderSide(color: Colors.white, width: 0.0),
-                      )),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter some text';
-                    }
-                    return null;
-                  },
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(40)),
+                    color: Colors.white,
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                  child: DropdownButton<String>(
+                    dropdownColor: Colors.white,
+                    underline: Container(),
+                    isExpanded: true,
+                    value: jkDrop,
+                    hint: const Text("Jenis Kelamin"),
+                    style: const TextStyle(color: Colors.black),
+                    onChanged: (String? value) {
+                      // This is called when the user selects an item.
+                      setState(() {
+                        jkDrop = value!;
+                      });
+                    },
+                    items: listJk.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
                 ),
                 const SizedBox(
                   height: 10,
@@ -256,6 +237,7 @@ class _EditAnakPageState extends State<EditAnakPagePetugas> {
                 ),
                 TextFormField(
                   controller: _beratBadanController,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.grey.shade200,
@@ -283,6 +265,7 @@ class _EditAnakPageState extends State<EditAnakPagePetugas> {
                 ),
                 TextFormField(
                   controller: _tinggiBadanController,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.grey.shade200,
@@ -308,29 +291,34 @@ class _EditAnakPageState extends State<EditAnakPagePetugas> {
                 const SizedBox(
                   height: 10,
                 ),
-                TextFormField(
-                  controller: _golonganDarahController,
-                  decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.grey.shade200,
-                      hintText: 'Golongan Darah',
-                      label: const Text('Golongan Darah'),
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: Constant().margin),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide:
-                            const BorderSide(color: Colors.white, width: 0.0),
-                      )),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter some text';
-                    }
-                    return null;
-                  },
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(40)),
+                    color: Colors.white,
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                  child: DropdownButton<String>(
+                    dropdownColor: Colors.white,
+                    underline: Container(),
+                    isExpanded: true,
+                    value: golonganDrop,
+                    hint: const Text("Golongan Darah"),
+                    style: const TextStyle(color: Colors.black),
+                    onChanged: (String? value) {
+                      // This is called when the user selects an item.
+                      setState(() {
+                        golonganDrop = value!;
+                      });
+                    },
+                    items: listGolongan
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
                 ),
                 const SizedBox(
                   height: 10,

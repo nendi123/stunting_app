@@ -246,18 +246,7 @@ class _ListAnakPageState extends State<ListAnakPage> {
                     style: const TextStyle(fontWeight: FontWeight.w400),
                   ),
                   subtitle: Text(umur),
-                  trailing: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              EditAnakPagePetugas(idAnak: idAnak),
-                        ),
-                      );
-                    },
-
-                    child: ElevatedButton(
+                  trailing: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         shape: const CircleBorder(),
@@ -266,15 +255,17 @@ class _ListAnakPageState extends State<ListAnakPage> {
                         foregroundColor: Colors.cyan,
                       ),
                       // icon of the button
-                      child: const Icon(
-                        Icons.edit,
-                        color: Colors.white,
-                        size: 18,
-                      ),
-                    ),
-
-                    // Icon(Icons.edit, color: Colors.deepPurple,size: 18,)
-                  )),
+                      child: IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    EditAnakPagePetugas(idAnak: idAnak),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.edit)))),
               // child: Icon(Icons.edit, color: Colors.deepPurple),
             ),
             const SizedBox(
