@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stunting_app/model/petugas/anak_model.dart';
 import 'package:stunting_app/pages/orangtua/add_anak_page.dart';
 import 'package:stunting_app/pages/petugas/add_anak_page.dart';
+import 'package:stunting_app/pages/petugas/add_skrining_page.dart';
 import 'package:stunting_app/pages/petugas/edit_anak_page.dart';
 import 'package:stunting_app/pages/petugas/mpasi_anak_page.dart';
 import 'package:stunting_app/shared/config.dart';
@@ -330,14 +331,14 @@ class _ListAnakPageState extends State<ListAnakPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/skriningPage');
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) =>
-                      //         MpasiAnakPagePetugas(nama: nama),
-                      //   ),
-                      // );
+                      // Navigator.pushNamed(context, '/skriningPage');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              AddSkriningPage(nikIbu: nikIbu, idAnak: idAnak),
+                        ),
+                      );
                     },
                     child: Column(
                       children: const [

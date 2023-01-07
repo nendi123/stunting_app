@@ -434,7 +434,7 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                             icon: const Icon(Icons.arrow_circle_right),
                             onPressed: () {
                               // Navigator.pushNamed(context, '/kmsPetugasPage');
-                              Navigator.pushNamed(context, '/skriningPage');
+                              // Navigator.pushNamed(context, '/skriningPage');
                             },
                           ),
                         );
