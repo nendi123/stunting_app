@@ -23,6 +23,9 @@ class EditIbuPage extends StatefulWidget {
 
 class _EditIbuPageState extends State<EditIbuPage> {
   List<String> list = <String>['Punya', 'Tidak'];
+  List<String> statusMenikah = <String>['Menikah','Tidak Menikah','Cerai'];
+  List<String> statusKK = <String>['Ya','Tidak'];
+  List<String> statusPekerjaan = <String>["IRT","Petani/Buruh","PNS","Swasta","Wirtaswasta"];
   List<String> listKelurahan = [];
   List<String>? listDistrik;
 
@@ -31,7 +34,7 @@ class _EditIbuPageState extends State<EditIbuPage> {
   String _selectDistrik = Wilayah().namaDistrik[0];
   // String _selectPosyandu = Wilayah().namaPosyandu[0];
   String _selectPuskesmas = Wilayah().namaPuskesmas[0];
-  String _selectPendidikan = Wilayah().pendidikan[0];
+  String _selectPendidikan = Pendidikan().pendidikanDrop[0];
   String? status_nikah;
 
   final _formKey = GlobalKey<FormState>();
@@ -57,7 +60,10 @@ class _EditIbuPageState extends State<EditIbuPage> {
 
   var kampung;
   var distrik;
-  var sekolah;
+  String? sekolah;
+  String? statusNikah;
+  String? statusPunyaKK;
+  String? pekerjaan;
 
   @override
   void initState() {
@@ -195,7 +201,8 @@ class _EditIbuPageState extends State<EditIbuPage> {
                         color: Colors.white,
                         child: Center(
                           child: DropdownButtonFormField(
-                            value: sekolah,
+                            // value: sekolah,
+                            value: _pendidikanController.text.isNotEmpty ? _pendidikanController.text : null,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(6.0))),
                               label: Text("Pendidikan : $sekolah"),
@@ -204,28 +211,62 @@ class _EditIbuPageState extends State<EditIbuPage> {
                             elevation: 16,
                             hint: Text("Pendidikan terakhir", style: TextStyle(color: Colors.black38),),
                             style: const TextStyle(color: Colors.black54),
-                            items: Wilayah().pendidikan.map((String val) {
+                            items: Pendidikan().pendidikanDrop.map<DropdownMenuItem<String>>((String val) {
                               return DropdownMenuItem(
                                   value: val,
                                   child: Container(
                                     child: Text(val),
                                   ));
                             }).toList(),
-                            onChanged: (newValue3) {
+                            onChanged: (String? newValue3) {
                               setState(() {
-                                sekolah = newValue3.toString();
+                                sekolah = newValue3;
                               });
                             },
                           ),
                         ),
                       ),
+
+
+                      // Container(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 20),
+                      //   decoration: const BoxDecoration(
+                      //     borderRadius: BorderRadius.all(Radius.circular(40)),
+                      //     color: Colors.white,
+                      //   ),
+                      //   width: MediaQuery.of(context).size.width,
+                      //   child: DropdownButton<String>(
+                      //     dropdownColor: Colors.white,
+                      //     underline: Container(),
+                      //     isExpanded: true,
+                      //     value: sekolah,
+                      //     hint: const Text("Pilih Pendidikan"),
+                      //     style: const TextStyle(color: Colors.black),
+                      //     onChanged: (String? value) {
+                      //       // This is called when the user selects an item.
+                      //       setState(() {
+                      //         sekolah = value!;
+                      //       });
+                      //     },
+                      //     items: Constant()
+                      //         .pendidikan
+                      //         .map<DropdownMenuItem<String>>((String value) {
+                      //       return DropdownMenuItem<String>(
+                      //         value: value,
+                      //         child: Text(value),
+                      //       );
+                      //     }).toList(),
+                      //   ),
+                      // ),
+
                       const SizedBox(height: 15,),
                       Container(
                         height: 60,
                         color: Colors.white,
                         child: Center(
                           child: DropdownButtonFormField(
-                            value: distrik,
+                            // value: distrik,
+                            value: _namaDistrikController.text.isNotEmpty ? _namaDistrikController.text : null,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(6.0))),
                               label: Text("Distrik : $distrik"),
@@ -255,7 +296,8 @@ class _EditIbuPageState extends State<EditIbuPage> {
                         color: Colors.white,
                         child: Center(
                           child: DropdownButtonFormField(
-                            value: kampung,
+                            // value: kampung,
+                            value: _namaKampungController.text.isNotEmpty ? _namaKampungController.text : null,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(6.0))),
                               label: Text("Kel/kampung : $kampung"),
@@ -281,23 +323,84 @@ class _EditIbuPageState extends State<EditIbuPage> {
                       ),
                       const SizedBox(height: 15,),
                       // InputText(nama_control: _kecamatanController, judul: 'Distrik / Kecamatan', status: false),
-
                       // InputText(nama_control: _pendidikanController, judul: "Pendidikan", status: false),
 
-                      InputText(nama_control: _pekerjaanController, judul: "Pekerjaan", status: false),
+                      Container(
+                        height: 60,
+                        color: Colors.white,
+                        child: Center(
+                          child: DropdownButtonFormField(
+                            value: _pekerjaanController.text.isNotEmpty ? _pekerjaanController.text : null,
+                            // value: pekerjaan?.isNotEmpty ? pekerjaan : null,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(6.0))),
+                              label: Text("Pekerjaan : $pekerjaan"),
+                            ),
+                            icon: const Icon(Icons.arrow_downward, size: 20,),
+                            elevation: 16,
+                            hint: Text("Pekerjaan : ", style: TextStyle(color: Colors.black38),),
+                            style: const TextStyle(color: Colors.black54),
+                            items: statusPekerjaan.map((String val) {
+                              return DropdownMenuItem(
+                                  value: val,
+                                  child: Container(
+                                    child: Text(val),
+                                  ));
+                            }).toList(),
+                            onChanged: (newValue1) {
+                              setState(() {
+                                pekerjaan = newValue1.toString();
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 15,),
+
+                      Container(
+                        height: 60,
+                        color: Colors.white,
+                        child: Center(
+                          child: DropdownButtonFormField(
+                            // value: sekolah,
+                            value: _statusController.text.isNotEmpty ? _statusController.text : null,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(6.0))),
+                              label: Text("Status Pernikahan : $statusNikah"),
+                            ),
+                            icon: const Icon(Icons.arrow_downward, size: 20,),
+                            elevation: 16,
+                            hint: Text("Pendidikan terakhir", style: TextStyle(color: Colors.black38),),
+                            style: const TextStyle(color: Colors.black54),
+                            items: statusMenikah.map((String val) {
+                              return DropdownMenuItem(
+                                  value: val,
+                                  child: Container(
+                                    child: Text(val),
+                                  ));
+                            }).toList(),
+                            onChanged: (String? newValue3) {
+                              setState(() {
+                                statusNikah = newValue3;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
                       const SizedBox(
                         height: 15,
                       ),
-                      InputText(nama_control: _statusController, judul: "Status Nikah (Ya/Tidak/Janda/Duda)", status: false),
-                      TextButton(
-                        style: ButtonStyle(
-                          foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                        ),
-                        onPressed: () {
-                          _statusNikahDialog(context);
-                        },
-                        child: Text('>> Ubah status pernikahan'),
-                      ),
+
+                      // InputText(nama_control: _statusController, judul: "Status Nikah (Ya/Tidak/Janda/Duda)", status: false),
+                      // TextButton(
+                      //   style: ButtonStyle(
+                      //     foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                      //   ),
+                      //   onPressed: () {
+                      //     _statusNikahDialog(context);
+                      //   },
+                      //   child: Text('>> Ubah status pernikahan'),
+                      // ),
                       // ElevatedButton(
                       //   onPressed: () {
                       //     _displayDialog(context);
@@ -314,21 +417,42 @@ class _EditIbuPageState extends State<EditIbuPage> {
                       const SizedBox(
                         height: 15,
                       ),
-                      InputText(nama_control: _statusKkController, judul: "Memiliki Kartu keluarga (Ya/Tidak)", status: false),
-                      TextButton(
-                        style: ButtonStyle(
-                          foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                        ),
-                        onPressed: () {
-                          _statusKKDialog(context);
-                        },
-                        child: Text('>> Ubah status kartu keluarga'),
-                      ),
-                      // const SizedBox(
-                      //   height: 15,
-                      // ),
 
-                      InputText(nama_control: _kode_posyandu, judul: 'Kode Posyandu', status: true),
+                      Container(
+                        height: 60,
+                        color: Colors.white,
+                        child: Center(
+                          child: DropdownButtonFormField(
+                            // value: sekolah,
+                            value: _statusKkController.text.isNotEmpty ? _statusKkController.text : null,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(6.0))),
+                              label: Text("Memiliki Kartu Keluarga? $statusPunyaKK"),
+                            ),
+                            icon: const Icon(Icons.arrow_downward, size: 20,),
+                            elevation: 16,
+                            hint: Text("Memiliki Kartu Keluarga?", style: TextStyle(color: Colors.black38),),
+                            style: const TextStyle(color: Colors.black54),
+                            items: statusKK.map((String val) {
+                              return DropdownMenuItem(
+                                  value: val,
+                                  child: Container(
+                                    child: Text(val),
+                                  ));
+                            }).toList(),
+                            onChanged: (String? newValue3) {
+                              setState(() {
+                                statusPunyaKK = newValue3;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+
+                      // InputText(nama_control: _kode_posyandu, judul: 'Kode Posyandu', status: true),
                       const SizedBox(
                         height: 20,
                       ),
@@ -366,18 +490,21 @@ class _EditIbuPageState extends State<EditIbuPage> {
                     _kelurahanController.text,
                     _kecamatanController.text,
                     _pendidikanController.text,
-                    _pekerjaanController.text,
-                    _statusController.text,
+                    // _pekerjaanController.text,
+                    pekerjaan!,
+                    statusNikah!,
+                    // _statusController.text,
                     _beratBadanController.text,
                     _tinggiBadanController.text,
-                    _statusKkController.text,
+                    // _statusKkController.text,
+                    statusPunyaKK!,
                     _kode_posyandu.text
                     )
                     .then((value) => {
                   if (value)
                     {_showMyDialog("Data Berhasil di Edit", true)}
                   else
-                    {_showMyDialog("Data Gagal di Edit", false)}
+                    {_showMyDialog("Update gagal, periksa kembali isian data!", false)}
                 });
               },
             ),
@@ -388,15 +515,20 @@ class _EditIbuPageState extends State<EditIbuPage> {
   void _fetchIbu() async {
     final prefs = await SharedPreferences.getInstance();
     final nik = prefs.getString('nik');
+    print(nik);
     final response = await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbu/"+nik!));
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
       var i = 0;
+      print(jsonResponse);
 
       sekolah = jsonResponse[i]['pendidikan'];
       distrik = jsonResponse[i]['nama_distrik'];
       kampung = jsonResponse[i]['nama_kelurahan'];
+      pekerjaan = jsonResponse[i]['pekerjaan'];
+      statusNikah = jsonResponse[i]['status_nikah'];
+      statusPunyaKK = jsonResponse[i]['memiliki_kk'];
 
       _nikController.text = jsonResponse[i]['nik'];
       _namaController.text = jsonResponse[i]['nama_lengkap'];
@@ -419,10 +551,10 @@ class _EditIbuPageState extends State<EditIbuPage> {
       print('distrik ${distrik}');
       print('kampung ${kampung}');
 
+      setState(() {});
     } else {
       CircularProgressIndicator();
       throw Exception('Failed to load jobs from API');
-
     }
 
   }
@@ -461,7 +593,9 @@ class _EditIbuPageState extends State<EditIbuPage> {
             TextButton(
               child: const Text('OK'),
               onPressed: () {
-                if (hasil) {
+                if (hasil == false) {
+                  Navigator.pop(context);
+                } else {
                   Navigator.pushNamed(context, '/homeOrangtua');
                 }
               },

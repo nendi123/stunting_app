@@ -151,7 +151,7 @@ class StartPage extends StatelessWidget {
 
   Future<bool> getRemeber() async {
     final prefs = await SharedPreferences.getInstance();
-    bool? ingat =  prefs.getBool('rembember_me');
-    return ingat!;
+    bool ingat =  prefs.getBool('rembember_me') ?? false;
+    return ingat;
   }
 }

@@ -35,7 +35,8 @@ class InputNumber extends StatelessWidget {
         }
         return null;
       },
-      keyboardType: TextInputType.number,
+      // keyboardType: TextInputType.number,
+      keyboardType: TextInputType.numberWithOptions(decimal: true, signed: false),
     );
   }
 }

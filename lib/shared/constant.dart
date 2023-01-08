@@ -706,14 +706,9 @@ class Wilayah {
 
   List<String> namaPosyandu = [];
 
-  final List<String> pendidikan = [
-    "SD",
-    "SMP",
-    "SMA/SMK",
-    "D1/D2/D3/D4",
-    "S1/S2/S3"
-  ];
+}
 
+class Pekerjaan {
   final List<String> pekerjaan = [
     "IRT",
     "Petani/Buruh",
@@ -721,5 +716,16 @@ class Wilayah {
     "Swasta",
     "Wirtaswasta"
   ];
+}
 
+class Pendidikan {
+  List<String> pendidikanDrop = [
+    "SD",
+    "SMP",
+    "SMA/SMK",
+    "D1/D2/D3/D4",
+    "S1",
+    "S2",
+    "S3"
+  ];
 }

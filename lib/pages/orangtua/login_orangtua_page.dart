@@ -147,7 +147,7 @@ class _LoginOrangtuaPageState extends State<LoginOrangtuaPage> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30))),
                     child: const Text(
-                      'Sign In',
+                      'Login',
                       style: TextStyle(fontSize: 18),
                     ),
                     onPressed: () =>
@@ -186,28 +186,28 @@ class _LoginOrangtuaPageState extends State<LoginOrangtuaPage> {
             const SizedBox(
               height: 10,
             ),
-            Container(
-              alignment: Alignment.center,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Checkbox(
-                      value: this.remember_me,
-                      onChanged: (bool? newValue) {
-                        setState(() {
-                          this.remember_me = newValue!;
-                        });
-                      }
-                  ),
-                  Text('Remember me', style: TextStyle(color: Colors.indigo),)
-                ],
-              ),
-              
-            ),
-            const SizedBox(
-              height: 10,
-            ),
+            // Container(
+            //   alignment: Alignment.center,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     children: [
+            //       Checkbox(
+            //           value: this.remember_me,
+            //           onChanged: (bool? newValue) {
+            //             setState(() {
+            //               this.remember_me = newValue!;
+            //             });
+            //           }
+            //       ),
+            //       Text('Remember me', style: TextStyle(color: Colors.indigo),)
+            //     ],
+            //   ),
+            //
+            // ),
+            // const SizedBox(
+            //   height: 10,
+            // ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: Constant().margin),
               child: Column(
@@ -255,27 +255,33 @@ class _LoginOrangtuaPageState extends State<LoginOrangtuaPage> {
   }
 
   void prosesLogin() async {
-    final List list;
-    ////_usernameController  _passwordController
+    String msg='';
     try {
       final response = await login(UserAuth(userid: _usernameController.text, password: _passwordController.text, nama_lengkap: '', nik: '', category: '2' ?? ""));
 
       var jsonResp = jsonDecode(response.body);
-      print(jsonResp);
+      print(response.statusCode);
+      if(response.statusCode == 500) { msg = 'Userid belum terdaftar.\nSilahkan registrasi!'; }
+      else if(response.statusCode == 422) { msg = 'Userid atau password salah!'; }
+      // print(jsonResp);
       String userid = jsonResp[0]['userid'];
       String nik = jsonResp[0]['nik'];
       String use = jsonResp[0]['userid'];
+      print(nik);
+      // var status = jsonDecode(response.statusCode);
+      // print(status);
       if(use != null) {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setBool('IS_LOGIN', true);
         await prefs.setString('userid', userid);
         await prefs.setString('nik', nik);
-        await prefs.setBool('remember_me', this.remember_me);
+        // await prefs.setBool('remember_me', this.remember_me);
+        // print(this.remember_me.toString());
         // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeOrangtuaPage(list: jsonResp)));
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeOrangtuaPage()));
       } else {
         final snackBar = SnackBar(
-          content: const Text('Userid atau password salah!')
+          content: Text(msg)
         );
       }
       // if(response.statusCode == 200) {
@@ -293,11 +299,12 @@ class _LoginOrangtuaPageState extends State<LoginOrangtuaPage> {
       //     dialog(context, response);
       // }
     } catch (e) {
-      String msg = 'Userid atau password salah!';
+      // print(context.toString());
+      // String msg = 'Userid atau password salah!';
       // dialog(context, e.toString());
       dialog(context, msg);
       final snackBar = SnackBar(
-          content: const Text('Userid atau password salah!')
+          content: Text(msg)
       );
     }
   }

@@ -4,6 +4,7 @@ import 'package:stunting_app/pages/orangtua/test_edit_anak.dart';
 import 'package:stunting_app/shared/constant.dart';
 import 'package:stunting_app/pages/orangtua/edit_anak_page.dart';
 import 'package:stunting_app/model/anak.dart';
+import 'package:stunting_app/pages/orangtua/test_edit_anak.dart';
 
 class TestDetailAnak extends StatelessWidget {
   // String nama_lengkap, tgl_lahir, jenis_kelamin;
@@ -110,7 +111,7 @@ class TestDetailAnak extends StatelessWidget {
               _detailAnak(akte_lahir, 'Akte lahir'),
               _detailAnak(persalinan_oleh, 'Persalinan dibantu oleh siapa?'),
               _detailAnak(bb_lahir, 'Berat Badan Lahir (kg)'),
-              _detailAnak(panjang_lahir, 'Panjang/Tinggi Badan lahir (cm)'),
+              _detailAnak(tb_lahir, 'Panjang/Tinggi Badan lahir (cm)'),
               _detailAnak(lingkar_kepala, 'Ukuran lingkar kepala (cm)'),
               _detailAnak(prematur, 'Apakah lahir prematur?'),
               _detailAnak(alergi, 'Alergi yang diderita'),
@@ -291,6 +292,7 @@ class TestDetailAnak extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(builder:
                           (context)=>
+                              // TestEditAnakPage(idAnak: this.id_anak.toString())));
                               EditAnakPage(id_anak: this.id_anak, nik_ibu: this.nik_ibu, nama_lengkap: this.nama_lengkap, jenis_kelamin: this.jenis_kelamin,
                               tgl_lahir: this.tgl_lahir, akte_lahir : this.akte_lahir, persalinan_oleh : this.persalinan_oleh,
                               bb_lahir: this.bb_lahir, panjang_lahir: this.panjang_lahir, prematur: this.prematur, usia_kehamilan: this.usia_kehamilan,

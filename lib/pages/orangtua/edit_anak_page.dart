@@ -7,9 +7,6 @@ import 'package:date_time_picker/date_time_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:stunting_app/model/anak.dart';
 
-const List<String> jns_kelamin = <String>['Laki-laki', 'Perempuan'];
-const List<String> jns_prematur = <String>['Ya', 'Tidak'];
-
 class EditAnakPage extends StatefulWidget {
   String nik_ibu, nama_lengkap, jenis_kelamin, tgl_lahir, akte_lahir,
       persalinan_oleh, bb_lahir, panjang_lahir, prematur, alergi, gol_darah, lingkar_kepala,tb_lahir ;
@@ -26,6 +23,8 @@ class EditAnakPage extends StatefulWidget {
 
 class _EditAnakPageState extends State<EditAnakPage> {
   final _formKey = GlobalKey<FormState>();
+  List<String> jns_kelamin = <String>['Laki-laki', 'Perempuan'];
+  List<String> jns_prematur = <String>['Ya', 'Tidak'];
 
   DateTime selectedDate = DateTime.now();
   String? _jenis_kelamin1;
@@ -34,12 +33,10 @@ class _EditAnakPageState extends State<EditAnakPage> {
   @override
   void initState() {
     // TODO: implement initState
+    _fetchAnak();
     _jenis_kelamin1 = widget.jenis_kelamin;
     super.initState();
-    // _prematur1 = widget.prematur;
-    // print(_prematur1);
   }
-
 
   String _valueChanged1 = '';
   String _valueToValidate1 = '';
@@ -58,13 +55,13 @@ class _EditAnakPageState extends State<EditAnakPage> {
           contentPadding: EdgeInsets.symmetric(
               horizontal: Constant().margin),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(6),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(6),
             borderSide: const BorderSide(
-                color: Colors.white, width: 0.0),
-          )
+                color: Colors.black87, width: 0.0),
+          ),
       ),
 
       validator: (value) {
@@ -79,6 +76,7 @@ class _EditAnakPageState extends State<EditAnakPage> {
   Widget _inputNumeric(TextEditingController nama_control, String judul) {
     return new TextFormField(
       controller: nama_control,
+      readOnly: false,
       decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
@@ -88,12 +86,12 @@ class _EditAnakPageState extends State<EditAnakPage> {
           contentPadding: EdgeInsets.symmetric(
               horizontal: Constant().margin),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(6),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(6),
             borderSide: const BorderSide(
-                color: Colors.white, width: 0.0),
+                color: Colors.black87, width: 0.0),
           )),
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -105,90 +103,10 @@ class _EditAnakPageState extends State<EditAnakPage> {
     );
   }
 
-  Widget _jenisKelaminDropdown() {
-    return DropdownButton<String>(
-      value: _jenis_kelamin1,
-      icon: const Icon(Icons.arrow_downward),
-      elevation: 16,
-      hint: Text("Pilih jenis kelamin disini!     ", style: TextStyle(color: Colors.black38),),
-      style: const TextStyle(color: Colors.black54),
-      underline: Container(
-        height: 1,
-        color: Colors.black38,
-      ),
-      onChanged: (String? value) {
-        // This is called when the user selects an item.
-        setState(() {
-          _jenis_kelamin1 = value!;
-        });
-      },
-      items: jns_kelamin.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-    );
-  }
-
-  // Widget _jenisKelaminDropdown() {
-  //   return DropdownButton<String>(
-  //     value: widget.jenis_kelamin,
-  //     icon: const Icon(Icons.arrow_downward),
-  //     elevation: 16,
-  //     hint: Text("Pilih jenis kelamin disini!     ", style: TextStyle(color: Colors.black38),),
-  //     style: const TextStyle(color: Colors.black54),
-  //     underline: Container(
-  //       height: 1,
-  //       color: Colors.black38,
-  //     ),
-  //     onChanged: (String? value) {
-  //       jenis_kelamin = value;
-  //       // This is called when the user selects an item.
-  //       // setState(() {
-  //       //   jenis_kelamin = value!;
-  //       // });
-  //     },
-  //     items: jns_kelamin.map<DropdownMenuItem<String>>((String value) {
-  //       return DropdownMenuItem<String>(
-  //         value: value,
-  //         child: Text(value),
-  //       );
-  //     }).toList(),
-  //   );
-  // }
-
   void get_jeniskelamin() {
     setState(() {
       _jenis_kelamin1 = widget.jenis_kelamin;
     });
-  }
-
-  Widget _prematurDropdown() {
-    return DropdownButton<String>(
-      value: _prematur1,
-      key: (_prematur1 != null) ? Key(_prematur1!) : UniqueKey(),
-      icon: const Icon(Icons.arrow_downward),
-      elevation: 16,
-      hint: Text("Apakah anak lahir prematur? ", style: TextStyle(color: Colors.black38),),
-      style: const TextStyle(color: Colors.black54),
-      underline: Container(
-        height: 1,
-        color: Colors.black38,
-      ),
-      onChanged: (String? value) {
-        // This is called when the user selects an item.
-        setState(() {
-          _prematur1 = value!;
-        });
-      },
-      items: jns_prematur.map<DropdownMenuItem<String>>((String item) {
-        return DropdownMenuItem<String>(
-          value: item,
-          child: Text(item),
-        );
-      }).toList(),
-    );
   }
 
   TextEditingController id_anak = TextEditingController();
@@ -207,12 +125,7 @@ class _EditAnakPageState extends State<EditAnakPage> {
   TextEditingController gol_darah = TextEditingController();
   TextEditingController persalinan_oleh = TextEditingController();
 
-  @override
-  Widget build(BuildContext context) {
-
-    final ColorScheme colors = Theme.of(context).colorScheme;
-    // id_anak, nik_ibu, jenis_kelamin, tgl_lahir, akte_lahir, persalinan_oleh, bb_lahir, panjang_lahir, prematur, alergi,
-    // gol_darah, lingkar_kepala,tb_lahir, usia_kehamilan
+  _fetchAnak() async {
     id_anak.text = widget.id_anak.toString();
     nik_ibu.text = widget.nik_ibu;
     nama_lengkap.text = widget.nama_lengkap;
@@ -226,22 +139,15 @@ class _EditAnakPageState extends State<EditAnakPage> {
     alergi.text = widget.alergi;
     gol_darah.text = widget.gol_darah;
     persalinan_oleh.text = widget.persalinan_oleh;
+    prematur.text = widget.prematur;
+    _jeniskelamin.text = widget.jenis_kelamin;
+  }
 
-    // String _id_anak = widget.id_anak;
-    // String _nik_ibu = widget.nik_ibu;
-    // String _jenis_kelamin = widget.jenis_kelamin;
-    // String _nama_lengkap = widget.nama_lengkap;
-    // String _tgl_lahir = widget.tgl_lahir;
-    // String _akte_lahir = widget.akte_lahir;
-    // String _persalinan_oleh = widget.persalinan_oleh;
-    // String _bb_lahir = widget.bb_lahir;
-    // String _panjang_lahir = widget.panjang_lahir;
+  @override
+  Widget build(BuildContext context) {
+
+    final ColorScheme colors = Theme.of(context).colorScheme;
     String _prematur = widget.prematur;
-    // String _alergi = widget.alergi;
-    // String _gol_darah = widget.gol_darah;
-    // String _lingkar_kepala = widget.lingkar_kepala;
-    // int _usia_kehamilan = widget.usia_kehamilan;
-    // String _tb_lahir = widget.tb_lahir;
     print(_prematur);
     print(widget.tgl_lahir);
 
@@ -322,12 +228,10 @@ class _EditAnakPageState extends State<EditAnakPage> {
                       margin: EdgeInsets.symmetric(horizontal: Constant().margin),
                       child: Column(
                           children: <Widget> [
-                            // textInput(_namaController,  'Nama lengkap'),
                             _inputText(nama_lengkap, 'Nama Lengkap'),
                             const SizedBox(
                               height: 10,
                             ),
-                            // _inputText(_tgl_lahirController, 'Tanggal Lahir'),
                             TextFormField(
                               controller: tgl_lahir,
                               decoration: InputDecoration(
@@ -341,12 +245,12 @@ class _EditAnakPageState extends State<EditAnakPage> {
                                   contentPadding:
                                   EdgeInsets.symmetric(horizontal: Constant().margin),
                                   border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
+                                    borderRadius: BorderRadius.circular(6),
                                   ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
+                                    borderRadius: BorderRadius.circular(6),
                                     borderSide:
-                                    const BorderSide(color: Colors.white, width: 0.0),
+                                    const BorderSide(color: Colors.black87, width: 0.0),
                                   )),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -360,22 +264,75 @@ class _EditAnakPageState extends State<EditAnakPage> {
                               height: 10,
                             ),
 
-                            Text('Jenis kelamin', style: TextStyle(color: Colors.black38),),
-                            Text(widget.jenis_kelamin.toUpperCase()),
-                            _jenisKelaminDropdown(),
+                            Container(
+                              height: 60,
+                              color: Colors.white,
+                              child: Center(
+                                child: DropdownButtonFormField(
+                                  value: _jeniskelamin.text.isNotEmpty ? _jeniskelamin.text : null,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(6.0))),
+                                    label: Text('Jenis kelamin : $_jenis_kelamin1'),
+                                  ),
+                                  icon: const Icon(Icons.arrow_downward, size: 20,),
+                                  elevation: 16,
+                                  hint: Text("Jenis kelamin", style: TextStyle(color: Colors.black38),),
+                                  style: const TextStyle(color: Colors.black54),
+                                  items: jns_kelamin.map((String val) {
+                                    return DropdownMenuItem(
+                                      value: val,
+                                      child: Container(
+                                        child: Text(val),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      _jenis_kelamin1 = newValue;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
                             const SizedBox(
                               height: 10,
                             ),
-                            Text('Lahir prematur?', style: TextStyle(color: Colors.black38),),
-                            Text(widget.prematur.toUpperCase()),
-                            _prematurDropdown(),
-                            // _inputText(_prematurController, 'Apakah anak lahir prematur?'),
+
+                            Container(
+                              height: 60,
+                              color: Colors.white,
+                              child: Center(
+                                child: DropdownButtonFormField(
+                                  value: prematur.text.isNotEmpty ? prematur.text : null,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(6.0))),
+                                    label: Text('Apakah anak lahir prematur? $_prematur1'),
+                                  ),
+                                  icon: const Icon(Icons.arrow_downward, size: 20,),
+                                  elevation: 16,
+                                  hint: Text("Apakah anak lahir prematur?", style: TextStyle(color: Colors.black38),),
+                                  style: const TextStyle(color: Colors.black54),
+                                  items: jns_prematur.map((String val) {
+                                    return DropdownMenuItem(
+                                      value: val,
+                                      child: Container(
+                                        child: Text(val),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      _prematur1 = newValue;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
                             const SizedBox(
                               height: 10,
                             ),
 
                             _inputNumeric(bb_lahir, 'Berat badan saat lahir (kg)'),
-
                             const SizedBox(
                               height: 10,
                             ),
@@ -431,18 +388,20 @@ class _EditAnakPageState extends State<EditAnakPage> {
                                         editAnak(Anak(id_anak: id_anak.text,
                                             nik_ibu: nik_ibu.text,
                                             nama_lengkap: nama_lengkap.text,
-                                            jenis_kelamin: _jenis_kelamin1!,
+                                            // jenis_kelamin: _jenis_kelamin1 ?? "",
                                             tgl_lahir: tgl_lahir.text,
+                                            jenis_kelamin: _jenis_kelamin1!,
                                             akte_lahir: akte_lahir.text,
                                             persalinan_oleh: persalinan_oleh.text,
                                             bb_lahir: bb_lahir.text,
                                             panjang_lahir: panjang_lahir.text,
+                                            // prematur: _prematur1 ?? "",
                                             prematur: _prematur1!,
                                             usia_kehamilan: usia_kehamilan.text,
                                             alergi: alergi.text,
                                             gol_darah: gol_darah.text,
                                             tb_lahir: tb_lahir.text,
-                                            lingkar_kepala: lingkar_kepala.text ?? ""));
+                                            lingkar_kepala: lingkar_kepala.text));
                                         Navigator.pushNamed(
                                             context, '/homeOrangtua');
                                         setState(() {});
