@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:stunting_app/model/petugas/skrining_model.dart';
 import 'package:stunting_app/shared/constant.dart';
 
 class AddSkriningPage extends StatefulWidget {
-  const AddSkriningPage({super.key});
+  const AddSkriningPage(
+      {super.key, required this.nikIbu, required this.idAnak});
+
+  final String nikIbu;
+  final String idAnak;
 
   @override
   State<AddSkriningPage> createState() => _AddSkriningPageState();
@@ -563,10 +568,74 @@ class _AddSkriningPageState extends State<AddSkriningPage> {
             style: TextStyle(fontSize: 18),
           ),
           onPressed: () {
-            Navigator.pushNamed(context, '/homePetugas');
+            DateTime now = DateTime.now();
+            DateTime date = DateTime(now.year, now.month, now.day);
+            SkriningModel.addSkrining(
+                    widget.nikIbu,
+                    widget.idAnak,
+                    date.toString(),
+                    pilihan(_q1.toString()),
+                    pilihan(_q2.toString()),
+                    pilihan(_q3.toString()),
+                    pilihan(_q4.toString()),
+                    pilihan(_q5.toString()),
+                    pilihan(_q6.toString()),
+                    pilihan(_q7.toString()),
+                    pilihan(_q8.toString()),
+                    pilihan(_q10.toString()),
+                    pilihan(_q11.toString()),
+                    pilihan(_q12.toString()),
+                    pilihan(_q14.toString()),
+                    pilihan(_q15.toString()),
+                    true)
+                .then((value) => {
+                      if (value.statusInsert)
+                        {_showMyDialog(value.status, true)}
+                      else
+                        {_showMyDialog(value.status, false)}
+                    });
           },
         ),
       )),
     );
+  }
+
+  Future<void> _showMyDialog(String body, bool hasil) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Pemberitahuan'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(body),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                if (hasil) {
+                  Navigator.pushNamed(context, '/homePetugas');
+                } else {
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  bool pilihan(String q) {
+    if (q.toLowerCase() == 'ya') {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
