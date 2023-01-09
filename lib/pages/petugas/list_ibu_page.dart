@@ -78,7 +78,6 @@ class _ListIbuPageState extends State<ListIbuPage> {
         "${AppConfig.API_ENDPOINT}/showIbuPosyandu/${prefs.getString('kode_posyandu')}"));
 
     // /showIbuPosyandu/{kode_posyandu}
-
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
       if (jsonResponse.isEmpty) {
