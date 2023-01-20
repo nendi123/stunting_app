@@ -22,6 +22,7 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
   String? jkDrop;
   String? prematurDrop;
   String? golonganDrop;
+  DateTime selectedDate = DateTime.now();
 
   final _formKey = GlobalKey<FormState>();
   TextEditingController _namaController = TextEditingController();
@@ -96,6 +97,9 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
                     controller: _tglLahirController,
                     keyboardType: TextInputType.datetime,
                     decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                            icon: const Icon(Icons.calendar_today),
+                            onPressed: () => _selectDate(context)),
                         filled: true,
                         fillColor: Colors.white,
                         hintText: 'Tanggal Lahir',
@@ -458,7 +462,7 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
                     jkDrop.toString(),
                     _tglLahirController.text,
                     "",
-                    "Bidan",
+                    "",
                     _beratBadanController.text,
                     _tinggiBadanController.text,
                     _prematurController.text,
@@ -473,5 +477,21 @@ class _AddAnakPagePetugasState extends State<AddAnakPagePetugas> {
         ),
       )),
     );
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(1930, 8),
+
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+        var dates = selectedDate.toString().split(' ');
+        _tglLahirController.text = dates[0];
+      });
+    }
   }
 }

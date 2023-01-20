@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:stunting_app/shared/config.dart';
 import 'package:http/http.dart' as http;
 
 class AnakPostModel {
@@ -38,7 +38,8 @@ class AnakPostModel {
     });
     print(_body);
     var post = await http.post(
-        Uri.parse("https://quantri.lipi.go.id/stunting/addAnak"),
+        // Uri.parse("https://quantri.lipi.go.id/stunting/addAnak"),
+        Uri.parse(AppConfig.API_ENDPOINT+'/addAnak'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -76,7 +77,7 @@ class AnakPostModel {
       String prematur,
       String usiaKehamilan) async {
     var post = await http.post(
-        Uri.parse("https://quantri.lipi.go.id/stunting/editAnak"),
+        Uri.parse(AppConfig.API_ENDPOINT+'/editAnak'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },

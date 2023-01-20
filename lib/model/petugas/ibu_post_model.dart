@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:stunting_app/shared/config.dart';
 
@@ -13,6 +14,8 @@ class IbuPostMode {
 
   static Future<bool> addIbu(
       String nik,
+      String userid,
+      String password,
       String nama,
       String alamat,
       String hp,
@@ -33,6 +36,8 @@ class IbuPostMode {
             },
             body: jsonEncode(<String, dynamic>{
               "nik": nik,
+              "userid": userid,
+              "password": password,
               "nama_lengkap": nama,
               "tgl_lahir": tglLahir,
               "alamat": alamat,
@@ -127,4 +132,25 @@ class IbuPostMode {
       return false;
     }
   }
+
+  static Future<bool> addPosyanduIbu(String nik, String kode_posyandu) async {
+
+    var post = await http.post(Uri.parse(AppConfig.API_ENDPOINT + "/addIbuPosyandu"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{
+          "nik": nik,
+          "kode_posyandu": kode_posyandu
+        }));
+
+    if (post.statusCode == 201 || post.statusCode == 200) {
+      print(post.statusCode);
+      return true;
+    } else {
+      print(post.statusCode);
+      return false;
+    }
+  }
+
 }

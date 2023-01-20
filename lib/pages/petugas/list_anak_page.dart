@@ -1,16 +1,16 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stunting_app/model/petugas/anak_model.dart';
-import 'package:stunting_app/pages/orangtua/add_anak_page.dart';
 import 'package:stunting_app/pages/petugas/add_anak_page.dart';
 import 'package:stunting_app/pages/petugas/add_skrining_page.dart';
 import 'package:stunting_app/pages/petugas/edit_anak_page.dart';
+import 'package:stunting_app/pages/petugas/kms_petugas_page.dart';
 import 'package:stunting_app/pages/petugas/mpasi_anak_page.dart';
+import 'package:stunting_app/pages/petugas/mpasi_page.dart';
 import 'package:stunting_app/shared/config.dart';
 import 'package:stunting_app/shared/constant.dart';
-import 'package:http/http.dart' as http;
 
 class ListAnakPage extends StatefulWidget {
   const ListAnakPage({super.key});
@@ -29,6 +29,10 @@ class _ListAnakPageState extends State<ListAnakPage> {
 
   bool isSearch = false;
   bool isLoading = false;
+  bool isIbuShow = false;
+
+  List _namaIbu = [];
+  List _nikIbu = [];
 
   var namaIbu = '';
   var nikIbu = '';
@@ -58,8 +62,54 @@ class _ListAnakPageState extends State<ListAnakPage> {
           'Daftar anak dari ibu',
           style: TextStyle(fontWeight: FontWeight.w300, fontSize: 16),
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                if (nikIbu != '') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddAnakPagePetugas(nikIbu: nikIbu),
+                    ),
+                  );
+                }
+              },
+              icon: Icon(Icons.add, size: 20,)),
+        ],
         toolbarHeight: 50,
         elevation: 10.0,
+      ),
+      bottomNavigationBar: Container(
+        height: 50,
+        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        child: Row(
+          children: [
+            Expanded(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 50,
+                margin: const EdgeInsets.symmetric(horizontal: 5),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                      const Color.fromRGBO(87, 81, 203, 1),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 10),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30))),
+                  child: const Text(
+                    'Show Daftar Ibu',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+                  ),
+                  onPressed: () {
+                    // Navigator.pushNamed(context, '/homeIbu');
+                    _fetchIbuPosyandu();
+                  },
+                ),
+              )
+            ),
+          ],
+        ),
       ),
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
@@ -104,22 +154,49 @@ class _ListAnakPageState extends State<ListAnakPage> {
               const SizedBox(
                 height: 20,
               ),
-              !isLoading ? Container() : const CircularProgressIndicator(),
+              !isLoading ? Container()
+                  : Center(
+                      child: CircularProgressIndicator(),
+                    ),
+              // const CircularProgressIndicator(),
+              isIbuShow ? Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.symmetric(horizontal: Constant().margin),
+                  child: ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: _nikIbu.length,
+                    itemBuilder: (context, index) {
+                      return _tileIbu(
+                          _nikIbu[index],
+                          _namaIbu[index]);
+                    },
+                  ),
+              )
+              : Container(),
+
               isSearch
                   ? Container(
+                      color: Colors.black12,
                       width: MediaQuery.of(context).size.width,
                       margin:
                           EdgeInsets.symmetric(horizontal: Constant().margin),
                       child: Card(
                         child: Container(
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(5),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               const Align(
                                   alignment: Alignment.centerLeft,
-                                  child: Text("Hasil Pencarian :")),
+                                  child: Text("DAFTAR ANAK", style:
+                                  TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.orange,
+                                    // decoration: TextDecoration.underline,
+                                    // decorationStyle: TextDecorationStyle.wavy,
+                                  ),)),
                               const SizedBox(
                                 height: 20,
                               ),
@@ -137,7 +214,7 @@ class _ListAnakPageState extends State<ListAnakPage> {
                                           Text(
                                             " Ibu $namaIbu",
                                             style: const TextStyle(
-                                                fontWeight: FontWeight.bold),
+                                                fontWeight: FontWeight.bold, fontSize: 18),
                                           ),
                                         ],
                                       ),
@@ -172,26 +249,28 @@ class _ListAnakPageState extends State<ListAnakPage> {
                         ),
                       ),
                     )
-                  : Container()
+                  : Container(),
             ],
+
           ),
+
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.green,
-        onPressed: () {
-          // Navigator.pushNamed(context, '/addAnakPage');
-          if (nikIbu != '') {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AddAnakPagePetugas(nikIbu: nikIbu),
-              ),
-            );
-          }
-        },
-        child: const Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: Colors.green,
+      //   onPressed: () {
+      //     // Navigator.pushNamed(context, '/addAnakPage');
+      //     if (nikIbu != '') {
+      //       Navigator.push(
+      //         context,
+      //         MaterialPageRoute(
+      //           builder: (context) => AddAnakPagePetugas(nikIbu: nikIbu),
+      //         ),
+      //       );
+      //     }
+      //   },
+      //   child: const Icon(Icons.add),
+      // ),
     );
   }
 
@@ -250,10 +329,10 @@ class _ListAnakPageState extends State<ListAnakPage> {
                   trailing: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        shape: const CircleBorder(),
-                        padding: const EdgeInsets.all(10),
+                        shape:  CircleBorder(),
+                        padding:  EdgeInsets.all(0),
                         backgroundColor: Colors.deepPurpleAccent,
-                        foregroundColor: Colors.cyan,
+                        foregroundColor: Colors.white,
                       ),
                       // icon of the button
                       child: IconButton(
@@ -266,7 +345,7 @@ class _ListAnakPageState extends State<ListAnakPage> {
                               ),
                             );
                           },
-                          icon: const Icon(Icons.edit)))),
+                          icon: Icon(Icons.edit, size: 24,)))),
               // child: Icon(Icons.edit, color: Colors.deepPurple),
             ),
             const SizedBox(
@@ -282,11 +361,13 @@ class _ListAnakPageState extends State<ListAnakPage> {
                   GestureDetector(
                     onTap: () {
                       // Navigator.pushNamed(context, '/mpasiPetugasPage');
+                      print(idAnak+' '+nama);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              MpasiAnakPagePetugas(nama: nama),
+                              // MpasiAnakPagePetugas(id_anak: idAnak, nama: nama),
+                            MpasiPagePetugas(id_anak: idAnak, nama: nama),
                         ),
                       );
                     },
@@ -304,7 +385,14 @@ class _ListAnakPageState extends State<ListAnakPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/kmsPetugasPage');
+                      // Navigator.pushNamed(context, '/kmsPetugasPage');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              KmsPetugasPage(idanak: idAnak),
+                        ),
+                      );
                     },
                     child: Column(
                       children: const [
@@ -319,16 +407,16 @@ class _ListAnakPageState extends State<ListAnakPage> {
                       ],
                     ),
                   ),
-                  Column(
-                    children: [
-                      Image.asset(
-                        'assets/image/Motherroom.png',
-                        width: 20,
-                      ),
-                      const Text('Posyandu',
-                          style: TextStyle(fontSize: 10, color: Colors.black54))
-                    ],
-                  ),
+                  // Column(
+                  //   children: [
+                  //     Image.asset(
+                  //       'assets/image/Motherroom.png',
+                  //       width: 20,
+                  //     ),
+                  //     const Text('Posyandu',
+                  //         style: TextStyle(fontSize: 10, color: Colors.black54))
+                  //   ],
+                  // ),
                   GestureDetector(
                     onTap: () {
                       // Navigator.pushNamed(context, '/skriningPage');
@@ -360,6 +448,39 @@ class _ListAnakPageState extends State<ListAnakPage> {
         ),
       );
 
+  Card _tileIbu(String nik, String nama) => Card(
+    child: ListTile(
+      // leading: Column(
+      //   mainAxisAlignment: MainAxisAlignment.center,
+      //   crossAxisAlignment: CrossAxisAlignment.center,
+      //   mainAxisSize: MainAxisSize.max,
+      //   children: [
+      //     Text(
+      //       '$index',
+      //       style: const TextStyle(fontSize: 14),
+      //     ),
+      //   ],
+      // ),
+      subtitle: Text(
+        nik,
+      ),
+      title: Text(
+        'Ibu $nama',
+        style: const TextStyle(fontWeight: FontWeight.bold),
+      ),
+      trailing: IconButton(
+        icon: const Icon(
+          Icons.smart_display_outlined,
+          color: Colors.purple,
+        ),
+        onPressed: () {
+          _searchNikController.text = nik;
+          _fetchIbu();
+        },
+      ),
+    ),
+  );
+
   void _fetchIbu() async {
     isSearch = true;
     isLoading = true;
@@ -390,4 +511,32 @@ class _ListAnakPageState extends State<ListAnakPage> {
       // }
     }
   }
+
+  void _fetchIbuPosyandu() async {
+    isLoading = true;
+    isIbuShow = true;
+    setState(() {});
+    final SharedPreferences prefs = await _prefs;
+
+    final response = await http.get(Uri.parse(
+        "${AppConfig.API_ENDPOINT}/showIbuPosyandu/${prefs.getString('kode_posyandu')}"));
+
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(response.body);
+      if (jsonResponse.isEmpty) {
+        setState(() {});
+      }
+      for (var i = 0; i < jsonResponse.length; i++) {
+        _namaIbu.add(jsonResponse[i]['nama_lengkap']);
+        _nikIbu.add(jsonResponse[i]['nik']);
+        print(_namaIbu[i]);
+        print(_nikIbu[i]);
+      }
+      setState(() {
+      });
+      isLoading = false;
+    }
+  }
+
+
 }

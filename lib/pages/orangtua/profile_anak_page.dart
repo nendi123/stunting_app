@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:stunting_app/shared/constant.dart';
-import 'package:date_time_picker/date_time_picker.dart';
-import 'package:stunting_app/model/anak.dart';
 
 const List<String> jns_kelamin = <String>['Laki-laki', 'Perempuan'];
 const List<String> jns_prematur = <String>['Ya', 'Tidak'];

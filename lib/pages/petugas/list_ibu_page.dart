@@ -1,11 +1,12 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stunting_app/model/petugas/ibu_model.dart';
 import 'package:stunting_app/pages/petugas/edit_ibu_page.dart';
+// import 'package:stunting_app/pages/orangtua/edit_ibu_page.dart';
 import 'package:stunting_app/shared/config.dart';
-import 'package:stunting_app/shared/constant.dart';
-import 'package:http/http.dart' as http;
 
 class ListIbuPage extends StatefulWidget {
   const ListIbuPage({super.key});
@@ -36,7 +37,8 @@ class _ListIbuPageState extends State<ListIbuPage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/addIbu');
+              // Navigator.pushNamed(context, '/addIbu');
+              Navigator.pop(context);
             },
             icon: const Icon(Icons.add),
           ),
@@ -59,7 +61,9 @@ class _ListIbuPageState extends State<ListIbuPage> {
           } else if (snapshot.hasError) {
             return Text("${snapshot.error}");
           }
-          return const CircularProgressIndicator();
+          return Center(
+            child: CircularProgressIndicator(),
+          );
         },
       ),
       // floatingActionButton: FloatingActionButton(
@@ -118,7 +122,7 @@ class _ListIbuPageState extends State<ListIbuPage> {
           ),
           title: Text(
             'Ibu $nama',
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.w300),
           ),
           // trailing: Column(
           //   children: [
@@ -143,12 +147,54 @@ class _ListIbuPageState extends State<ListIbuPage> {
           //     ),
           //   ],
           // ),
-          trailing: IconButton(
-            icon: const Icon(
-              Icons.edit,
-              color: Colors.purple,
-            ),
+          trailing:
+              // Column(
+              //   children: [
+              //     MaterialButton(
+              //       onPressed: () {
+              //         print(nik);
+              //         Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //             builder: (context) => EditIbuPage(nik: nik),
+              //           ),
+              //         );
+              //       },
+              //       color: Colors.blue,
+              //       textColor: Colors.white,
+              //       child: Icon(
+              //         Icons.edit,
+              //         size: 18,
+              //       ),
+              //       padding: EdgeInsets.all(10),
+              //       shape: CircleBorder(),
+              //     ),
+              //
+              //     // MaterialButton(
+              //     //   onPressed: () {
+              //     //     print(nik);
+              //     //     Navigator.push(
+              //     //       context,
+              //     //       MaterialPageRoute(
+              //     //         builder: (context) => EditIbuPage(nik: nik),
+              //     //       ),
+              //     //     );
+              //     //   },
+              //     //   color: Colors.blue,
+              //     //   textColor: Colors.white,
+              //     //   child: Icon(
+              //     //     Icons.move_down,
+              //     //     size: 18,
+              //     //   ),
+              //     //   padding: EdgeInsets.all(10),
+              //     //   shape: CircleBorder(),
+              //     // )
+              //   ],
+              // ),
+
+          MaterialButton(
             onPressed: () {
+              print(nik);
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -156,6 +202,14 @@ class _ListIbuPageState extends State<ListIbuPage> {
                 ),
               );
             },
+            color: Colors.blue,
+            textColor: Colors.white,
+            child: Icon(
+              Icons.edit,
+              size: 18,
+            ),
+            padding: EdgeInsets.all(10),
+            shape: CircleBorder(),
           ),
         ),
       );

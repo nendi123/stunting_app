@@ -1,7 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:stunting_app/shared/config.dart';
-import 'dart:async';
 
 class Anak {
   //id_anak, nik_ibu, nama_lengkap, jenis_kelamin, tgl_lahir, akte_lahir, persalinan_oleh, bb_lahir, panjang_lahir, prematur, usia_kehamilan

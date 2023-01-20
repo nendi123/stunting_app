@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:stunting_app/model/anak.dart';
-import 'package:stunting_app/pages/orangtua/detail_anak_page.dart';
 
 class PostCard extends StatelessWidget {
 

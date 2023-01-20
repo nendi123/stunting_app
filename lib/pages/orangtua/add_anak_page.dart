@@ -1,11 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:stunting_app/model/anak.dart';
-import 'package:stunting_app/shared/constant.dart';
 import 'dart:async';
 import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stunting_app/model/anak.dart';
+import 'package:stunting_app/shared/constant.dart';
 
 
 const List<String> jns_kelamin = <String>['Laki-laki', 'Perempuan'];
@@ -309,7 +310,7 @@ class _AddAnakPageState extends State<AddAnakPage> {
                            // type: DateTimePickerType.dateTimeSeparate,
                            type: DateTimePickerType.date,
                            // dateMask: 'd MMM, yyyy',
-                           dateMask: 'yyyy-M-d',
+                           dateMask: 'd-M-yyyy',
                            controller: tgl_lahir,
                            //initialValue: _initialValue,
                            firstDate: DateTime(2000),
@@ -410,7 +411,6 @@ class _AddAnakPageState extends State<AddAnakPage> {
                                    async => (_formKey.currentState!.validate())
                                        ? prosesAddAnak(_nik)
                                        : null,
-
                                ),
                              )),
                          const SizedBox(

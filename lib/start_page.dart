@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stunting_app/shared/constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stunting_app/shared/constant.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({super.key});

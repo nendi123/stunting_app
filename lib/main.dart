@@ -1,48 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stunting_app/model/anak.dart';
+import 'package:stunting_app/pages/orangtua/add_anak_page.dart';
+import 'package:stunting_app/pages/orangtua/dash_ortu.dart';
 import 'package:stunting_app/pages/orangtua/home_orangtua_page.dart';
-import 'package:stunting_app/pages/orangtua/kms_anak_page.dart';
 import 'package:stunting_app/pages/orangtua/login_orangtua_page.dart'
     as LoginOrangtua;
 import 'package:stunting_app/pages/orangtua/lupa_password_page.dart';
 import 'package:stunting_app/pages/orangtua/mpasi_anak_page.dart';
-import 'package:stunting_app/pages/orangtua/profile_anak_page.dart';
+import 'package:stunting_app/pages/orangtua/posyandu_page.dart';
 import 'package:stunting_app/pages/orangtua/profile_orangtua_page.dart';
 import 'package:stunting_app/pages/orangtua/register_orangtua_page.dart';
-import 'package:stunting_app/pages/orangtua/add_anak_page.dart';
-import 'package:stunting_app/pages/orangtua/edit_anak_page.dart';
-import 'package:stunting_app/pages/orangtua/posyandu_page.dart';
-import 'package:stunting_app/pages/orangtua/dash_ortu.dart';
-
-import 'package:stunting_app/pages/petugas/add_anak_page.dart';
-
 import 'package:stunting_app/pages/petugas/add_ibu_page.dart';
-import 'package:stunting_app/pages/petugas/add_skrining_page.dart';
-import 'package:stunting_app/pages/petugas/edit_anak_page.dart';
-import 'package:stunting_app/pages/petugas/edit_ibu_page.dart';
 import 'package:stunting_app/pages/petugas/home_ibu_page.dart';
 import 'package:stunting_app/pages/petugas/home_petugas_page.dart';
 import 'package:stunting_app/pages/petugas/kms_petugas_page.dart';
-import 'package:stunting_app/pages/petugas/list_ibu_page.dart';
-
-import 'package:stunting_app/pages/petugas/login_petugas_page.dart'
-    as LoginPetugas;
-import 'package:stunting_app/pages/petugas/list_anak_page.dart';
-import 'package:stunting_app/pages/petugas/login_petugas_page.dart';
-import 'package:stunting_app/pages/petugas/mpasi_anak_page.dart';
-import 'package:stunting_app/pages/petugas/list_anak_page.dart';
-import 'package:stunting_app/pages/petugas/login_petugas_page.dart';
-import 'package:stunting_app/pages/petugas/mpasi_anak_page.dart';
-import 'package:stunting_app/pages/petugas/login_petugas_page.dart'
-    as LoginPetugas;
-
-import 'package:stunting_app/pages/petugas/profile_petugas_page.dart';
 import 'package:stunting_app/pages/petugas/list_anak.dart';
+import 'package:stunting_app/pages/petugas/list_anak_page.dart';
+import 'package:stunting_app/pages/petugas/list_ibu_page.dart';
+import 'package:stunting_app/pages/petugas/login_petugas_page.dart'
+    as LoginPetugas;
+import 'package:stunting_app/pages/petugas/profile_petugas_page.dart';
+import 'package:stunting_app/shared/session.dart';
 import 'package:stunting_app/splash_page.dart';
 import 'package:stunting_app/start_page.dart';
-import 'package:stunting_app/model/anak.dart';
-
-import 'package:stunting_app/shared/session.dart';
 
 void main() {
   runApp(const MyApp());
@@ -120,7 +101,7 @@ class MyApp extends StatelessWidget {
         // '/mpasiPetugasPage': (context) => const MpasiAnakPagePetugas(),
         // '/addAnakPage': (context) => const AddAnakPagePetugas(),
         // '/skriningPage': (context) => const AddSkriningPage(),
-        '/kmsPetugasPage': (context) => const KmsPetugasPage(),
+        // '/kmsPetugasPage': (context) => const KmsPetugasPage(),
         //orang tua
         '/loginIbu': (context) => const LoginOrangtua.LoginOrangtuaPage(),
         '/listIbu': (context) => const ListIbuPage(),

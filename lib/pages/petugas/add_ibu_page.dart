@@ -17,7 +17,11 @@ class _AddIbuPageState extends State<AddIbuPage> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   List<String> listNikah = <String>['Ya', 'Tidak'];
-  List<String> listKK = <String>['Punya', 'Tidak'];
+  List<String> listKK = <String>['Ya', 'Tidak'];
+  List<String> list = <String>['Punya', 'Tidak'];
+  List<String> statusMenikah = <String>['Menikah','Tidak Menikah','Cerai'];
+  List<String> statusKK = <String>['Ya','Tidak'];
+  List<String> statusPekerjaan = <String>["IRT","Petani/Buruh","PNS","Swasta","Wirtaswasta"];
 
   String? pendidikanDrop;
   String? pekerjaanDrop;
@@ -25,6 +29,8 @@ class _AddIbuPageState extends State<AddIbuPage> {
   String? kkDrop;
   String? kecamatanDrop;
   String? desaDrop;
+  String? sekolah;
+
   DateTime selectedDate = DateTime.now();
   TextEditingController _nikController = TextEditingController();
   TextEditingController _namaController = TextEditingController();
@@ -36,6 +42,9 @@ class _AddIbuPageState extends State<AddIbuPage> {
   TextEditingController _tinggiBadanController = TextEditingController();
   TextEditingController _statusKkController = TextEditingController();
   TextEditingController _kode_posyanduController = TextEditingController();
+  TextEditingController _useridController = TextEditingController();
+  TextEditingController _passwdController = TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,7 +104,61 @@ class _AddIbuPageState extends State<AddIbuPage> {
                         )),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Tidak boleh kosong harus diisi';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: _useridController,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'UserID',
+                        contentPadding:
+                        EdgeInsets.symmetric(horizontal: Constant().margin),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide:
+                          const BorderSide(color: Colors.white, width: 0.0),
+                        )),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Tidak boleh kosong harus diisi';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: _passwdController,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Password',
+                        contentPadding:
+                        EdgeInsets.symmetric(horizontal: Constant().margin),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide:
+                          const BorderSide(color: Colors.white, width: 0.0),
+                        )),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Tidak boleh kosong harus diisi';
                       }
                       return null;
                     },
@@ -122,7 +185,7 @@ class _AddIbuPageState extends State<AddIbuPage> {
                         )),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Tidak boleh kosong harus diisi';
                       }
                       return null;
                     },
@@ -149,7 +212,7 @@ class _AddIbuPageState extends State<AddIbuPage> {
                         )),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Tidak boleh kosong harus diisi';
                       }
                       return null;
                     },
@@ -176,7 +239,7 @@ class _AddIbuPageState extends State<AddIbuPage> {
                         )),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Tidak boleh kosong harus diisi';
                       }
                       return null;
                     },
@@ -203,7 +266,7 @@ class _AddIbuPageState extends State<AddIbuPage> {
                         )),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Tidak boleh kosong harus diisi';
                       }
                       return null;
                     },
@@ -233,7 +296,7 @@ class _AddIbuPageState extends State<AddIbuPage> {
                         )),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Tidak boleh kosong harus diisi';
                       }
                       return null;
                     },
@@ -241,6 +304,39 @@ class _AddIbuPageState extends State<AddIbuPage> {
                   const SizedBox(
                     height: 20,
                   ),
+
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(40)),
+                      color: Colors.white,
+                    ),
+                    width: MediaQuery.of(context).size.width,
+                    child: DropdownButton<String>(
+                      dropdownColor: Colors.white,
+                      underline: Container(),
+                      isExpanded: true,
+                      value: kecamatanDrop,
+                      hint: const Text("Pilih Distrik"),
+                      style: const TextStyle(color: Colors.black),
+                      items: Wilayah().namaDistrik.map((String val) {
+                        return DropdownMenuItem(
+                            value: val,
+                            child: Container(
+                              child: Text(val),
+                            ));
+                      }).toList(),
+                      onChanged: (newValue2) {
+                        setState(() {
+                          kecamatanDrop = newValue2.toString();
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     decoration: const BoxDecoration(
@@ -255,58 +351,24 @@ class _AddIbuPageState extends State<AddIbuPage> {
                       value: desaDrop,
                       hint: const Text("Pilih Kelurahan / Desa"),
                       style: const TextStyle(color: Colors.black),
-                      onChanged: (String? value) {
-                        // This is called when the user selects an item.
+                      items: Wilayah().namaKelurahanKampung.map((String val) {
+                        return DropdownMenuItem(
+                            value: val,
+                            child: Container(
+                              child: Text(val),
+                            ));
+                      }).toList(),
+                      onChanged: (newValue1) {
                         setState(() {
-                          desaDrop = value!;
+                          desaDrop = newValue1.toString();
                         });
                       },
-                      items: Constant()
-                          .namaKampung
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
                     ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(40)),
-                      color: Colors.white,
-                    ),
-                    width: MediaQuery.of(context).size.width,
-                    child: DropdownButton<String>(
-                      dropdownColor: Colors.white,
-                      underline: Container(),
-                      isExpanded: true,
-                      value: kecamatanDrop,
-                      hint: const Text("Pilih Kecamatan"),
-                      style: const TextStyle(color: Colors.black),
-                      onChanged: (String? value) {
-                        // This is called when the user selects an item.
-                        setState(() {
-                          kecamatanDrop = value!;
-                        });
-                      },
-                      items: Constant()
-                          .namaDistrik
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     decoration: const BoxDecoration(
@@ -321,20 +383,24 @@ class _AddIbuPageState extends State<AddIbuPage> {
                       value: pendidikanDrop,
                       hint: const Text("Pilih Pendidikan"),
                       style: const TextStyle(color: Colors.black),
-                      onChanged: (String? value) {
-                        // This is called when the user selects an item.
+                      // onChanged: (String? value) {
+                      //   // This is called when the user selects an item.
+                      //   setState(() {
+                      //     pendidikanDrop = value!;
+                      //   });
+                      // },
+                      items: Pendidikan().pendidikanDrop.map<DropdownMenuItem<String>>((String val) {
+                        return DropdownMenuItem(
+                            value: val,
+                            child: Container(
+                              child: Text(val),
+                            ));
+                      }).toList(),
+                      onChanged: (String? newValue3) {
                         setState(() {
-                          pendidikanDrop = value!;
+                          pendidikanDrop = newValue3;
                         });
                       },
-                      items: Constant()
-                          .pendidikan
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
                     ),
                   ),
                   const SizedBox(
@@ -387,19 +453,18 @@ class _AddIbuPageState extends State<AddIbuPage> {
                       value: statusNikahDrop,
                       hint: const Text("Status Nikah"),
                       style: const TextStyle(color: Colors.black),
-                      onChanged: (String? value) {
-                        // This is called when the user selects an item.
+                      items: statusMenikah.map((String val) {
+                        return DropdownMenuItem(
+                            value: val,
+                            child: Container(
+                              child: Text(val),
+                            ));
+                      }).toList(),
+                      onChanged: (String? newValue3) {
                         setState(() {
-                          statusNikahDrop = value!;
+                          statusNikahDrop = newValue3;
                         });
                       },
-                      items: listNikah
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
                     ),
                   ),
                   const SizedBox(
@@ -424,7 +489,7 @@ class _AddIbuPageState extends State<AddIbuPage> {
                         )),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Tidak boleh kosong harus diisi';
                       }
                       return null;
                     },
@@ -451,7 +516,7 @@ class _AddIbuPageState extends State<AddIbuPage> {
                         )),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Tidak boleh kosong harus diisi';
                       }
                       return null;
                     },
@@ -515,6 +580,8 @@ class _AddIbuPageState extends State<AddIbuPage> {
             final SharedPreferences prefs = await _prefs;
             IbuPostMode.addIbu(
                     _nikController.text,
+                    _useridController.text,
+                    _passwdController.text,
                     _namaController.text,
                     _alamatController.text,
                     _hpController.text,
@@ -530,9 +597,9 @@ class _AddIbuPageState extends State<AddIbuPage> {
                     prefs.getString('kode_posyandu').toString())
                 .then((value) => {
                       if (value)
-                        {_showMyDialog("Data Berhasil di Input", true)}
+                        {_showMyDialog("Input Data Berhasil.", true)}
                       else
-                        {_showMyDialog("Data Gagal di Input", false)}
+                        {_showMyDialog("Input Data Gagal!", false)}
                     });
           },
         ),
@@ -575,7 +642,8 @@ class _AddIbuPageState extends State<AddIbuPage> {
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
+        firstDate: DateTime(1930, 8),
+
         lastDate: DateTime(2101));
     if (picked != null && picked != selectedDate) {
       setState(() {

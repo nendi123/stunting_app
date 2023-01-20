@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:stunting_app/pages/orangtua/kms_anak_page.dart';
-import 'package:stunting_app/pages/orangtua/test_edit_anak.dart';
-import 'package:stunting_app/shared/constant.dart';
-import 'package:stunting_app/pages/orangtua/edit_anak_page.dart';
 import 'package:stunting_app/model/anak.dart';
-import 'package:stunting_app/pages/orangtua/test_edit_anak.dart';
+import 'package:stunting_app/pages/orangtua/edit_anak_page.dart';
+import 'package:stunting_app/pages/orangtua/kms_anak_page.dart';
+import 'package:stunting_app/shared/constant.dart';
 
 class TestDetailAnak extends StatelessWidget {
   // String nama_lengkap, tgl_lahir, jenis_kelamin;

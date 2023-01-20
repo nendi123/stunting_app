@@ -1,10 +1,12 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stunting_app/shared/config.dart';
 import 'package:stunting_app/shared/constant.dart';
-import 'dart:async';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:stunting_app/pages/petugas/add_ibu_posyandu.dart';
 
 class HomePetugasPage extends StatefulWidget {
   const HomePetugasPage({super.key});
@@ -76,7 +78,7 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                     height: 100.0,
                     width: 100.0,
                     color: Colors.white,
-                    child: Image.asset('assets/image/logo.png'),
+                    child: Image.asset('assets/image/petugas.png'),
                   ),
                 ),
               ),
@@ -90,7 +92,7 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
               child: Text(
                 'Selamat Datang Petugas $_userid',
                 style: const TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.w400,
                     color: Colors.white),
               ),
@@ -220,97 +222,7 @@ class _HomePetugasPageState extends State<HomePetugasPage> {
                 color: Colors.white,
               ),
               onPressed: () {
-                // showDialog(
-                //     context: context,
-                //     builder: (BuildContext context) {
-                //       return Dialog(
-                //         shape: RoundedRectangleBorder(
-                //             borderRadius: BorderRadius.circular(20.0)),
-                //         child: Container(
-                //           margin: const EdgeInsets.all(10),
-                //           child: Column(
-                //             mainAxisAlignment: MainAxisAlignment.center,
-                //             mainAxisSize: MainAxisSize.min,
-                //             children: [
-                //               Row(children: [
-                //                 Image.asset(
-                //                   'assets/image/iconscreening.png',
-                //                   width: 100,
-                //                 ),
-                //                 const SizedBox(
-                //                   width: 10,
-                //                 ),
-                //                 const Align(
-                //                   alignment: Alignment.centerRight,
-                //                   child: Text(
-                //                     'Tumbuh Kembang Anak',
-                //                     style: TextStyle(
-                //                       fontWeight: FontWeight.w500,
-                //                     ),
-                //                   ),
-                //                 )
-                //               ]),
-                //               const SizedBox(
-                //                 height: 20,
-                //               ),
-                //               TextField(
-                //                 controller: _searchNikController,
-                //                 decoration: InputDecoration(
-                //                     filled: true,
-                //                     fillColor: Colors.grey.shade200,
-                //                     hintText: 'NIK ORANGTUA',
-                //                     suffixIcon: GestureDetector(
-                //                         onTap: () {
-                //                           _fetchAnak();
-                //                           // _fetchIbu();
-                //                           setState(() {});
-                //                         },
-                //                         // onTap: ((_fetchAnak(_searchNikController.text).(context) =>Hasil())),
-                //                         child: const Icon(Icons.search)),
-                //                     contentPadding: EdgeInsets.symmetric(
-                //                         horizontal: Constant().margin),
-                //                     border: OutlineInputBorder(
-                //                       borderRadius: BorderRadius.circular(30),
-                //                     ),
-                //                     enabledBorder: OutlineInputBorder(
-                //                       borderRadius: BorderRadius.circular(30),
-                //                       borderSide: const BorderSide(
-                //                           color: Colors.white, width: 0.0),
-                //                     )),
-                //               ),
-                //               const SizedBox(
-                //                 height: 10,
-                //               ),
-                //               Container(
-                //                   margin: const EdgeInsets.all(10),
-                //                   child: const Align(
-                //                     alignment: Alignment.centerLeft,
-                //                   )
-                //                   // child: Text('DATA ANAK')),
-                //                   ),
-                //               ListView.builder(
-                //                 physics: const NeverScrollableScrollPhysics(),
-                //                 shrinkWrap: true,
-                //                 itemCount: listIdAnak.length,
-                //                 itemBuilder: (context, index) {
-                //                   return ListTile(
-                //                     title: Text(listNamaAnak[index]),
-                //                     trailing: IconButton(
-                //                       icon:
-                //                           const Icon(Icons.arrow_circle_right),
-                //                       onPressed: () {
-                //                         Navigator.pushNamed(
-                //                             context, '/kmsPetugasPage');
-                //                       },
-                //                     ),
-                //                   );
-                //                 },
-                //               )
-                //             ],
-                //           ),
-                //         ),
-                //       );
-                //     });
+                Navigator.push(context, MaterialPageRoute(builder: (context) => AddIbuPosyandu()));
               },
               // onPressed: () {},
             ),

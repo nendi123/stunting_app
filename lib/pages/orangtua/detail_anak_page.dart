@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:stunting_app/model/anak.dart';
 
 // class DetailAnakPage extends StatelessWidget {
 //   final Anak anak;

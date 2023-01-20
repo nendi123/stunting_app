@@ -1,7 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stunting_app/model/userAuth.dart';
-import 'package:stunting_app/model/petugas.dart';
-import 'package:stunting_app/model/ibu.dart';
 
 //userid, password, nama_lengkap, nik, category
 const IS_LOGIN = 'IS_LOGIN';

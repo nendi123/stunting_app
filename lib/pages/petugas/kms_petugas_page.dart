@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
+import 'package:stunting_app/model/riwayat_balita.dart';
 import 'package:stunting_app/shared/constant.dart';
 // import 'package:flutter_charts/flutter_charts.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+import 'package:stunting_app/shared/config.dart';
+import 'package:stunting_app/shared/input_text.dart';
+import 'package:stunting_app/shared/input_number.dart';
 
 class KmsPetugasPage extends StatefulWidget {
-  const KmsPetugasPage({super.key});
+  const KmsPetugasPage({super.key, required this.idanak});
 
+  final String idanak;
   @override
   State<KmsPetugasPage> createState() => _KmsPetugasPageState();
 }
@@ -20,6 +29,7 @@ class _KmsPetugasPageState extends State<KmsPetugasPage>
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
+    _fetchAnak();
     super.initState();
   }
 
@@ -94,6 +104,28 @@ class _KmsPetugasPageState extends State<KmsPetugasPage>
     Data_bbu(13, 4, 4.5, 5.8, 7.5, 8.5),
   ];
 
+
+  var namaAnak ='';
+  var idAnak ='';
+  void _fetchAnak() async {
+    // final response = await http
+    //     .get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbu?nik=" + widget.nik));
+    final response =
+    await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showAnak/"+widget.idanak));
+
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(response.body);
+      if (jsonResponse.isEmpty) {
+        setState(() {});
+      }
+      namaAnak = jsonResponse[0]['nama_lengkap'];
+      idAnak = jsonResponse[0]['id_anak'].toString();
+      setState(() {});
+    } else {
+      throw Exception('Failed to load jobs from API');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final ColorScheme colors = Theme.of(context).colorScheme;
@@ -120,11 +152,11 @@ class _KmsPetugasPageState extends State<KmsPetugasPage>
           ),
         ),
         title: Text(
-          'KMS Anak',
-          // style: TextStyle(
-          //     fontWeight: FontWeight.w300,
-          //     fontSize: 16
-          // ),
+          'KMS - '+namaAnak!,
+          style: TextStyle(
+              fontWeight: FontWeight.w300,
+              fontSize: 16
+          ),
         ),
         toolbarHeight: 50,
         elevation: 10.0,
@@ -193,11 +225,6 @@ class _KmsPetugasPageState extends State<KmsPetugasPage>
             ),
             Expanded(
               child: TabBarView(
-                // children: [Text('people'), Text('Person')],
-                // children: [
-                //   chartToRun(),
-                //   chartToRun(),
-                // ],
                 children: [
                   Container(
                     child: SfCartesianChart(
@@ -206,15 +233,6 @@ class _KmsPetugasPageState extends State<KmsPetugasPage>
                             text: 'BBU 13 minggu',
                             textStyle: TextStyle(fontSize: 12)),
                         legend: Legend(isVisible: true),
-                        // legend: Legend(
-                        //     isVisible: true,
-                        //     // Templating the legend item
-                        //     legendItemBuilder: (String name, dynamic series, dynamic point, int index) {
-                        //       return Container(
-                        //           child: Container(
-                        //               child: Text('-3'))
-                        //       );
-                        //     }),
                         tooltipBehavior: TooltipBehavior(enable: true),
                         series: <ChartSeries>[
                           StackedLineSeries<Data_bbu, String>(
@@ -352,20 +370,6 @@ class _KmsPetugasPageState extends State<KmsPetugasPage>
                               )
                           ],
                         )
-                        //Initialize the spark charts widget
-                        // child: SfSparkLineChart.custom(
-                        //   //Enable the trackball
-                        //   trackball: SparkChartTrackball(
-                        //       activationMode: SparkChartActivationMode.tap),
-                        //   //Enable marker
-                        //   marker: SparkChartMarker(
-                        //       displayMode: SparkChartMarkerDisplayMode.all),
-                        //   //Enable data label
-                        //   labelDisplayMode: SparkChartLabelDisplayMode.all,
-                        //   xValueMapper: (int index) => data[index].year,
-                        //   yValueMapper: (int index) => data[index].sales,
-                        //   dataCount: 5,
-                        // ),
                         ),
                   )
                 ],
@@ -375,6 +379,15 @@ class _KmsPetugasPageState extends State<KmsPetugasPage>
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        tooltip: 'Add Data Tumbuh Kembang',
+        backgroundColor: Colors.green,
+        onPressed: () {
+          // Navigator.pushNamed(context, '/addIbu');
+          _dialogKMS();
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 
@@ -382,6 +395,85 @@ class _KmsPetugasPageState extends State<KmsPetugasPage>
   void dispose() {
     _tabController.dispose();
     super.dispose();
+  }
+
+  TextEditingController tb = TextEditingController();
+  TextEditingController bb = TextEditingController();
+  TextEditingController tb_usia = TextEditingController();
+  TextEditingController bb_usia = TextEditingController();
+  TextEditingController lingkar_kepala = TextEditingController();
+  TextEditingController body_mass = TextEditingController();
+
+  void _dialogKMS() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+          child: SingleChildScrollView(
+            child: Container(
+              height: 450,
+              color: Colors.grey.shade200,
+              child: Form(
+                key: _formKey,
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: Constant().margin),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      InputNumber(nama_control: tb, judul: 'Tinggi Badan', status: false),
+                      const SizedBox(height: 10,),
+                      InputNumber(nama_control: bb, judul: 'Berat Badan', status: false),
+                      const SizedBox(height: 10,),
+                      InputNumber(nama_control: tb_usia, judul: 'Tinggi Badan sesuai Usia', status: false),
+                      const SizedBox(height: 10,),
+                      InputNumber(nama_control: bb_usia, judul: 'Berat Badan sesuai Usia', status: false),
+                      const SizedBox(height: 10,),
+                      InputNumber(nama_control: lingkar_kepala, judul: 'Lingkar Kepala', status: false),
+                      const SizedBox(height: 10,),
+                      InputNumber(nama_control: body_mass, judul: 'Index Body mass (IBM)', status: false),
+                      const SizedBox(height: 10,),
+                      ElevatedButton(
+                          onPressed: (){
+                            simpanKMS();
+                            // Navigator.of(context).pop();
+                          }, child: Text("Simpan"))
+
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          )
+
+        );
+      },
+    );
+  }
+
+  void simpanKMS() async {
+    String tgl_skrg = DateFormat("dd/M/yyyy").format(DateTime.now());
+
+    print(tgl_skrg);
+    var riwayat_ispa = '2023-1-12';
+    var riwayat_diare = '2023-1-12';
+
+    final response = await addRiwayatBalita(RiwayatBalita(id_anak: widget.idanak,
+        tgl_riwayat: tgl_skrg, tinggi_badan: tb.text, berat_badan: bb.text,
+        bb_usia: bb_usia.text, tb_usia: tb_usia.text, lingkar_kepala: lingkar_kepala.text,
+        riwayat_diare: riwayat_diare, riwayat_ispa: riwayat_ispa));
+
+    if(response != null) {
+      print(response.body.toString());
+      if(response.statusCode == 200) {
+        var jsonResp = jsonDecode(response.body);
+        Navigator.pop(context, true);
+      } else {
+        Navigator.pop(context, "${response.body.toString()}");
+      }
+    }
   }
 }
 

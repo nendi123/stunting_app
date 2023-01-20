@@ -1,16 +1,15 @@
 import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stunting_app/model/distrik.dart';
+import 'package:stunting_app/model/kelurahan.dart';
 import 'package:stunting_app/model/petugas/ibu_post_model.dart';
 import 'package:stunting_app/shared/config.dart';
 import 'package:stunting_app/shared/constant.dart';
 import 'package:stunting_app/shared/input_number.dart';
 import 'package:stunting_app/shared/input_text.dart';
-import 'package:stunting_app/shared/input_email.dart';
-import 'package:stunting_app/model/kelurahan.dart';
-import 'package:stunting_app/model/distrik.dart';
-import 'package:search_choices/search_choices.dart';
 
 class EditIbuPage extends StatefulWidget {
   const EditIbuPage({super.key, required this.nik});
@@ -370,8 +369,8 @@ class _EditIbuPageState extends State<EditIbuPage> {
                             ),
                             icon: const Icon(Icons.arrow_downward, size: 20,),
                             elevation: 16,
-                            hint: Text("Pendidikan terakhir", style: TextStyle(color: Colors.black38),),
                             style: const TextStyle(color: Colors.black54),
+                            hint: Text("Status Pernikahan", style: TextStyle(color: Colors.black38),),
                             items: statusMenikah.map((String val) {
                               return DropdownMenuItem(
                                   value: val,
@@ -487,9 +486,12 @@ class _EditIbuPageState extends State<EditIbuPage> {
                     _alamatController.text,
                     _hpController.text,
                     _tglLahirController.text,
-                    _kelurahanController.text,
-                    _kecamatanController.text,
-                    _pendidikanController.text,
+                    // _kelurahanController.text,
+                    kampung!,
+                    distrik!,
+                    sekolah!,
+                    // _kecamatanController.text,
+                    // _pendidikanController.text,
                     // _pekerjaanController.text,
                     pekerjaan!,
                     statusNikah!,

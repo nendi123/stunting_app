@@ -1,7 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:stunting_app/shared/config.dart';
-import 'dart:async';
 
 class SettingData {
   // id, std_bb, std_tb, std_lingkar_kepala, std_lengan_atas, std_tbu, std_bbu, usia, jenis_kelamin

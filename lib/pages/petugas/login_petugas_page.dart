@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:stunting_app/model/petugas/login_model.dart';
-import 'package:stunting_app/model/userAuth.dart';
-import 'package:stunting_app/shared/constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stunting_app/model/petugas/login_model.dart';
+import 'package:stunting_app/shared/constant.dart';
 
 class LoginPetugasPage extends StatefulWidget {
   const LoginPetugasPage({super.key});
@@ -283,7 +282,7 @@ class _LoginPetugasPageState extends State<LoginPetugasPage> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30))),
                         child: const Text(
-                          'Sign In',
+                          'Login',
                           style: TextStyle(fontSize: 18),
                         ),
                         onPressed: () {
