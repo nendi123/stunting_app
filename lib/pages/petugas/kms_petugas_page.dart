@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:stunting_app/model/riwayat_balita.dart';
 import 'package:stunting_app/shared/constant.dart';
@@ -9,7 +8,6 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:stunting_app/shared/config.dart';
-import 'package:stunting_app/shared/input_text.dart';
 import 'package:stunting_app/shared/input_number.dart';
 
 class KmsPetugasPage extends StatefulWidget {
@@ -26,58 +24,15 @@ class _KmsPetugasPageState extends State<KmsPetugasPage>
 
   late TabController _tabController;
 
+  var list = [];
+
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
     _fetchAnak();
+    _fetchRiwayat();
     super.initState();
   }
-
-  // Widget chartToRun() {
-  //   LabelLayoutStrategy? xContainerLabelLayoutStrategy;
-  //   ChartData chartData;
-  //   ChartOptions chartOptions = const ChartOptions();
-  //   // Example shows an explicit use of the DefaultIterativeLabelLayoutStrategy.
-  //   // The xContainerLabelLayoutStrategy, if set to null or not set at all,
-  //   //   defaults to DefaultIterativeLabelLayoutStrategy
-  //   // Clients can also create their own LayoutStrategy.
-  //   xContainerLabelLayoutStrategy = DefaultIterativeLabelLayoutStrategy(
-  //     options: chartOptions,
-  //   );
-  //   chartData = ChartData(
-  //     dataRows: const [
-  //       [43.6, 44.7, 45.8, 46.7, 47.5, 48.3, 49.1, 49.8, 50.5, 51.2, 51.8, 52.4, 52.9, 53.5],
-  //       [45.4, 46.6, 47.7, 48.6, 49.5, 50.3, 51.1, 51.8, 52.5, 53.2, 53.8, 54.4, 55, 55.6],
-  //       [47.3, 48.4, 49.6, 50.5, 51.4, 52.3, 53.1, 53.8, 54.6, 55.2, 55.9, 56.5, 57.1, 57.7],
-  //       [49.1, 50.3, 51.5, 52.5, 53.4, 54.2, 55.1, 55.8, 56.6, 57.3, 57.9, 58.6, 59.2, 59.8],
-  //       [51, 52.2, 53.4, 54.4, 55.3, 56.2, 57.1, 57.8, 58.6, 59.3, 60, 60.7, 61.3, 61.9],
-  //       [52.9, 54.1, 55.3, 56.3, 57.3, 58.2, 59, 59.9, 60.6, 61.4, 62.1, 62.7, 63.4, 64],
-  //       [54.7, 56, 57.2, 58.2, 59.2, 60.1, 61, 61.9, 62.6, 63.4, 64.1, 64.8, 65.5, 66.1],
-  //
-  //     ],
-  //     xUserLabels: const ['0','1','2','3','4','5','6','7','8','9','10','11','12','13','4','5','6'],
-  //     dataRowsLegends: const [
-  //       '3',
-  //       '2',
-  //       '0',
-  //       '-2',
-  //       '-3'
-  //     ],
-  //     chartOptions: chartOptions,
-  //   );
-  //   // chartData.dataRowsDefaultColors(); // if not set, called in constructor
-  //   var lineChartContainer = LineChartTopContainer(
-  //     chartData: chartData,
-  //     xContainerLabelLayoutStrategy: xContainerLabelLayoutStrategy,
-  //   );
-  //
-  //   var lineChart = LineChart(
-  //     painter: LineChartPainter(
-  //       lineChartContainer: lineChartContainer,
-  //     ),
-  //   );
-  //   return lineChart;
-  // }
 
   List<_SalesData> data = [
     _SalesData('Jan', 35),
@@ -104,14 +59,13 @@ class _KmsPetugasPageState extends State<KmsPetugasPage>
     Data_bbu(13, 4, 4.5, 5.8, 7.5, 8.5),
   ];
 
-
-  var namaAnak ='';
-  var idAnak ='';
+  var namaAnak = '';
+  var idAnak = '';
   void _fetchAnak() async {
     // final response = await http
     //     .get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbu?nik=" + widget.nik));
-    final response =
-    await http.get(Uri.parse("${AppConfig.API_ENDPOINT}/showAnak/"+widget.idanak));
+    final response = await http
+        .get(Uri.parse("${AppConfig.API_ENDPOINT}/showAnak/${widget.idanak}"));
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
@@ -126,16 +80,34 @@ class _KmsPetugasPageState extends State<KmsPetugasPage>
     }
   }
 
+  void _fetchRiwayat() async {
+    // final response = await http
+    //     .get(Uri.parse("${AppConfig.API_ENDPOINT}/showIbu?nik=" + widget.nik));
+    final response = await http.get(Uri.parse(
+        "${AppConfig.API_ENDPOINT}/showRiwayatBalita/" + widget.idanak));
+
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(response.body);
+      if (jsonResponse.isEmpty) {
+        setState(() {});
+      }
+      for (var i = 0; i < jsonResponse.length; i++) {
+        list.add({
+          'tanggal': jsonResponse[i]['tgl_riwayat'],
+          'bb': jsonResponse[i]['berat_badan'],
+          'tb': jsonResponse[i]['tinggi_badan'],
+          'lk': jsonResponse[i]['lingkar_kepala']
+        });
+      }
+      setState(() {});
+    } else {
+      throw Exception('Failed to load jobs from API');
+    }
+    print(list);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final ColorScheme colors = Theme.of(context).colorScheme;
-
-    var list = [
-      {"tanggal": "20/08/2016", "bb": "30", "tb": "50", "lk": "50"},
-      {"tanggal": "26/09/2016", "bb": "30", "tb": "50", "lk": "50"},
-      {"tanggal": "18/10/2016", "bb": "30", "tb": "50", "lk": "50"}
-    ];
-
     return Scaffold(
       appBar: AppBar(
         // title: Text('Profile Petugas'),
@@ -146,28 +118,25 @@ class _KmsPetugasPageState extends State<KmsPetugasPage>
             // Navigator.pushNamed(context, '/profileAnak');
             Navigator.pop(context);
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             size: 20,
           ),
         ),
         title: Text(
-          'KMS - '+namaAnak!,
-          style: TextStyle(
-              fontWeight: FontWeight.w300,
-              fontSize: 16
-          ),
+          'KMS - $namaAnak',
+          style: const TextStyle(fontWeight: FontWeight.w300, fontSize: 16),
         ),
         toolbarHeight: 50,
         elevation: 10.0,
       ),
       resizeToAvoidBottomInset: false,
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
               height: MediaQuery.of(context).size.height / 4,
               // child: Center(child: Text("Profile"),),
               // color: Colors.blue,
@@ -210,7 +179,7 @@ class _KmsPetugasPageState extends State<KmsPetugasPage>
             TabBar(
               unselectedLabelColor: Colors.black,
               labelColor: Colors.red,
-              tabs: [
+              tabs: const [
                 Tab(
                   text: 'Grafik Pertumbuhan',
                   icon: Icon(Icons.add_chart),
@@ -225,73 +194,72 @@ class _KmsPetugasPageState extends State<KmsPetugasPage>
             ),
             Expanded(
               child: TabBarView(
+                controller: _tabController,
                 children: [
-                  Container(
-                    child: SfCartesianChart(
-                        primaryXAxis: CategoryAxis(),
-                        title: ChartTitle(
-                            text: 'BBU 13 minggu',
-                            textStyle: TextStyle(fontSize: 12)),
-                        legend: Legend(isVisible: true),
-                        tooltipBehavior: TooltipBehavior(enable: true),
-                        series: <ChartSeries>[
-                          StackedLineSeries<Data_bbu, String>(
-                            // groupName: 'Group A',
-                            // dataLabelSettings: DataLabelSettings(
-                            //     isVisible: true,
-                            //     useSeriesColor: true
-                            // ),
-                            dataSource: databbu,
-                            xValueMapper: (Data_bbu databb, _) =>
-                                databb.usia.toString(),
-                            yValueMapper: (Data_bbu databb, _) => databb.minsd3,
-                          ),
-                          StackedLineSeries<Data_bbu, String>(
-                            dataSource: databbu,
-                            // groupName: 'Group B',
-                            // dataLabelSettings: DataLabelSettings(
-                            //     isVisible: true,
-                            //     useSeriesColor: true
-                            // ),
-                            xValueMapper: (Data_bbu data, _) =>
-                                data.usia.toString(),
-                            yValueMapper: (Data_bbu data, _) => data.minsd2,
-                          ),
-                          StackedLineSeries<Data_bbu, String>(
-                            dataSource: databbu,
-                            // groupName: 'Group C',
-                            // dataLabelSettings: DataLabelSettings(
-                            //     isVisible: true,
-                            //     useSeriesColor: true
-                            // ),
-                            xValueMapper: (Data_bbu data, _) =>
-                                data.usia.toString(),
-                            yValueMapper: (Data_bbu data, _) => data.sd0,
-                          ),
-                          StackedLineSeries<Data_bbu, String>(
-                            groupName: 'Group D',
-                            // dataLabelSettings: DataLabelSettings(
-                            //     isVisible: true,
-                            //     useSeriesColor: true
-                            // ),
-                            dataSource: databbu,
-                            xValueMapper: (Data_bbu data, _) =>
-                                data.usia.toString(),
-                            yValueMapper: (Data_bbu data, _) => data.sd2,
-                          ),
-                          StackedLineSeries<Data_bbu, String>(
-                            groupName: 'Group E',
-                            // dataLabelSettings: DataLabelSettings(
-                            //     isVisible: true,
-                            //     useSeriesColor: true
-                            // ),
-                            dataSource: databbu,
-                            xValueMapper: (Data_bbu data, _) =>
-                                data.usia.toString(),
-                            yValueMapper: (Data_bbu data, _) => data.sd3,
-                          ),
-                        ]),
-                  ),
+                  SfCartesianChart(
+                      primaryXAxis: CategoryAxis(),
+                      title: ChartTitle(
+                          text: 'BBU 13 minggu',
+                          textStyle: const TextStyle(fontSize: 12)),
+                      legend: Legend(isVisible: true),
+                      tooltipBehavior: TooltipBehavior(enable: true),
+                      series: <ChartSeries>[
+                        StackedLineSeries<Data_bbu, String>(
+                          // groupName: 'Group A',
+                          // dataLabelSettings: DataLabelSettings(
+                          //     isVisible: true,
+                          //     useSeriesColor: true
+                          // ),
+                          dataSource: databbu,
+                          xValueMapper: (Data_bbu databb, _) =>
+                              databb.usia.toString(),
+                          yValueMapper: (Data_bbu databb, _) => databb.minsd3,
+                        ),
+                        StackedLineSeries<Data_bbu, String>(
+                          dataSource: databbu,
+                          // groupName: 'Group B',
+                          // dataLabelSettings: DataLabelSettings(
+                          //     isVisible: true,
+                          //     useSeriesColor: true
+                          // ),
+                          xValueMapper: (Data_bbu data, _) =>
+                              data.usia.toString(),
+                          yValueMapper: (Data_bbu data, _) => data.minsd2,
+                        ),
+                        StackedLineSeries<Data_bbu, String>(
+                          dataSource: databbu,
+                          // groupName: 'Group C',
+                          // dataLabelSettings: DataLabelSettings(
+                          //     isVisible: true,
+                          //     useSeriesColor: true
+                          // ),
+                          xValueMapper: (Data_bbu data, _) =>
+                              data.usia.toString(),
+                          yValueMapper: (Data_bbu data, _) => data.sd0,
+                        ),
+                        StackedLineSeries<Data_bbu, String>(
+                          groupName: 'Group D',
+                          // dataLabelSettings: DataLabelSettings(
+                          //     isVisible: true,
+                          //     useSeriesColor: true
+                          // ),
+                          dataSource: databbu,
+                          xValueMapper: (Data_bbu data, _) =>
+                              data.usia.toString(),
+                          yValueMapper: (Data_bbu data, _) => data.sd2,
+                        ),
+                        StackedLineSeries<Data_bbu, String>(
+                          groupName: 'Group E',
+                          // dataLabelSettings: DataLabelSettings(
+                          //     isVisible: true,
+                          //     useSeriesColor: true
+                          // ),
+                          dataSource: databbu,
+                          xValueMapper: (Data_bbu data, _) =>
+                              data.usia.toString(),
+                          yValueMapper: (Data_bbu data, _) => data.sd3,
+                        ),
+                      ]),
                   Expanded(
                     child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -304,7 +272,7 @@ class _KmsPetugasPageState extends State<KmsPetugasPage>
                                     borderRadius: BorderRadius.circular(5)),
                                 children: [
                                   Column(
-                                    children: [
+                                    children: const [
                                       Text(
                                         '\nTanggal',
                                         style: TextStyle(color: Colors.white),
@@ -312,13 +280,13 @@ class _KmsPetugasPageState extends State<KmsPetugasPage>
                                     ],
                                   ),
                                   Column(
-                                    children: [
+                                    children: const [
                                       Text('Berat \n(kg)\n',
                                           style: TextStyle(color: Colors.white))
                                     ],
                                   ),
                                   Column(
-                                    children: [
+                                    children: const [
                                       Text('Tinggi \n(cm)',
                                           style: TextStyle(color: Colors.white))
                                     ],
@@ -326,7 +294,7 @@ class _KmsPetugasPageState extends State<KmsPetugasPage>
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
-                                    children: [
+                                    children: const [
                                       Text('Lingkar\nKepala \n(cm)',
                                           style: TextStyle(color: Colors.white))
                                     ],
@@ -341,39 +309,37 @@ class _KmsPetugasPageState extends State<KmsPetugasPage>
                                   Column(
                                     children: [
                                       Text(item['tanggal']!,
-                                          style:
-                                              TextStyle(color: Colors.black54))
+                                          style: const TextStyle(
+                                              color: Colors.black54))
                                     ],
                                   ),
                                   Column(
                                     children: [
                                       Text(item['bb']!,
-                                          style:
-                                              TextStyle(color: Colors.black54))
+                                          style: const TextStyle(
+                                              color: Colors.black54))
                                     ],
                                   ),
                                   Column(
                                     children: [
                                       Text(item['tb']!,
-                                          style:
-                                              TextStyle(color: Colors.black54))
+                                          style: const TextStyle(
+                                              color: Colors.black54))
                                     ],
                                   ),
                                   Column(
                                     children: [
                                       Text(item['lk']!,
-                                          style:
-                                              TextStyle(color: Colors.black54))
+                                          style: const TextStyle(
+                                              color: Colors.black54))
                                     ],
                                   ),
                                 ],
                               )
                           ],
-                        )
-                        ),
+                        )),
                   )
                 ],
-                controller: _tabController,
               ),
             ),
           ],
@@ -409,46 +375,75 @@ class _KmsPetugasPageState extends State<KmsPetugasPage>
       context: context,
       builder: (BuildContext context) {
         return Dialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-          child: SingleChildScrollView(
-            child: Container(
-              height: 450,
-              color: Colors.grey.shade200,
-              child: Form(
-                key: _formKey,
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: Constant().margin),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      InputNumber(nama_control: tb, judul: 'Tinggi Badan', status: false),
-                      const SizedBox(height: 10,),
-                      InputNumber(nama_control: bb, judul: 'Berat Badan', status: false),
-                      const SizedBox(height: 10,),
-                      InputNumber(nama_control: tb_usia, judul: 'Tinggi Badan sesuai Usia', status: false),
-                      const SizedBox(height: 10,),
-                      InputNumber(nama_control: bb_usia, judul: 'Berat Badan sesuai Usia', status: false),
-                      const SizedBox(height: 10,),
-                      InputNumber(nama_control: lingkar_kepala, judul: 'Lingkar Kepala', status: false),
-                      const SizedBox(height: 10,),
-                      InputNumber(nama_control: body_mass, judul: 'Index Body mass (IBM)', status: false),
-                      const SizedBox(height: 10,),
-                      ElevatedButton(
-                          onPressed: (){
-                            simpanKMS();
-                            // Navigator.of(context).pop();
-                          }, child: Text("Simpan"))
-
-                    ],
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0)),
+            child: SingleChildScrollView(
+              child: Container(
+                height: 450,
+                color: Colors.grey.shade200,
+                child: Form(
+                  key: _formKey,
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: Constant().margin),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        InputNumber(
+                            nama_control: tb,
+                            judul: 'Tinggi Badan',
+                            status: false),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        InputNumber(
+                            nama_control: bb,
+                            judul: 'Berat Badan',
+                            status: false),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        InputNumber(
+                            nama_control: tb_usia,
+                            judul: 'Tinggi Badan sesuai Usia',
+                            status: false),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        InputNumber(
+                            nama_control: bb_usia,
+                            judul: 'Berat Badan sesuai Usia',
+                            status: false),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        InputNumber(
+                            nama_control: lingkar_kepala,
+                            judul: 'Lingkar Kepala',
+                            status: false),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        InputNumber(
+                            nama_control: body_mass,
+                            judul: 'Index Body mass (IBM)',
+                            status: false),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        ElevatedButton(
+                            onPressed: () {
+                              simpanKMS();
+                              // Navigator.of(context).pop();
+                            },
+                            child: const Text("Simpan"))
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          )
-
-        );
+            ));
       },
     );
   }
@@ -460,14 +455,20 @@ class _KmsPetugasPageState extends State<KmsPetugasPage>
     var riwayat_ispa = '2023-1-12';
     var riwayat_diare = '2023-1-12';
 
-    final response = await addRiwayatBalita(RiwayatBalita(id_anak: widget.idanak,
-        tgl_riwayat: tgl_skrg, tinggi_badan: tb.text, berat_badan: bb.text,
-        bb_usia: bb_usia.text, tb_usia: tb_usia.text, lingkar_kepala: lingkar_kepala.text,
-        riwayat_diare: riwayat_diare, riwayat_ispa: riwayat_ispa));
+    final response = await addRiwayatBalita(RiwayatBalita(
+        id_anak: widget.idanak,
+        tgl_riwayat: tgl_skrg,
+        tinggi_badan: tb.text,
+        berat_badan: bb.text,
+        bb_usia: bb_usia.text,
+        tb_usia: tb_usia.text,
+        lingkar_kepala: lingkar_kepala.text,
+        riwayat_diare: riwayat_diare,
+        riwayat_ispa: riwayat_ispa));
 
-    if(response != null) {
+    if (response != null) {
       print(response.body.toString());
-      if(response.statusCode == 200) {
+      if (response.statusCode == 200) {
         var jsonResp = jsonDecode(response.body);
         Navigator.pop(context, true);
       } else {
@@ -477,6 +478,7 @@ class _KmsPetugasPageState extends State<KmsPetugasPage>
   }
 }
 
+// ignore: camel_case_types
 class Data_bbu {
   final int usia;
   final double? minsd3;

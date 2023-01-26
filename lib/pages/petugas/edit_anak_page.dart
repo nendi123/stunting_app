@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:stunting_app/pages/petugas/kms_petugas_page.dart';
 import 'package:stunting_app/shared/config.dart';
 import 'package:stunting_app/shared/constant.dart';
 
@@ -85,15 +86,26 @@ class _EditAnakPageState extends State<EditAnakPagePetugas> {
                               ],
                             ),
                           ),
-                          Column(
-                            children: const [
-                              Icon(
-                                Icons.laptop,
-                                size: 30,
-                                color: Color.fromRGBO(87, 81, 203, 1),
-                              ),
-                              Text('KMS')
-                            ],
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      KmsPetugasPage(idanak: widget.idAnak),
+                                ),
+                              );
+                            },
+                            child: Column(
+                              children: const [
+                                Icon(
+                                  Icons.laptop,
+                                  size: 30,
+                                  color: Color.fromRGBO(87, 81, 203, 1),
+                                ),
+                                Text('KMS')
+                              ],
+                            ),
                           ),
                           Column(
                             children: [
